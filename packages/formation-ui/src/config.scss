@@ -1,0 +1,31 @@
+// Responsive
+// quick start: https://include-media.com/
+// documentation: https://include-media.com/documentation
+@import '~include-media/dist/include-media';
+
+$breakpoints: (
+    base: 320px,
+    small: 960px,
+    large: 1280px,
+    x-large: 1920px,
+    // x-large: 1480px,
+);
+
+$media-expressions: (
+    screen: 'screen',
+    print: 'print',
+    handheld: 'handheld',
+    landscape: '(orientation: landscape)',
+    portrait: '(orientation: portrait)',
+    retina2x: '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)',
+    retina3x: '(-webkit-min-device-pixel-ratio: 3), (min-resolution: 350dpi)',
+    touch-device: '(pointer: coarse), (hover: none)',
+);
+
+$z-index: (
+    dashboard: 1,
+    navigation: 100,
+    modal: 800,
+    drop-down: 1000,
+    tooltip: 1100,
+);

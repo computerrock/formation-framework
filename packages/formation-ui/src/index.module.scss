@@ -1,0 +1,42 @@
+@import './normalize';
+@import './reset';
+@import './box-sizing';
+@import './config';
+
+/**
+ * Global application styling
+ */
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans');
+
+// Basics
+:global {
+    html,
+    body,
+    #root {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: map-get($typography, font-family), sans-serif;
+        font-style: map-get($typography, font-style);
+        font-weight: map-get($typography, font-weight);
+        font-size: map-get($typography, font-size);
+        line-height: map-get($typography, line-height);
+        letter-spacing: map-get($typography, letter-spacing);
+        overflow-x: hidden; // TODO check if needed?
+    }
+
+    body {
+        position: relative;
+    }
+}
+
+// fixes inconsistent API issue in `svg-sprite-loader`
+// see: https://github.com/kisenka/svg-sprite-loader/issues/123
+// stylelint-disable-next-line no-duplicate-selectors
+:global {
+    .sprite-symbol-usage {
+        display: block !important;
+    }
+}
