@@ -1,0 +1,22 @@
+{
+  "name": "@computerrock/formation-framework",
+  "description": "Formation framework - application project framework for React",
+  "author": "Computer Rock",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/computerrock/formation-framework"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=12"
+  },
+  "devDependencies": {
+    "@computerrock/rollup-monorepo-bundler": "^1.1.0",
+    "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "start-packages": "rollup-monorepo-bundler start",
+    "build-packages": "rollup-monorepo-bundler build"
+  }
+}
