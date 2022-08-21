@@ -1,0 +1,35 @@
+{
+  "name": "@computerrock/formation-i18n",
+  "version": "0.4.15",
+  "description": "Formation framework - i18n layer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/computerrock/formation-framework",
+    "directory": "packages/formation-i18n"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./": "./src/"
+  },
+  "files": [
+    "src/*",
+    "bundler.config.js"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "content-type": "^1.0.4",
+    "qs": "^6.10.1"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}

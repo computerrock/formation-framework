@@ -1,0 +1,36 @@
+{
+  "name": "@computerrock/oauth2-auth-client",
+  "version": "0.9.21",
+  "description": "OAuth2 client",
+  "author": "Computer Rock",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/computerrock/formation-framework",
+    "directory": "packages/oauth2-auth-client"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "devDependencies": {
+    "@computerrock/rollup-monorepo-bundler": "^1.4.2"
+  },
+  "dependencies": {
+    "content-type": "^1.0.4",
+    "js-cookie": "^3.0.1",
+    "qs": "^6.10.1"
+  },
+  "scripts": {
+    "start": "rollup-monorepo-bundler start",
+    "prepare": "rollup-monorepo-bundler build",
+    "build": "rollup-monorepo-bundler build"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "@computerrock/formation-auth",
+  "version": "0.9.27",
+  "description": "Formation framework - auth layer plugin",
+  "author": "Computer Rock",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/computerrock/formation-framework",
+    "directory": "packages/formation-auth"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "files": [
+    "dist",
+    "bundler.config.js"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "devDependencies": {
+    "@computerrock/formation-router": "^0.5.15",
+    "@computerrock/rollup-monorepo-bundler": "^1.4.2",
+    "redux": "^4.1.0",
+    "redux-saga": "^1.1.3"
+  },
+  "dependencies": {
+    "store": "^2.0.12"
+  },
+  "peerDependencies": {
+    "@computerrock/formation-router": "^0.5.3",
+    "react": "^17.0.2",
+    "redux": "^4.1.0",
+    "redux-saga": "^1.1.3"
+  },
+  "scripts": {
+    "start": "rollup-monorepo-bundler start",
+    "prepare": "rollup-monorepo-bundler build",
+    "build": "rollup-monorepo-bundler build"
+  }
+}
