@@ -1,0 +1,19 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+.ace-c-overlay {
+    position: absolute;
+
+    &--modal {
+        z-index: map-get($z-index, modal);
+    }
+
+    &--drop-down {
+        z-index: map-get($z-index, drop-down);
+    }
+
+    &--tooltip {
+        z-index: map-get($z-index, tooltip);
+    }
+}
