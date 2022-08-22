@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@computerrock/react-app-polyfill": "^1.0.1",
-    "@computerrock/toolchain-react-app": "^1.9.0",
+    "@computerrock/toolchain-react-app": "^2.0.0",
     "@jest/globals": "^26.6.2",
     "include-media": "^1.4.9",
     "lodash.debounce": "^4.0.8",
