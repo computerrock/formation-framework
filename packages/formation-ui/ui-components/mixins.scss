@@ -1,0 +1,47 @@
+@use 'sass:meta';
+
+@import './config';
+@import './functions';
+
+// Micro clearfix: http://www.cssmojo.com/the-very-latest-clearfix-reloaded/
+@mixin clearfix() {
+    &::after {
+        content: '' !important;
+        display: block !important;
+        clear: both !important;
+    }
+}
+
+// Applies accessible hiding to elements
+@mixin hidden-visually() {
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    white-space: nowrap !important;
+    width: 1px !important;
+}
+
+@mixin typography($typography-styles, $style) {
+    $typography-style: map-get($typography-styles, $style);
+
+    @each $property-key, $property-value in $typography-style {
+        #{$property-key}: $property-value;
+    }
+}
+
+@mixin get-values-for-changing-properties($changing-properties, $config, $state) {
+    @if $state {
+        @each $property-key, $property-value in $changing-properties {
+            #{$property-key}: map-get($config, #{$property-value}#{$state});
+        }
+    } @else {
+        @each $property-key, $property-value in $changing-properties {
+            #{$property-key}: map-get($config, #{$property-value});
+        }
+    }
+}

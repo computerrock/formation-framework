@@ -1,0 +1,66 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$pill-config: (
+    pill-padding: map-get($dimensions, spacing-4) map-get($dimensions, spacing-8),
+    pill-border-radius: map-get($border-radius, radius-24),
+    pill-background: map-get($base-colors, background-c),
+    pill-background-pending: map-get($base-colors, background-c),
+    pill-background-positive: map-get($base-colors, success-10),
+    pill-background-negative: map-get($base-colors, warning-10),
+    pill-text-color: map-get($typography, text-color-medium-emphasis),
+    pill-text-color-pending: map-get($typography, text-color-medium-emphasis),
+    pill-text-color-positive: map-get($typography, text-color-success),
+    pill-text-color-negative: map-get($typography, text-color-warning),
+    pill-icon-color: map-get($icon-colors, icon-default),
+    pill-icon-color-pending: map-get($icon-colors, icon-default),
+    pill-icon-color-positive: map-get($icon-colors, icon-success),
+    pill-icon-color-negative: map-get($icon-colors, icon-primary),
+    pill-icon-margin: map-get($dimensions, spacing-4),
+);
+
+.ace-c-pill {
+    display: flex;
+    align-items: center;
+    padding: map-get($pill-config, pill-padding);
+    border-radius: map-get($pill-config, pill-border-radius);
+    color: map-get($pill-config, pill-text-color);
+    background: map-get($pill-config, pill-background);
+    width: fit-content;
+
+    &__icon {
+        margin-right: map-get($pill-config, pill-icon-margin);
+    }
+
+    & svg {
+        fill: map-get($pill-config, pill-icon-color);
+    }
+
+    &--pending {
+        color: map-get($pill-config, pill-text-color-pending);
+        background: map-get($pill-config, pill-background-pending);
+
+        & svg {
+            fill: map-get($pill-config, pill-icon-color-pending);
+        }
+    }
+
+    &--positive {
+        color: map-get($pill-config, pill-text-color-positive);
+        background: map-get($pill-config, pill-background-positive);
+
+        & svg {
+            fill: map-get($pill-config, pill-icon-color-positive);
+        }
+    }
+
+    &--negative {
+        color: map-get($pill-config, pill-text-color-negative);
+        background: map-get($pill-config, pill-background-negative);
+
+        & svg {
+            fill: map-get($pill-config, pill-icon-color-negative);
+        }
+    }
+}

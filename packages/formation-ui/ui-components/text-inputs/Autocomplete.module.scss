@@ -1,0 +1,75 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$autocomplete-config: (
+    // dimensions
+    autocomplete-arrow-padding: map-get($dimensions, spacing-2xl),
+    // typography
+    autocomplete-icon-color: map-get($typography, icon-color),
+    autocomplete-icon-color-hover: map-get($typography, icon-color),
+    autocomplete-icon-color-active: map-get($typography, icon-color),
+    autocomplete-icon-color-disabled: map-get($typography, icon-color),
+    autocomplete-arrow-icon-color: map-get($typography, icon-color),
+    autocomplete-arrow-icon-color-hover: map-get($typography, icon-color),
+    autocomplete-arrow-icon-color-active: map-get($typography, icon-color),
+    autocomplete-arrow-icon-color-disabled: map-get($typography, icon-color),
+);
+
+@include state-styles.configure('ace-c-autocomplete', $autocomplete-config);
+
+.ace-c-autocomplete {
+    position: relative;
+    display: inline-block;
+}
+
+.ace-c-autocomplete__input {
+    width: 100%;
+
+    .ace-c-autocomplete--is-arrow-icon-displayed & {
+        padding-right: map-get($autocomplete-config, autocomplete-arrow-padding);
+    }
+}
+
+.ace-c-autocomplete__arrow-icon {
+    position: absolute;
+    top: calc(50% - 8px);
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    background: url('../assets/icons/arrow-down.svg?fill=#{map-get($autocomplete-config, autocomplete-arrow-icon-color)}') center center no-repeat;
+
+    .ace-c-autocomplete--is-open & {
+        transform: rotateX(180deg);
+    }
+
+    @include state-styles.element(
+        $for-states: (disabled, hover, active),
+    ) using($get-design-token) {
+        background: url('../assets/icons/arrow-down.svg?fill=#{meta.call($get-design-token, autocomplete-arrow-icon-color)}') center center no-repeat;
+    }
+}
+
+.ace-c-autocomplete__icon {
+    position: absolute;
+    top: calc(50% - 12px);
+    right: 16px;
+    width: 24px;
+    height: 24px;
+    fill: map-get($autocomplete-config, autocomplete-icon-color);
+
+    @include state-styles.element(
+        $for-states: (disabled, hover, active),
+    ) using($get-design-token) {
+        fill: meta.call($get-design-token, autocomplete-icon-color);
+    }
+}
+
+.ace-c-autocomplete__drop-down {
+    min-width: 280px;
+    max-height: 252px; // 4 + 1/2
+    overflow-y: auto;
+}

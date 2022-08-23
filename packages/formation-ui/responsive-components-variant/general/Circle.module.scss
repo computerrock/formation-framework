@@ -1,0 +1,37 @@
+@import '../config';
+
+$circle-config: (
+    circle-width: map-get($dimensions, spacing-128),
+    circle-height: map-get($dimensions, spacing-128),
+    circle-background-color: map-get($base-colors, highlight-alpha-10),
+    circle-background-color-warning: map-get($base-colors, warning-10),
+    circle-background-color-success: map-get($base-colors, success-10),
+);
+
+.ace-c-circle {
+    width: map-get($circle-config, circle-width);
+    height: map-get($circle-config, circle-height);
+    border-radius: 50%;
+    background: map-get($circle-config, circle-background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--small {
+        width: 80px;
+        height: 80px;
+    }
+
+    &--medium {
+        width: 112px;
+        height: 112px;
+    }
+
+    &--is-warning {
+        background: map-get($circle-config, circle-background-color-warning);
+    }
+
+    &--is-success {
+        background: map-get($circle-config, circle-background-color-success);
+    }
+}

@@ -1,0 +1,395 @@
+@import '~include-media/dist/include-media';
+
+// quick start: https://include-media.com/
+// documentation: https://include-media.com/documentation
+$breakpoints: (
+    base: 320px,
+    small: 600px,
+    medium: 1280px,
+    large: 1920px
+);
+
+$media-expressions: (
+    screen: 'screen',
+    print: 'print',
+    handheld: 'handheld',
+    landscape: '(orientation: landscape)',
+    portrait: '(orientation: portrait)',
+    retina2x: '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)',
+    retina3x: '(-webkit-min-device-pixel-ratio: 3), (min-resolution: 350dpi)'
+);
+
+$spacing: (
+    0: 0,
+    4: 4px,
+    8: 8px,
+    16: 16px,
+    24: 24px,
+    32: 32px,
+    48: 48px,
+    64: 64px,
+    128: 128px,
+);
+
+// App style configuration
+$color-palette: (
+    ace-red-900: #c80000,
+    ace-red-800: #d50011,
+    ace-red-700: #e2001a,
+    ace-red-600: #f4191f,
+    ace-red-500: #ff2a1d,
+    ace-red-400: #fd4340,
+    ace-red-300: #f36a68,
+    ace-red-200: #fa9593,
+    ace-red-100: #ffcacf,
+    ace-red-50: #ffeaed,
+    ace-grey-900: #222223,
+    ace-grey-800: #434344,
+    ace-grey-700: #626263,
+    ace-grey-600: #767677,
+    ace-grey-500: #9f9fa0,
+    ace-grey-400: #bebebf,
+    ace-grey-300: #e1e1e2,
+    ace-grey-200: #efeff0,
+    ace-grey-100: #f5f5f6,
+    ace-grey-50: #fafafb,
+    ace-green-a: #003a41,
+    ace-green-b: #004a52,
+    ace-green-c: #007a89,
+    ace-green-d: #489ba9,
+    ace-green-e: #a3d8e7,
+    ace-moss-green-a: #4d4f1b,
+    ace-moss-green-b: #636320,
+    ace-moss-green-c: #9c9b1d,
+    ace-moss-green-d: #c5bf00,
+    ace-moss-green-e: #e6e6ac,
+    ace-sage-a: #67836d,
+    ace-sage-b: #77907b,
+    ace-sage-c: #8a9e8d,
+    ace-sage-d: #a7b6aa,
+    ace-sage-e: #c9d1cb,
+    ace-black: #000,
+    ace-white: #fff,
+    ace-red: #f00,
+    ace-green: #5db653,
+);
+
+$base-colors: (
+    primary: map-get($color-palette, ace-red-700),
+    primary-dark: map-get($color-palette, ace-red-900),
+    primary-light: map-get($color-palette, ace-red-400),
+    primary-light-b: map-get($color-palette, ace-red-300),
+    primary-light-c: map-get($color-palette, ace-red-100),
+    primary-alfa-15: rgba(map-get($color-palette, ace-red), 0.15),
+    primary-alfa-35: rgba(map-get($color-palette, ace-red), 0.35),
+    secondary: map-get($color-palette, ace-grey-800),
+    secondary-dark: map-get($color-palette, ace-grey-900),
+    secondary-light-a: map-get($color-palette, ace-grey-600),
+    secondary-light-b: map-get($color-palette, ace-grey-500),
+    secondary-light-c: map-get($color-palette, ace-grey-400),
+    secondary-light-d: map-get($color-palette, ace-grey-300),
+    highlight: map-get($color-palette, ace-green-c),
+    highlight-dark: map-get($color-palette, ace-green-a),
+    highlight-medium-dark: map-get($color-palette, ace-green-b),
+    highlight-medium-light: map-get($color-palette, ace-green-d),
+    highlight-light: map-get($color-palette, ace-green-e),
+    highlight-alpha-10: rgba(map-get($color-palette, ace-green-c), 0.1),
+    disabled-main: map-get($color-palette, ace-grey-400),
+    disabled-dark: map-get($color-palette, ace-grey-500),
+    disabled-medium: map-get($color-palette, ace-grey-300),
+    disabled-light: map-get($color-palette, ace-grey-100),
+    warning: map-get($color-palette, ace-red),
+    warning-10: rgba(map-get($color-palette, ace-red), 0.1),
+    success: map-get($color-palette, ace-green),
+    success-10: rgba(map-get($color-palette, ace-green), 0.1),
+    background-main: map-get($color-palette, ace-white),
+    background-b: map-get($color-palette, ace-grey-50),
+    background-c: map-get($color-palette, ace-grey-100),
+    background-modal: rgba(map-get($color-palette, ace-grey-800), 0.4),
+    contrast: map-get($color-palette, ace-white),
+    divider: map-get($color-palette, ace-grey-300),
+    border-default: map-get($color-palette, ace-grey-400),
+    border-light: map-get($color-palette, ace-grey-300),
+    border-highlight: map-get($color-palette, ace-green-c),
+    black: map-get($color-palette, ace-black)
+);
+
+$icon-colors: (
+    icon-default: map-get($base-colors, secondary-light-b),
+    icon-low-emphasis: map-get($base-colors, secondary-light-c),
+    icon-disabled: map-get($base-colors, disabled-dark),
+    icon-primary: map-get($base-colors, primary),
+    icon-primary-pressed: map-get($base-colors, primary-dark),
+    icon-primary-hover: map-get($base-colors, primary-light-a),
+    icon-highlight: map-get($base-colors, highlight-medium-dark),
+    icon-highlight-medium: map-get($base-colors, highlight-medium-light),
+    icon-contrast: map-get($base-colors, contrast),
+    icon-success: map-get($base-colors, success),
+);
+
+$icon-color-states: (
+    low-emphasis,
+    disabled,
+    primary,
+    primary-pressed,
+    primary-hover,
+    highlight,
+    highlight-medium,
+    contrast,
+    success,
+);
+
+$dimensions: (
+    // grid
+    grid-columns: 12,
+    grid-column-gap: map-get($spacing, 16),
+    grid-row-gap: map-get($spacing, 16),
+    // spacing
+    spacing-0: map-get($spacing, 0),
+    spacing-4: map-get($spacing, 4),
+    spacing-8: map-get($spacing, 8),
+    spacing-16: map-get($spacing, 16),
+    spacing-24: map-get($spacing, 24),
+    spacing-32: map-get($spacing, 32),
+    spacing-48: map-get($spacing, 48),
+    spacing-64: map-get($spacing, 64),
+    spacing-128: map-get($spacing, 128),
+    // icons
+    icon-16: map-get($spacing, 16),
+    icon-24: map-get($spacing, 24),
+    icon-32: map-get($spacing, 32),
+    icon-48: map-get($spacing, 48),
+    icon-64: map-get($spacing, 64),
+);
+
+$typography: (
+    font-family: 'Open Sans',
+    font-style: normal,
+    font-weight: normal,
+    font-size: 16px,
+    line-height: 148%,
+    letter-spacing: 0.01em,
+    // font-sizes
+    font-size-48: 48px,
+    font-size-32: 32px,
+    font-size-24: 24px,
+    font-size-18: 18px,
+    font-size-16: 16px,
+    font-size-14: 14px,
+    font-size-12: 12px,
+    // text colors
+    text-color: map-get($base-colors, secondary),
+    text-color-medium-emphasis: map-get($base-colors, secondary-light-b),
+    text-color-disabled: map-get($base-colors, disabled-dark),
+    text-color-contrast: map-get($base-colors, contrast),
+    text-color-warning: map-get($base-colors, warning),
+    text-color-highlighted: map-get($base-colors, highlight-medium-dark),
+    text-color-highlighted-medium: map-get($base-colors, highlight-medium-light),
+    text-color-primary: map-get($base-colors, primary),
+    text-color-success: map-get($base-colors, success),
+);
+
+$typography-styles: (
+    h1: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: bold,
+        font-size: map-get($typography, font-size-32),
+        line-height: 137%,
+        font-feature-settings: 'liga' off,
+        color: map-get($typography, text-color),
+        small: (
+            font-size: map-get($typography, font-size-48),
+        ),
+    ),
+    h2: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: bold,
+        font-size: map-get($typography, font-size-24),
+        line-height: 137%,
+        color: map-get($typography, text-color),
+        small: (
+            font-size: map-get($typography, font-size-32),
+        ),
+    ),
+    h3: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: bold,
+        font-size: map-get($typography, font-size-18),
+        line-height: 137%,
+        color: map-get($typography, text-color),
+        small: (
+            font-size: map-get($typography, font-size-24),
+        ),
+    ),
+    h3-light: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: normal,
+        font-size: map-get($typography, font-size-18),
+        line-height: 137%,
+        color: map-get($typography, text-color),
+        small: (
+            font-size: map-get($typography, font-size-24),
+        ),
+    ),
+    h4: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: bold,
+        font-size: map-get($typography, font-size-12),
+        line-height: 137%,
+        color: map-get($typography, text-color),
+        small: (
+            font-size: map-get($typography, font-size-16),
+        ),
+    ),
+    h4-light: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: normal,
+        font-size: map-get($typography, font-size-12),
+        line-height: 137%,
+        color: map-get($typography, text-color),
+        small: (
+            font-size: map-get($typography, font-size-16),
+        ),
+    ),
+    subtitle: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: normal,
+        font-size: map-get($typography, font-size-18),
+        line-height: 137%,
+        color: map-get($typography, text-color),
+        small: (
+            font-size: map-get($typography, font-size-24),
+        ),
+    ),
+    body: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: normal,
+        font-size: map-get($typography, font-size-16),
+        line-height: 148%,
+        letter-spacing: 0.01em,
+        color: map-get($typography, text-color),
+        -webkit-text-fill-color: map-get($typography, text-color),
+    ),
+    body-medium: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: 600,
+        font-size: map-get($typography, font-size-16),
+        line-height: 148%,
+        letter-spacing: 0.01em,
+        color: map-get($typography, text-color),
+    ),
+    body-bold: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: bold,
+        font-size: map-get($typography, font-size-16),
+        line-height: 148%,
+        letter-spacing: 0.06em,
+        color: map-get($typography, text-color),
+    ),
+    caption: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: normal,
+        font-size: map-get($typography, font-size-12),
+        line-height: 132%,
+        color: map-get($typography, text-color),
+    ),
+    caption-italic: (
+        font-family: map-get($typography, font-family),
+        font-style: italic,
+        font-weight: normal,
+        font-size: map-get($typography, font-size-12),
+        line-height: 132%,
+        color: map-get($typography, text-color),
+    ),
+    caption-medium: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: 600,
+        font-size: map-get($typography, font-size-12),
+        line-height: 132%,
+        color: map-get($typography, text-color),
+    ),
+    caption-bold: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: bold,
+        font-size: map-get($typography, font-size-12),
+        line-height: 132%,
+        color: map-get($typography, text-color),
+    ),
+    highlight: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: bold,
+        font-size: map-get($typography, font-size-14),
+        line-height: 168%,
+        letter-spacing: 0.13em,
+        color: map-get($typography, text-color),
+        text-transform: uppercase,
+    ),
+    text-link: (
+        font-family: map-get($typography, font-family),
+        font-style: normal,
+        font-weight: bold,
+        font-size: map-get($typography, font-size-16),
+        line-height: 148%,
+        letter-spacing: 0.06em,
+        color: map-get($typography, text-color-primary),
+        text-decoration: underline,
+        cursor: pointer,
+    ),
+);
+
+$z-index: (
+    dashboard: 1,
+    navigation: 100,
+    overlay: 500,
+    modal: 800,
+    drop-down: 1000,
+    tooltip: 1100,
+);
+
+$icon-config: (
+    // sizes
+    icon-size-16: map-get($dimensions, icon-16),
+    icon-size-24: map-get($dimensions, icon-24),
+    icon-size-32: map-get($dimensions, icon-32),
+    icon-size-48: map-get($dimensions, icon-48),
+    icon-size-64: map-get($dimensions, icon-64),
+    // colors
+    icon-symbol-default: map-get($icon-colors, icon-default),
+    icon-symbol-low-emphasis: map-get($icon-colors, icon-low-emphasis),
+    icon-symbol-disabled: map-get($icon-colors, icon-disabled),
+    icon-symbol-primary: map-get($icon-colors, icon-primary),
+    icon-symbol-primary-pressed: map-get($icon-colors, icon-primary-pressed),
+    icon-symbol-primary-hover: map-get($icon-colors, icon-primary-hover),
+    icon-symbol-highlight: map-get($icon-colors, icon-highlight),
+    icon-symbol-highlight-medium: map-get($icon-colors, icon-highlight-medium),
+    icon-symbol-contrast: map-get($icon-colors, icon-contrast),
+    icon-symbol-success: map-get($icon-colors, icon-success),
+);
+
+$shadows: (
+    shadow-active: 0 0 0 4px map-get($base-colors, highlight-alpha-10),
+    shadow-focused: 0 0 0 4px map-get($base-colors, highlight-alpha-10),
+    shadow-error: 0 0 0 4px map-get($base-colors, warning-10),
+    shadow-drop-down: 1px 1px 9px rgba(map-get($base-colors, black), 0.28),
+    control-active: 0 0 0 8px rgba(map-get($base-colors, primary), 0.1),
+);
+
+$border-radius: (
+    radius-0: 0,
+    radius-8: 8px,
+    radius-24: 24px,
+);

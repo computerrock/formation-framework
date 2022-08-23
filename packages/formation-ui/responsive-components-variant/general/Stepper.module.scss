@@ -1,0 +1,112 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$stepper-config: (
+    stepper-step-number-background-color: map-get($base-colors, contrast),
+    stepper-step-number-background-color-highlight: map-get($base-colors, highlight),
+    stepper-step-number-border: 1px solid map-get($base-colors, highlight-alpha-10),
+    stepper-step-number-color: map-get($base-colors, secondary),
+    stepper-step-number-color-highlight: map-get($base-colors, contrast),
+    stepper-step-number-margin-vertical: map-get($dimensions, spacing-24),
+    stepper-step-number-margin: map-get($dimensions, spacing-0),
+    stepper-step-number-padding: map-get($dimensions, spacing-0),
+    stepper-step-number-padding-vertical: map-get($dimensions, spacing-16) map-get($dimensions, spacing-0),
+    // title
+    stepper-step-title-padding: map-get($dimensions, spacing-16) map-get($dimensions, spacing-0),
+    stepper-step-title-border: 1px solid map-get($base-colors, secondary-light-d),
+    stepper-step-title-typography: 'h3-light',
+    stepper-step-title-typography-bold: 'h3',
+);
+
+.ace-c-stepper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    max-width: 400px;
+
+    @include media('>=small') {
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-right: 35px;
+    }
+
+    @include media('>=medium') {
+        margin-right: 100px;
+    }
+
+    &__step {
+        display: flex;
+        align-items: center;
+    }
+
+    &__track {
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        height: 1px;
+        background-color: rgba(0, 122, 137, 0.1);
+
+        @include media('>=small') {
+            display: none;
+        }
+    }
+
+    &__track--highlight {
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 1px;
+        background-color: #007a89;
+
+        @include media('>=small') {
+            display: none;
+        }
+    }
+
+    &__step__number {
+        padding: map-get($stepper-config, stepper-step-number-padding);
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        background-color: map-get($stepper-config, stepper-step-number-background-color);
+        border: map-get($stepper-config, stepper-step-number-border);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        color: map-get($stepper-config, stepper-step-number-color);
+        margin-right: map-get($stepper-config, stepper-step-number-margin);
+
+        @include media('>=small') {
+            padding: map-get($stepper-config, stepper-step-number-padding-vertical);
+            margin-right: map-get($stepper-config, stepper-step-number-margin-vertical);
+        }
+    }
+
+    &__step__number--highlight {
+        background-color: map-get($stepper-config, stepper-step-number-background-color-highlight);
+        color: map-get($stepper-config, stepper-step-number-color-highlight);
+    }
+
+    &__step__title {
+        @include typography($typography-styles, map-get($stepper-config, stepper-step-title-typography));
+
+        display: none;
+        padding: 16px 0;
+        border-bottom: 1px solid #e1e1e2;
+        flex-grow: 1;
+
+        @include media('>=small') {
+            display: block;
+        }
+    }
+
+    &__step__title--bold {
+        @include typography($typography-styles, map-get($stepper-config, stepper-step-title-typography-bold));
+    }
+}

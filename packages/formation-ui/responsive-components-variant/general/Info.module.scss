@@ -1,0 +1,46 @@
+@import '../config';
+@import '../mixins';
+
+$info-config: (
+    info-typography: 'caption-italic',
+    info-text-color: map-get($typography, text-color-primary),
+    info-text-color-warning: map-get($typography, text-color-warning),
+    info-icon-margin-right: map-get($dimensions, spacing-8),
+    info-icon-color: map-get($icon-colors, icon-default),
+    info-icon-color-warning: map-get($icon-colors, icon-primary),
+    info-padding: map-get($dimensions, spacing-8),
+    info-background: map-get($base-colors, background-b),
+    info-background-warning: map-get($base-colors, primary-alfa-15),
+);
+
+.ace-c-info {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: map-get($info-config, info-padding);
+    color: map-get($info-config, info-text-color);
+    background-color: map-get($info-config, info-background);
+
+    @include typography($typography-styles, map-get($info-config, info-typography));
+
+    & svg {
+        fill: map-get($info-config, info-icon-color);
+    }
+
+    &--is-warning {
+        color: map-get($info-config, info-text-color-warning);
+        background-color: map-get($info-config, info-background-warning);
+
+        & svg {
+            fill: map-get($info-config, info-icon-color-warning);
+        }
+    }
+
+    &__icon {
+        margin-right: map-get($info-config, info-icon-margin-right);
+    }
+
+    &__text {
+        flex: 1;
+    }
+}

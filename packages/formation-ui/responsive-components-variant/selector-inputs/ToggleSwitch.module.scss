@@ -1,0 +1,82 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+@import './Checkbox.module';
+
+$toggle-switch-config: (
+    // dimensions
+    toggle-switch-label-spacing: map-get($spacing, spacing-s),
+    // borders
+    toggle-switch-track-border-radius: map-get($border-radius, radius-8),
+    toggle-switch-track-border: none,
+    toggle-switch-track-border-hover: none,
+    toggle-switch-track-border-active: none,
+    toggle-switch-track-border-selected: none,
+    toggle-switch-track-border-disabled: none,
+    toggle-switch-track-border-selected-hover: none,
+    toggle-switch-track-border-selected-disabled: none,
+    toggle-switch-toggle-shadow-active: map-get($shadows, control-active),
+    // backgrounds
+    toggle-switch-track-background: map-get($base-colors, secondary-light-c),
+    toggle-switch-track-background-hover: map-get($base-colors, secondary-light-c),
+    toggle-switch-track-background-active: map-get($base-colors, secondary-light-c),
+    toggle-switch-track-background-selected: map-get($base-colors, primary-light-c),
+    toggle-switch-track-background-disabled: map-get($base-colors, secondary-light-c),
+    toggle-switch-track-background-selected-hover: map-get($base-colors, primary-light-c),
+    toggle-switch-track-background-selected-disabled: map-get($base-colors, disabled-main),
+    toggle-switch-toggle-color: map-get($base-colors, secondary),
+    toggle-switch-toggle-color-hover: map-get($base-colors, secondary),
+    toggle-switch-toggle-color-active: map-get($base-colors, secondary),
+    toggle-switch-toggle-color-selected: map-get($base-colors, primary),
+    toggle-switch-toggle-color-disabled: map-get($base-colors, secondary-light-b),
+    toggle-switch-toggle-color-selected-hover: map-get($base-colors, primary),
+    toggle-switch-toggle-color-selected-disabled: map-get($base-colors, primary),
+);
+
+@include state-styles.configure('ace-c-toggle-switch', $toggle-switch-config);
+
+.ace-c-toggle-switch__track {
+    position: relative;
+    margin-right: map-get($toggle-switch-config, toggle-switch-label-spacing);
+    width: 34px;
+    height: 14px;
+    border-radius: map-get($toggle-switch-config, toggle-switch-track-border-radius);
+    border: map-get($toggle-switch-config, toggle-switch-track-border);
+    background-color: map-get($toggle-switch-config, toggle-switch-track-background);
+    padding: 0 2px;
+
+    @include state-styles.element() using($get-design-token) {
+        border: meta.call($get-design-token, toggle-switch-track-border);
+        background-color: meta.call($get-design-token, toggle-switch-track-background);
+    }
+}
+
+.ace-c-toggle-switch__toggle {
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    height: 20px;
+    width: 20px;
+    margin: 2px;
+    background-color: map-get($toggle-switch-config, toggle-switch-toggle-color);
+    border-radius: 50%;
+    transition: 0.4s;
+
+    .ace-c-toggle-switch--is-selected & {
+        left: unset;
+        right: -4px;
+    }
+
+    @include state-styles.element() using($get-design-token) {
+        background-color: meta.call($get-design-token, toggle-switch-toggle-color);
+    }
+
+    @include state-styles.element(
+        $for-states: (active),
+    ) using($get-design-token) {
+        box-shadow: meta.call($get-design-token, toggle-switch-toggle-shadow);
+    }
+}

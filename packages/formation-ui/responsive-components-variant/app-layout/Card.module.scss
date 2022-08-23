@@ -1,0 +1,33 @@
+@import '../config';
+@import '../mixins';
+
+$card-config: (
+    card-border-small: 'none',
+    card-border-large: 1px solid map-get($base-colors, secondary-light-d),
+    card-border-small-white: 1px solid map-get($base-colors, secondary-light-d),
+    card-border-large-white: 1px solid map-get($base-colors, secondary-light-d),
+    card-background-color-small: 'transparent',
+    card-background-color-large: map-get($base-colors, background-main),
+    card-background-color-small-white: map-get($base-colors, background-main),
+    card-background-color-large-white: map-get($base-colors, background-main),
+);
+
+.ace-c-card {
+    background: map-get($card-config, card-background-color-small);
+    border: map-get($card-config, card-border-small);
+
+    @include media('>=small') {
+        background: map-get($card-config, card-background-color-large);
+        border: map-get($card-config, card-border-large);
+    }
+
+    &--variant-white {
+        background: map-get($card-config, card-background-color-small-white);
+        border: map-get($card-config, card-border-small-white);
+
+        @include media('>=small') {
+            background: map-get($card-config, card-background-color-large-white);
+            border: map-get($card-config, card-border-large-white);
+        }
+    }
+}

@@ -1,0 +1,19 @@
+/**
+ * Project specific global util styling
+ * TODO temporary file for now, probably util class is temporary too (but it solves layout issue)
+ */
+:global(.ace-u-two-column-layout) {
+    display: flex;
+    width: calc(100% - 24px);
+
+    > div {
+        flex-basis: 50%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        min-width: 0;
+    }
+
+    > div:first-child {
+        margin-right: 24px;
+    }
+}

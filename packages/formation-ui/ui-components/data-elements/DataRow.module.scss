@@ -1,0 +1,67 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$data-row-config: (
+    // typography
+    data-row-label-typography: 'body-medium',
+    data-row-content-typography: 'body',
+    // dimensions
+    data-row-label-padding: map-get($dimensions, spacing-m),
+    data-row-content-padding: map-get($spacing, spacing-m),
+    data-row-content-padding-condensed:
+    map-get($spacing, spacing-s)
+    map-get($spacing, spacing-s)
+    map-get($spacing, spacing-s)
+    map-get($spacing, spacing-m),
+    data-row-content-padding-condensed-full-bleed:
+    map-get($spacing, spacing-s) * -1
+    map-get($spacing, spacing-s) * -1
+    map-get($spacing, spacing-s) * -1
+    map-get($spacing, spacing-m) * -1,
+    // borders
+    data-row-border-color: map-get($base-colors, secondary-light-d),
+    // background
+    data-row-label-background: map-get($base-colors, background-b),
+);
+
+.ace-c-data-row {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid map-get($data-row-config, data-row-border-color);
+}
+
+.ace-c-data-row__label {
+    @include typography($typography-styles, map-get($data-row-config, data-row-label-typography));
+
+    min-width: 248px;
+    width: 248px;
+    padding: map-get($data-row-config, data-row-label-padding);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    background-color: map-get($data-row-config, data-row-label-background);
+}
+
+.ace-c-data-row__content {
+    @include typography($typography-styles, map-get($data-row-config, data-row-content-typography));
+
+    flex-grow: 1;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    padding: map-get($data-row-config, data-row-content-padding);
+    overflow: hidden;
+
+    .ace-c-data-row--condensed & {
+        padding: map-get($data-row-config, data-row-content-padding-condensed);
+    }
+
+    .ace-c-data-row--full-bleed-content & {
+        margin: map-get($data-row-config, data-row-content-padding) * -1;
+    }
+
+    .ace-c-data-row--full-bleed-content.ace-c-data-row--condensed & {
+        margin: map-get($data-row-config, data-row-content-padding-condensed-full-bleed);
+    }
+}

@@ -1,0 +1,29 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$avatar-placeholder-config: (
+    border-color: map-get($typography, icon-color-disabled),
+);
+
+.ace-c-avatar-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    border-color: map-get($avatar-placeholder-config, border-color);
+    border-style: dashed;
+    width: 64px;
+    height: 64px;
+    user-select: none;
+
+    &--small {
+        width: 40px;
+        height: 40px;
+    }
+
+    &--is-clickable {
+        cursor: pointer;
+    }
+}

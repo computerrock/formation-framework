@@ -1,0 +1,86 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$tab-config: (
+    // dimensions
+    tab-padding: map-get($dimensions, spacing-24) map-get($dimensions, spacing-32),
+    tab-height: 72px,
+    // typography
+    tab-typography: 'highlight',
+    tab-typography-hover: 'highlight',
+    tab-typography-active: 'highlight',
+    tab-typography-selected: 'highlight',
+    tab-typography-disabled: 'highlight',
+    tab-typography-selected-hover: 'highlight',
+    tab-typography-selected-disabled: 'highlight',
+    tab-text-color: map-get($typography, text-color),
+    tab-text-color-hover: map-get($typography, text-color),
+    tab-text-color-active: map-get($typography, text-color),
+    tab-text-color-selected: map-get($typography, text-color),
+    tab-text-color-disabled: map-get($typography, text-color-disabled),
+    tab-text-color-selected-hover: map-get($typography, text-color),
+    tab-text-color-selected-disabled: map-get($typography, text-color-disabled),
+    // borders
+    tab-border: 'none',
+    tab-border-hover: 4px solid map-get($base-colors, primary),
+    tab-border-active: 4px solid map-get($base-colors, primary),
+    tab-border-selected: 4px solid map-get($base-colors, primary),
+    tab-border-disabled: 4px solid map-get($base-colors, transparent),
+    tab-border-selected-hover: 4px solid map-get($base-colors, primary),
+    tab-border-selected-disabled: 4px solid map-get($base-colors, disabled-main),
+    // backgrounds
+    tab-background: transparent,
+    tab-background-hover: map-get($base-colors, primary-light-c),
+    tab-background-active: map-get($base-colors, primary-light-b),
+    tab-background-selected:transparent,
+    tab-background-disabled: transparent,
+    tab-background-selected-hover: transparent,
+    tab-background-selected-disabled: transparent,
+);
+
+@include state-styles.configure('ace-c-tab', $tab-config);
+
+.ace-c-tab {
+    @include typography($typography-styles, map-get($tab-config, tab-typography));
+
+    display: inline-block;
+    height: map-get($tab-config, tab-height);
+    background: map-get($tab-config, tab-background);
+    color: map-get($tab-config, tab-text-color);
+    padding: map-get($tab-config, tab-padding);
+    cursor: pointer;
+    text-transform: uppercase;
+
+    &--is-disabled {
+        cursor: default;
+    }
+
+    @include state-styles.block() using($get-design-token) {
+        @include typography($typography-styles, meta.call($get-design-token, tab-typography));
+
+        color: meta.call($get-design-token, tab-text-color);
+        background: meta.call($get-design-token, tab-background);
+        border-bottom: meta.call($get-design-token, tab-border);
+    }
+}
+
+.ace-c-tab__navigation-arrow {
+    // TODO move values to design tokens
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 1px 1px 8px 3px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+
+    &--is-disabled {
+        cursor: default;
+    }
+}

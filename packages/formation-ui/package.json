@@ -1,6 +1,6 @@
 {
   "name": "@computerrock/formation-ui",
-  "version": "0.15.0",
+  "version": "0.15.2",
   "description": "Formation framework - UI component library",
   "author": "Computer Rock",
   "license": "MIT",
@@ -19,7 +19,8 @@
     "./": "./src/"
   },
   "files": [
-    "src/*"
+    "src/*",
+    "bundler.config.js"
   ],
   "engines": {
     "node": ">=12"
@@ -32,7 +33,7 @@
   },
   "dependencies": {
     "@computerrock/react-app-polyfill": "^1.0.1",
-    "@computerrock/toolchain-react-app": "^1.9.0",
+    "@computerrock/toolchain-react-app": "^2.0.1",
     "@jest/globals": "^26.6.2",
     "include-media": "^1.4.9",
     "lodash.debounce": "^4.0.8",

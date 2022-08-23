@@ -1,0 +1,30 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$label-with-icon-config: (
+    label-with-icon-spacing: map-get($dimensions, spacing-s),
+    label-with-icon-label-typography: 'body-bold',
+);
+
+.ace-c-label-with-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+
+    & :first-child {
+        margin-right: map-get($label-with-icon-config, label-with-icon-spacing);
+    }
+}
+
+.ace-c-label-with-icon--icon-reverse {
+    flex-direction: row-reverse;
+}
+
+.ace-c-label-with-icon__label {
+    @include typography($typography-styles, map-get($label-with-icon-config, label-with-icon-label-typography));
+
+    text-decoration: none;
+    color: inherit;
+}

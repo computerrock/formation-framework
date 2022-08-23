@@ -1,0 +1,21 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$drop-down-config: (
+    drop-down-spacing: map-get($spacing, spacing-s),
+    drop-down-background: map-get($base-colors, background-main),
+    drop-down-border-radius: map-get($border-radius, radius-4),
+    drop-down-shadow: map-get($shadows, card),
+);
+
+.ace-c-drop-down {
+    padding: map-get($drop-down-config, drop-down-spacing) 0;
+}
+
+.ace-c-drop-down__content {
+    overflow: hidden;
+    background: map-get($drop-down-config, drop-down-background);
+    border-radius: map-get($drop-down-config, drop-down-border-radius);
+    box-shadow: map-get($drop-down-config, drop-down-shadow);
+}

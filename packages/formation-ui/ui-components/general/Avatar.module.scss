@@ -1,0 +1,43 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$avatar-config: (
+    avatar-typography: 'body',
+    avatar-text-color: map-get($typography, text-color-contrast),
+);
+
+.ace-c-avatar {
+    @include typography($typography-styles, map-get($avatar-config, avatar-typography));
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    color: map-get($avatar-config, avatar-text-color);
+    width: 64px;
+    height: 64px;
+    font-size: map-get($typography, font-size-l);
+    user-select: none;
+
+    &--small {
+        width: 40px;
+        height: 40px;
+        font-size: map-get($typography, font-size-m);
+    }
+
+    &--is-clickable {
+        cursor: pointer;
+    }
+}
+
+.ace-c-avatar__img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.ace-c-avatar__initials {
+    display: none;
+}

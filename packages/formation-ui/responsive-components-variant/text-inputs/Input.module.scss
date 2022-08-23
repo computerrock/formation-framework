@@ -1,0 +1,106 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$input-config: (
+    input-border-color: map-get($base-colors, border-default),
+    input-border-color-focus: map-get($base-colors, border-highlight),
+    input-border-color-hover: map-get($base-colors, border-default),
+    input-border-color-selected: map-get($base-colors, border-default),
+    input-border-color-selected-disabled: map-get($base-colors, border-default),
+    input-border-color-selected-hover: map-get($base-colors, border-default),
+    input-border-color-disabled: map-get($base-colors, border-default),
+    input-border-color-error: map-get($base-colors, warning),
+    input-border-color-empty-mandatory:  map-get($base-colors, secondary),
+    input-box-shadow-active: map-get($shadows, shadow-active),
+    input-box-shadow-focused: map-get($shadows, shadow-focused),
+    input-box-shadow-error: map-get($shadows, shadow-error),
+    // input-border-radius: map-get($border-radius, radius-4),
+    input-background-color: map-get($base-colors, contrast),
+    input-background-color-disabled: map-get($base-colors, disabled-light),
+    input-background-color-selected: map-get($base-colors, contrast),
+    input-background-color-hover: map-get($base-colors, contrast),
+    input-background-color-selected-hover: map-get($base-colors, contrast),
+    input-background-color-selected-disabled: map-get($base-colors, contrast),
+    input-text: map-get($typography, text-color),
+    input-text-disabled: map-get($typography, text-color-disabled),
+    input-text-hover: map-get($typography, text-color),
+    input-text-selected: map-get($typography, text-color),
+    input-text-selected-disabled: map-get($typography, text-color),
+    input-text-selected-hover: map-get($typography, text-color),
+    input-text-error: map-get($typography, text-color-warning),
+    input-text-typography: 'body',
+    input-caret-color-focused: map-get($base-colors, secondary),
+    input-placeholder-text: map-get($typography, text-color-medium-emphasis),
+    input-placeholder-text-disabled: map-get($typography, text-color-disabled),
+    input-dropdown-icon-color: map-get($base-colors, secondary-light-b),
+    input-margin: map-get($dimensions, spacing-8),
+    // input-dropdown-icon-color-active: map-get($base-colors, negative),
+);
+
+@include state-styles.configure('ace-c-input', $input-config);
+
+.ace-c-input {
+    @include typography($typography-styles, map-get($input-config, input-text-typography));
+
+    display: inline;
+    height: 56px;
+    padding: 0 map-get($dimensions, spacing-16);
+    border: 1px solid map-get($input-config, input-border-color);
+    caret-color: map-get($input-config, input-caret-color);
+    background: map-get($input-config, input-background-color);
+    margin-bottom: map-get($input-config, input-margin);
+
+    &--small {
+        height: 40px;
+    }
+
+    &::-webkit-input-placeholder {
+        color: map-get($input-config, input-text-disabled);
+    }
+
+    &:focus:not(#{&}--has-error) {
+        outline: none;
+        box-shadow: map-get($input-config, input-box-shadow-focused);
+        caret-color: map-get($input-config, input-caret-color-focused);
+        border: 1px solid map-get($input-config, input-border-color-focus);
+    }
+
+    @include state-styles.block(
+        $for-states: (disabled),
+    ) using($get-design-token) {
+        color: meta.call($get-design-token, input-text);
+        background: meta.call($get-design-token, input-background-color);
+        border: 1px solid meta.call($get-design-token, input-border-color);
+    }
+
+    @include media('>=medium') {
+        &--full-width {
+            width: 100%;
+        }
+    }
+
+    &--has-error {
+        border: 1px solid map-get($input-config, input-border-color-error);
+        color: map-get($input-config, input-text-error);
+        box-shadow: map-get($input-config, input-box-shadow-error);
+        outline: none;
+    }
+
+    &--is-required:not(#{&}--is-disabled) {
+        border: 1px solid map-get($input-config, input-border-color-empty-mandatory);
+    }
+
+    /* remove number input spinners Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* remove number input spinners Firefox */
+    -moz-appearance: textfield;
+}

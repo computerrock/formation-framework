@@ -1,0 +1,19 @@
+import {Meta, Story, Canvas} from '@storybook/addon-docs/blocks';
+import Checkbox from './Checkbox';
+
+<Meta title="MDX/Checkbox" component={Checkbox} />
+
+# TODO Checkbox docs page
+
+With `MDX` we can define a story for `Checkbox` right in the middle of our
+Markdown documentation.
+
+export const Template = (args) => <Checkbox {...args} />
+
+<Canvas>
+    <Story name="Checked" args={{
+        isSelected: true
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>

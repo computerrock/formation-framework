@@ -1,0 +1,56 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$notification-bar-config: (
+    content-min-width: map-get($breakpoints, small),
+    content-max-width: map-get($breakpoints, x-large),
+    notification-bar-height: 56px,
+    notification-bar-background: map-get($base-colors, background-c),
+    notification-bar-background-pending: map-get($base-colors, background-c),
+    notification-bar-background-positive: map-get($base-colors, positive),
+    notification-bar-background-negative: map-get($base-colors, negative),
+    notification-bar-background-information: map-get($base-colors, primary-light-b),
+    notification-bar-background-primary: map-get($base-colors, primary),
+    notification-bar-z-index: map-get($z-index, navigation),
+);
+
+.ace-c-notification-bar {
+    height: map-get($notification-bar-config, notification-bar-height);
+    background-color: map-get($notification-bar-config, notification-bar-background);
+    z-index: map-get($notification-bar-config, notification-bar-z-index);
+
+    &--pending {
+        background: map-get($notification-bar-config, notification-bar-background-pending);
+    }
+
+    &--positive {
+        background: map-get($notification-bar-config, notification-bar-background-positive);
+    }
+
+    &--negative {
+        background: map-get($notification-bar-config, notification-bar-background-negative);
+    }
+
+    &--information {
+        background: map-get($notification-bar-config, notification-bar-background-information);
+    }
+
+    &--primary {
+        background: map-get($notification-bar-config, notification-bar-background-primary);
+    }
+}
+
+.ace-c-notification-bar__content {
+    max-width: map-get($notification-bar-config, content-max-width);
+    min-width: map-get($notification-bar-config, content-min-width);
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    @include media('>=x-large') {
+        margin: 0 auto;
+    }
+}

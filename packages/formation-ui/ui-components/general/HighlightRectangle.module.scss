@@ -1,0 +1,45 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$highlight-rectangle-config: (
+    highlight-rectangle-padding: map-get($spacing, spacing-xs) map-get($spacing, spacing-s),
+    highlight-rectangle-border-radius: map-get($border-radius, radius-24),
+    highlight-rectangle-background: map-get($base-colors, background-c),
+    highlight-rectangle-background-pending: map-get($base-colors, background-c),
+    highlight-rectangle-background-positive: map-get($base-colors, positive-light),
+    highlight-rectangle-background-negative: map-get($base-colors, negative-light),
+    highlight-rectangle-background-information: map-get($base-colors, primary-light-c),
+    highlight-rectangle-text-color: map-get($typography, text-color),
+    highlight-rectangle-text-color-pending: map-get($typography, text-color),
+    highlight-rectangle-text-color-positive: map-get($typography, text-color-success),
+    highlight-rectangle-text-color-negative: map-get($typography, text-color-warning),
+    highlight-rectangle-text-color-information: map-get($typography, text-color),
+);
+
+.ace-c-highlight-rectangle {
+    display: inline-flex;
+    padding: map-get($highlight-rectangle-config, highlight-rectangle-padding);
+    color: map-get($highlight-rectangle-config, highlight-rectangle-text-color);
+    background: map-get($highlight-rectangle-config, highlight-rectangle-background);
+
+    &--pending {
+        color: map-get($highlight-rectangle-config, highlight-rectangle-text-color-pending);
+        background: map-get($highlight-rectangle-config, highlight-rectangle-background-pending);
+    }
+
+    &--positive {
+        color: map-get($highlight-rectangle-config, highlight-rectangle-text-color-positive);
+        background: map-get($highlight-rectangle-config, highlight-rectangle-background-positive);
+    }
+
+    &--negative {
+        color: map-get($highlight-rectangle-config, highlight-rectangle-text-color-negative);
+        background: map-get($highlight-rectangle-config, highlight-rectangle-background-negative);
+    }
+
+    &--information {
+        color: map-get($highlight-rectangle-config, highlight-rectangle-text-color-information);
+        background: map-get($highlight-rectangle-config, highlight-rectangle-background-information);
+    }
+}

@@ -1,0 +1,84 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$date-config: (
+    date-typography: 'body',
+    date-icon-color: map-get($typography, icon-color),
+    date-border: 1px solid map-get($base-colors, secondary-light-c),
+    date-border-focus: 1px solid map-get($base-colors, primary),
+    date-disabled-border: 1px solid map-get($base-colors, secondary-light-c),
+    date-disabled-background-color: map-get($base-colors, disabled-light),
+    date-disabled-icon-background-color: map-get($base-colors, secondary-light-c),
+    date-shadow: map-get($dimensions, shadow-focus),
+    date-shadow-color: map-get($base-colors, primary-light-b),
+    date-icon-background-color: map-get($base-colors, primary),
+    date-icon-background-color-disabled: map-get($base-colors, contrast),
+    date-icon-background-color-hover: map-get($base-colors, primary-light-a),
+    date-input-padding: map-get($dimensions, spacing-2xl),
+    date-no-results-color: map-get($base-colors, secondary),
+    date-no-results-padding: map-get($dimensions, spacing-m),
+);
+
+.ace-c-date-field {
+    width: 280px;
+    position: relative;
+    padding: 0;
+    transition: width 0.5s ease;
+    background-color: inherit;
+    display: flex;
+    justify-content: flex-end;
+
+    &--is-focused {
+        border: map-get($date-config, date-border-focus);
+        border-right: none;
+        box-shadow: map-get($date-config, date-shadow);
+    }
+}
+
+.ace-c-date-field__input {
+    margin-bottom: 0;
+    width: calc(280px - 56px);
+    padding-right: map-get($date-config, date-input-padding);
+    flex-grow: 1;
+
+    &--is-focused {
+        border: map-get($date-config, date-border-focus);
+        box-shadow: map-get($date-config, date-shadow);
+    }
+
+    .ace-c-date-field--is-disabled & {
+        background: map-get($date-config, date-disabled-background-color);
+        border: map-get($date-config, date-disabled-border);
+        color: map-get($date-config, date-disabled-icon-background-color);
+    }
+}
+
+.ace-c-date-field__icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    pointer-events: none;
+
+    &--small & {
+        top: 8px;
+    }
+
+    &--is-focused {
+        svg {
+            fill: map-get($date-config, date-icon-background-color-disabled);
+        }
+    }
+
+    &:hover:not(#{&}--is-disabled):not(:focus) {
+        background: map-get($date-config, date-icon-background-color-disabled);
+    }
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    svg {
+        fill: map-get($date-config, date-icon-color);
+    }
+}

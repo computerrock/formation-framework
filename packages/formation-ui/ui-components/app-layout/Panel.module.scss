@@ -1,0 +1,90 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$panel-config: (
+    // dimensions
+    panel-header-height: 96px,
+    panel-padding: map-get($dimensions, spacing-xl),
+    panel-padding-small: map-get($dimensions, spacing-l),
+    panel-padding-title-small: map-get($dimensions, spacing-s),
+    panel-margin: map-get($dimensions, spacing-l),
+    // typography
+    panel-header-typography: 'h3',
+    panel-small-header-typography: 'body-bold',
+    // borders
+    panel-shadow: map-get($dimensions, shadow-card),
+    panel-border: 2px solid map-get($base-colors, secondary-light-d),
+    // backgrounds
+    panel-background: map-get($base-colors, background-main),
+);
+
+.ace-c-panel {
+    padding: map-get($panel-config, panel-padding);
+    margin: map-get($panel-config, panel-margin) 0;
+    box-shadow: map-get($panel-config, panel-shadow);
+    background-color: map-get($panel-config, panel-background);
+    display: flex;
+    flex-flow: column nowrap;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &--full-bleed {
+        padding: 0;
+    }
+
+    &--small {
+        padding: map-get($panel-config, panel-padding-small);
+        box-shadow: none;
+    }
+
+    &--border {
+        border: map-get($panel-config, panel-border);
+    }
+}
+
+.ace-c-panel__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.ace-c-panel__header-main {
+    @include typography($typography-styles, map-get($panel-config, panel-header-typography));
+
+    margin: map-get($panel-config, panel-padding) * -1 map-get($panel-config, panel-padding) * -1 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    &--title {
+        padding: map-get($panel-config, panel-padding);
+    }
+}
+
+.ace-c-panel__header-actions {
+    margin: map-get($panel-config, panel-padding) * -1 map-get($panel-config, panel-padding) * -1 0;
+    padding-right: map-get($panel-config, panel-padding);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.ace-c-panel__content {
+    grid-area: content;
+    position: relative;
+    flex-grow: 1;
+
+    .ace-c-panel--full-bleed-content & {
+        margin: 0 map-get($panel-config, panel-padding) * -1 map-get($panel-config, panel-padding) * -1;
+    }
+}

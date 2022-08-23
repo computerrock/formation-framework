@@ -1,0 +1,177 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:meta';
+
+$_block-config: ();
+$_block-name: 'cr-c-component-name';
+
+@mixin configure($_block-name, $block-config) {
+    @if $_block-name {
+        $_block-name: $_block-name !global;
+    }
+
+    @if $block-config {
+        $_block-config: $block-config !global;
+    }
+}
+
+@function _get-design-token($key) {
+    // check if design token exists
+    @if not map.get($_block-config, $key) {
+        @warn 'Design token: `#{$key}` is not configured.';
+
+        @return null;
+    }
+
+    // return design token
+    @return map.get($_block-config, $key);
+}
+
+@function _get-design-token-disabled($key) {
+    @return _get-design-token(#{$key}-disabled);
+}
+
+@function _get-design-token-selected($key) {
+    @return _get-design-token(#{$key}-selected);
+}
+
+@function _get-design-token-selected-disabled($key) {
+    @return _get-design-token(#{$key}-selected-disabled);
+}
+
+@function _get-design-token-hover($key) {
+    @return _get-design-token(#{$key}-hover);
+}
+
+@function _get-design-token-selected-hover($key) {
+    @return _get-design-token(#{$key}-selected-hover);
+}
+
+@function _get-design-token-active($key) {
+    @return _get-design-token(#{$key}-active);
+}
+
+@mixin block(
+    $for-states: null,
+    $not-for-states: (),
+    $block-selector-suffix: '',
+) {
+    // disabled
+    @if (not $for-states and not list.index($not-for-states, disabled))
+        or ($for-states and list.index($for-states, disabled)) {
+        &--is-disabled#{$block-selector-suffix} {
+            $get-design-token: meta.get-function(_get-design-token-disabled);
+            @content($get-design-token);
+        }
+    }
+
+    // selected
+    @if (not $for-states and not list.index($not-for-states, selected))
+        or ($for-states and list.index($for-states, selected)) {
+        &--is-selected#{$block-selector-suffix} {
+            $get-design-token: meta.get-function(_get-design-token-selected);
+            @content($get-design-token);
+        }
+    }
+
+    // selected-disabled
+    @if (not $for-states and not list.index($not-for-states, selected-disabled))
+        or ($for-states and list.index($for-states, selected-disabled)) {
+        &--is-disabled#{&}--is-selected#{$block-selector-suffix} {
+            $get-design-token: meta.get-function(_get-design-token-selected-disabled);
+            @content($get-design-token);
+        }
+    }
+
+    // hover
+    @if (not $for-states and not list.index($not-for-states, hover))
+        or ($for-states and list.index($for-states, hover)) {
+        &:hover:not(.#{$_block-name}--is-disabled)#{$block-selector-suffix} {
+            $get-design-token: meta.get-function(_get-design-token-hover);
+            @content($get-design-token);
+        }
+    }
+
+    // selected-hover
+    @if (not $for-states and not list.index($not-for-states, selected-hover))
+        or ($for-states and list.index($for-states, selected-hover)) {
+        &:hover:not(.#{$_block-name}--is-disabled).#{$_block-name}--is-selected#{$block-selector-suffix} {
+            $get-design-token: meta.get-function(_get-design-token-selected-hover);
+            @content($get-design-token);
+        }
+    }
+
+    // active
+    @if (not $for-states and not list.index($not-for-states, active))
+        or ($for-states and list.index($for-states, active)) {
+        // Must follow LVHA-order: https://developer.mozilla.org/en-US/docs/Web/CSS/:active
+        // stylelint-disable-next-line no-descending-specificity
+        &:active:not(.#{$_block-name}--is-disabled)#{$block-selector-suffix} {
+            $get-design-token: meta.get-function(_get-design-token-active);
+            @content($get-design-token);
+        }
+    }
+}
+
+@mixin element(
+    $for-states: null,
+    $not-for-states: (),
+    $block-selector-suffix: '',
+) {
+    // disabled
+    @if (not $for-states and not list.index($not-for-states, disabled))
+        or ($for-states and list.index($for-states, disabled)) {
+        .#{$_block-name}--is-disabled#{$block-selector-suffix} & {
+            $get-design-token: meta.get-function(_get-design-token-disabled);
+            @content($get-design-token);
+        }
+    }
+
+    // selected
+    @if (not $for-states and not list.index($not-for-states, selected))
+        or ($for-states and list.index($for-states, selected)) {
+        .#{$_block-name}--is-selected#{$block-selector-suffix} & {
+            $get-design-token: meta.get-function(_get-design-token-selected);
+            @content($get-design-token);
+        }
+    }
+
+    // selected-disabled
+    @if (not $for-states and not list.index($not-for-states, selected-disabled))
+        or ($for-states and list.index($for-states, selected-disabled)) {
+        .#{$_block-name}--is-disabled.#{$_block-name}--is-selected#{$block-selector-suffix} & {
+            $get-design-token: meta.get-function(_get-design-token-selected-disabled);
+            @content($get-design-token);
+        }
+    }
+
+    // hover
+    @if (not $for-states and not list.index($not-for-states, hover))
+        or ($for-states and list.index($for-states, hover)) {
+        .#{$_block-name}:hover:not(.#{$_block-name}--is-disabled)#{$block-selector-suffix} & {
+            $get-design-token: meta.get-function(_get-design-token-hover);
+            @content($get-design-token);
+        }
+    }
+
+    // selected-hover
+    @if (not $for-states and not list.index($not-for-states, selected-hover))
+        or ($for-states and list.index($for-states, selected-hover)) {
+        // stylelint-disable-next-line max-line-length
+        .#{$_block-name}:hover:not(.#{$_block-name}--is-disabled).#{$_block-name}--is-selected#{$block-selector-suffix} & {
+            $get-design-token: meta.get-function(_get-design-token-selected-hover);
+            @content($get-design-token);
+        }
+    }
+
+    // active
+    @if (not $for-states and not list.index($not-for-states, active))
+        or ($for-states and list.index($for-states, active)) {
+        // Must follow LVHA-order: https://developer.mozilla.org/en-US/docs/Web/CSS/:active
+        // stylelint-disable-next-line no-descending-specificity
+        .#{$_block-name}:active:not(.#{$_block-name}--is-disabled)#{$block-selector-suffix} & {
+            $get-design-token: meta.get-function(_get-design-token-active);
+            @content($get-design-token);
+        }
+    }
+}

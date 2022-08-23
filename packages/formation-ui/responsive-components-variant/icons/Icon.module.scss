@@ -1,0 +1,54 @@
+@import '../config';
+
+.ace-c-icon {
+    display: inline-block;
+    width: map-get($icon-config, icon-size-24);
+    height: map-get($icon-config, icon-size-24);
+    user-select: none;
+
+    &--has-on-click {
+        cursor: pointer;
+    }
+
+    &--no-margin {
+        margin: 0;
+    }
+
+    &--16 {
+        width: map-get($icon-config, icon-size-16);
+        height: map-get($icon-config, icon-size-16);
+    }
+
+    &--24 {
+        width: map-get($icon-config, icon-size-24);
+        height: map-get($icon-config, icon-size-24);
+    }
+
+    &--32 {
+        width: map-get($icon-config, icon-size-32);
+        height: map-get($icon-config, icon-size-32);
+    }
+
+    &--48 {
+        width: map-get($icon-config, icon-size-48);
+        height: map-get($icon-config, icon-size-48);
+    }
+
+    &--64 {
+        width: map-get($icon-config, icon-size-64);
+        height: map-get($icon-config, icon-size-64);
+    }
+}
+
+.ace-c-icon__symbol {
+    width: 100%;
+    height: 100%;
+    display: inherit;
+    fill: map-get($icon-config, icon-symbol-default);
+
+    @each $icon-color in $icon-color-states {
+        .ace-c-icon--color-#{$icon-color} & {
+            fill: map-get($icon-config, icon-symbol-#{$icon-color});
+        }
+    }
+}

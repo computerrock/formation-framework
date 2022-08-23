@@ -1,0 +1,58 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$linked-list-item-config: (
+    linked-list-item-bullet-border-color: map-get($base-colors, primary),
+    linked-list-item-on-hover: map-get($base-colors, background-c),
+    linked-list-item-divider: map-get($base-colors, secondary-light-d),
+    linked-list-item-bullet-background: map-get($base-colors, white),
+    linked-list-item-padding-left: map-get($dimensions, spacing-l),
+);
+
+.ace-c-linked-list-item {
+    position: relative;
+    list-style: none;
+    word-break: break-word;
+    padding-left: map-get($linked-list-item-config, linked-list-item-padding-left);
+    margin-top: -1px;
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background-color: white;
+        border: 2px solid map-get($linked-list-item-config, linked-list-item-bullet-border-color);
+        border-radius: 50%;
+        left: 0;
+        top: 8px;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        border-left: 2px solid map-get($linked-list-item-config, linked-list-item-divider);
+        left: 7px;
+        top: 23px;
+    }
+
+    &:last-of-type::after {
+        display: none;
+    }
+
+    i > svg {
+        display: none;
+    }
+}
+
+.ace-c-linked-list-item--hoverable div:hover {
+    background-color: map-get($linked-list-item-config, linked-list-item-on-hover);
+    cursor: pointer;
+
+    i > svg {
+        display: block;
+    }
+}

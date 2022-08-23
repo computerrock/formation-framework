@@ -1,0 +1,118 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$checkbox-config: (
+    // dimensions
+    checkbox-label-spacing: map-get($spacing, spacing-s),
+    // typography
+    checkbox-typography: 'body',
+    checkbox-typography-hover: 'body',
+    checkbox-typography-active: 'body',
+    checkbox-typography-selected: 'body',
+    checkbox-typography-disabled: 'body',
+    checkbox-typography-selected-hover: 'body',
+    checkbox-typography-selected-disabled: 'body',
+    checkbox-label-color: map-get($typography, text-color),
+    checkbox-label-color-hover: map-get($typography, text-color),
+    checkbox-label-color-active: map-get($typography, text-color),
+    checkbox-label-color-selected: map-get($typography, text-color),
+    checkbox-label-color-disabled: map-get($typography, text-color-disabled),
+    checkbox-label-color-selected-hover: map-get($typography, text-color),
+    checkbox-label-color-selected-disabled: map-get($typography, text-color-disabled),
+    checkbox-checkmark-selected: map-get($base-colors, white),
+    checkbox-checkmark-selected-hover: map-get($base-colors, white),
+    checkbox-checkmark-selected-disabled: map-get($base-colors, white),
+    // borders
+    checkbox-border-radius: map-get($border-radius, radius-4),
+    checkbox-border: 2px solid map-get($base-colors, secondary-light-b),
+    checkbox-border-hover: 2px solid map-get($base-colors, primary),
+    checkbox-border-active: 2px solid map-get($base-colors, primary),
+    checkbox-border-selected: 2px solid map-get($base-colors, primary),
+    checkbox-border-disabled: 2px solid map-get($base-colors, disabled-main),
+    checkbox-border-selected-hover: 2px solid map-get($base-colors, primary),
+    checkbox-border-selected-disabled: 2px solid map-get($base-colors, disabled-main),
+    checkbox-shadow-active: map-get($shadows, control-active),
+    // backgrounds
+    checkbox-background: map-get($base-colors, background-main),
+    checkbox-background-hover: map-get($base-colors, background-main),
+    checkbox-background-active: map-get($base-colors, background-main),
+    checkbox-background-selected: map-get($base-colors, primary),
+    checkbox-background-disabled: map-get($base-colors, disabled-light),
+    checkbox-background-selected-hover: map-get($base-colors, primary),
+    checkbox-background-selected-disabled: map-get($base-colors, disabled-main),
+);
+
+@include state-styles.configure('ace-c-checkbox', $checkbox-config);
+
+.ace-c-checkbox {
+    @include typography($typography-styles, map-get($checkbox-config, checkbox-typography));
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: map-get($checkbox-config, checkbox-label-color);
+    cursor: pointer;
+    user-select: none;
+
+    &--is-disabled {
+        cursor: default;
+    }
+
+    @include state-styles.block() using($get-design-token) {
+        @include typography($typography-styles, meta.call($get-design-token, checkbox-typography));
+
+        color: meta.call($get-design-token, checkbox-label-color);
+    }
+}
+
+.ace-c-checkbox__native-input {
+    opacity: 0;
+    position: absolute;
+    left: -999px;
+}
+
+.ace-c-checkbox__input {
+    position: relative;
+    margin-right: map-get($checkbox-config, checkbox-label-spacing);
+    min-width: 24px;
+    width: 24px;
+    height: 24px;
+    border-radius: map-get($checkbox-config, checkbox-border-radius);
+    border: map-get($checkbox-config, checkbox-border);
+    background-color: map-get($checkbox-config, checkbox-background);
+    background-repeat: no-repeat;
+    background-position: center center;
+    pointer-events: none;
+
+    .ace-c-checkbox--no-chrome & {
+        display: none;
+    }
+
+    @include state-styles.element() using($get-design-token) {
+        border: meta.call($get-design-token, checkbox-border);
+        background-color: meta.call($get-design-token, checkbox-background);
+    }
+
+    @include state-styles.element(
+        $for-states: (active),
+    ) using($get-design-token) {
+        box-shadow: meta.call($get-design-token, checkbox-shadow);
+    }
+
+    @include state-styles.element(
+        $for-states: (selected, selected-disabled, hover-selected),
+    ) using($get-design-token) {
+        background-image: url('../assets/icons/checkmark.svg?fill=#{meta.call($get-design-token, checkbox-checkmark)}');
+    }
+
+    @include state-styles.element(
+        $for-states: (selected, selected-disabled, hover-selected),
+        $block-selector-suffix: '.ace-c-checkbox--is-indeterminate',
+    ) using($get-design-token) {
+        background-image: url('../assets/icons/checkmark-dash.svg?fill=#{meta.call($get-design-token, checkbox-checkmark)}');
+    }
+}

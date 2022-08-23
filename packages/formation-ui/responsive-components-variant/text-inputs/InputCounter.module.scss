@@ -1,0 +1,104 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$input-counter-config: (
+    input-counter-typography: map-get($typography-styles, 'body'),
+    input-counter-label-color: map-get($base-colors, secondary),
+    input-counter-background-color: map-get($base-colors, contrast),
+    input-counter-input-margin: map-get($dimensions, spacing-8),
+    input-counter-label-margin: map-get($dimensions, spacing-8),
+    input-counter-list-element: map-get($dimensions, spacing-16),
+    input-counter-list-element-border-color: map-get($base-colors, secondary-light-d),
+    // icon-counter-button
+    input-counter-button-border-color: map-get($base-colors, secondary-light-c),
+    input-counter-button-border-color-disabled: map-get($base-colors, disabled-light),
+    input-counter-button-border-color-hover: map-get($base-colors, secondary),
+    input-counter-button-border-color-active: map-get($base-colors, secondary),
+    // icon-counter-button-icon
+    input-counter-icon-color: map-get($base-colors, secondary-light-c),
+    input-counter-icon-color-disabled: map-get($base-colors, disabled-light),
+    input-counter-icon-color-hover: map-get($base-colors, secondary),
+    input-counter-icon-color-active: map-get($base-colors, secondary),
+);
+
+@include state-styles.configure('ace-c-input-counter', $input-counter-config);
+
+.ace-c-input-counter {
+    min-width: 280px;
+    padding: 0;
+}
+
+.ace-c-input-counter--list-element {
+    padding: map-get($input-counter-config, input-counter-list-element) 0;
+}
+
+.ace-c-input-counter__label {
+    @include typography($input-counter-config, input-counter-typography);
+
+    color: map-get($input-counter-config, input-counter-label-color);
+    margin-right: map-get($input-counter-config, input-counter-label-margin);
+}
+
+.ace-c-input-counter__controls {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ace-c-input-counter__plus-button,
+.ace-c-input-counter__minus-button {
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid map-get($input-counter-config, input-counter-button-border-color);
+    background-color: map-get($input-counter-config, input-counter-background-color);
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    & svg {
+        fill: map-get($input-counter-config, input-counter-icon-color);
+    }
+
+    @include media('>=small') {
+        @include state-styles.block(
+            $not-for-states: (selected, selected-disabled, selected-hover, active),
+        ) using($get-design-token) {
+            border-color: meta.call($get-design-token, input-counter-button-border-color);
+
+            & svg {
+                fill: meta.call($get-design-token, input-counter-icon-color);
+            }
+        }
+    }
+
+    @include media('<=small') {
+        @include state-styles.block(
+            $not-for-states: (selected, selected-disabled, selected-hover, hover),
+        ) using($get-design-token) {
+            border-color: meta.call($get-design-token, input-counter-button-border-color);
+
+            & svg {
+                fill: meta.call($get-design-token, input-counter-icon-color);
+            }
+        }
+    }
+}
+
+.ace-c-input-counter__button__input {
+    @include typography($input-counter-config, input-counter-typography);
+
+    border: none;
+    background-color: inherit;
+    text-align: center;
+    margin: 0 map-get($input-counter-config, input-counter-input-margin);
+    -webkit-opacity: 1;
+}

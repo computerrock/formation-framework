@@ -1,0 +1,28 @@
+@import '../config';
+@import '../mixins';
+
+$service-category-title-config: (
+    service-category-title-typography: 'body-medium',
+    service-category-title-padding: map-get($dimensions, spacing-8) map-get($dimensions, spacing-16),
+    service-category-title-background: map-get($base-colors, highlight-alpha-10),
+    service-category-title-text-color: map-get($typography, text-color-highlighted),
+    service-category-icon-margin: map-get($dimensions, spacing-16),
+);
+
+.ace-c-service-category-title {
+    padding: map-get($service-category-title-config, service-category-title-padding);
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    background: map-get($service-category-title-config, service-category-title-background);
+
+    &__icon {
+        margin-right: map-get($service-category-title-config, service-category-icon-margin);
+    }
+
+    &__title {
+        @include typography($typography-styles, map-get($service-category-title-config, service-category-title-typography)); // stylelint-disable-line
+
+        color: map-get($service-category-title-config, service-category-title-text-color);
+    }
+}

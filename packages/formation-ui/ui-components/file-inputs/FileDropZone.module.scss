@@ -1,0 +1,16 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$file-drop-zone-config: (
+    file-drop-zone-border: 2px dashed map-get($base-colors, divider),
+    file-drop-zone-border-active: 2px dashed map-get($base-colors, primary),
+);
+
+.ace-c-file-drop-zone {
+    border: map-get($file-drop-zone-config, file-drop-zone-border);
+
+    &--is-dragging-active {
+        border: map-get($file-drop-zone-config, file-drop-zone-border-active);
+    }
+}

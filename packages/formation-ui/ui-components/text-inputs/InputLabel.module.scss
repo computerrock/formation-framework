@@ -1,0 +1,22 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$input-label-config: (
+    input-label-typography: 'caption',
+    input-label-text-color: map-get($typography, text-color-default),
+    input-label-text-color-error: map-get($typography, text-color-warning),
+    input-label-margin-bottom: map-get($spacing, spacing-s),
+);
+
+.ace-c-input-label {
+    @include typography($typography-styles, map-get($input-label-config, input-label-typography));
+
+    margin-bottom: map-get($input-label-config, input-label-margin-bottom);
+    color: map-get($input-label-config, input-label-text-color);
+    display: block;
+
+    &--is-error {
+        color: map-get($input-label-config, input-label-text-color-error);
+    }
+}

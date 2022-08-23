@@ -1,0 +1,81 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$option-config: (
+    // dimensions
+    option-padding: map-get($dimensions, spacing-16),
+    option-padding-small: map-get($dimensions, spacing-8),
+    // typography
+    option-typography: 'body',
+    option-typography-hover: 'body',
+    option-typography-active: 'body',
+    option-typography-selected: 'body',
+    option-typography-disabled: 'body',
+    option-typography-selected-hover: 'body',
+    option-typography-selected-disabled: 'body',
+    option-text-color: map-get($typography, text-color),
+    option-text-color-hover: map-get($typography, text-color),
+    option-text-color-active: map-get($typography, text-color),
+    option-text-color-selected: map-get($typography, text-color),
+    option-text-color-disabled: map-get($typography, text-color-disabled),
+    option-text-color-selected-hover: map-get($typography, text-color),
+    option-text-color-selected-disabled: map-get($typography, text-color-disabled),
+    // borders
+    option-border: 1px solid map-get($base-colors, secondary-light-d),
+    option-border-hover: 1px solid map-get($base-colors, secondary-light-d),
+    option-border-active: 1px solid map-get($base-colors, secondary-light-d),
+    option-border-selected: 1px solid map-get($base-colors, secondary-light-d),
+    option-border-disabled: 1px solid map-get($base-colors, secondary-light-d),
+    option-border-selected-hover: 1px solid map-get($base-colors, secondary-light-d),
+    option-border-selected-disabled: 1px solid map-get($base-colors, secondary-light-d),
+    // backgrounds
+    option-background: map-get($base-colors, background-main),
+    option-background-hover: map-get($base-colors, background-b),
+    option-background-active: map-get($base-colors, background-c),
+    option-background-selected: map-get($base-colors, disabled-light),
+    option-background-disabled: map-get($base-colors, background-main),
+    option-background-selected-hover: map-get($base-colors, disabled-light),
+    option-background-selected-disabled: map-get($base-colors, background-main),
+);
+
+@include state-styles.configure('ace-c-option', $option-config);
+
+.ace-c-option {
+    @include typography($typography-styles, map-get($option-config, option-typography));
+
+    position: relative;
+    min-width: 280px;
+    height: 56px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: map-get($option-config, option-padding);
+    color: map-get($option-config, option-text-color);
+    background: map-get($option-config, option-background);
+    border-bottom: map-get($option-config, option-border);
+    cursor: pointer;
+    user-select: none;
+
+    &--small {
+        height: 40px;
+        padding:
+            map-get($option-config, option-padding-small)
+            map-get($option-config, option-padding);
+    }
+
+    &--is-disabled {
+        cursor: default;
+    }
+
+    @include state-styles.block() using($get-design-token) {
+        @include typography($typography-styles, meta.call($get-design-token, option-typography));
+
+        color: meta.call($get-design-token, option-text-color);
+        background: meta.call($get-design-token, option-background);
+        border-bottom: meta.call($get-design-token, option-border);
+    }
+}

@@ -1,0 +1,25 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$section-details-config: (
+    section-details-border: 1px solid map-get($base-colors, border-default)
+);
+
+.ace-c-section-details {
+    display: flex;
+    align-items: flex-start;
+
+    &__details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__icon {
+        margin-left: auto;
+    }
+}
+
+.ace-c-section-details--bordered {
+    border: map-get($section-details-config, section-details-border);
+}

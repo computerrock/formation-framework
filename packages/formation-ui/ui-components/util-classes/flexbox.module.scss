@@ -1,0 +1,170 @@
+/**
+ * Flex util classes
+ */
+@use 'sass:list';
+@use 'sass:map';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$grid-breakpoints: map.keys($breakpoints);
+
+$flex-basis: (
+    80: 80%,
+    75: 75%,
+    60: 60%,
+    50: 50%,
+    45: 45%,
+    40: 40%,
+    35: 35%,
+    30: 30%,
+    25: 25%,
+    20: 20%,
+    15: 15%,
+    10: 10%,
+    5: 5%,
+);
+
+$flex-gap: (
+    64: 64px,
+    48: 48px,
+    32: 32px,
+    24: 24px,
+    16: 16px,
+    8: 8px,
+);
+
+// Creates modifier classes for given $breakpoint
+@mixin flex-util-modifier-classes($breakpoint: '') {
+    $breakpoint-key: '';
+
+    @if $breakpoint != '' {
+        $breakpoint-key: #{$breakpoint}-;
+    }
+
+    @each $direction in (row, row-reverse, column, column-reverse) {
+        // Property: flex-direction
+        // .ace-u-flex--[breakpoint-]direction-{*}
+        :global(.ace-u-flex--#{$breakpoint-key}direction-#{$direction}) {
+            flex-direction: $direction;
+        }
+    }
+
+    @each $wrap in (wrap, nowrap, wrap-reverse) {
+        // Property: flex-wrap
+        // .ace-u-flex--[breakpoint-]{*}
+        :global(.ace-u-flex--#{$breakpoint-key}#{$wrap}) {
+            flex-wrap: $wrap;
+        }
+    }
+
+    // NOTE: do NOT use gap property so far, since we are getting postcss warning
+    // TODO: link issue
+    @each $gap, $value in $flex-gap {
+        // Property: column-gap
+        // .ace-u-flex--[breakpoint-]column-gap-{//}
+        :global(.ace-u-flex--#{$breakpoint-key}column-gap-#{$gap}) {
+            column-gap: $value;
+        }
+    }
+
+    @each $justify in (flex-start, flex-end, center, space-between, space-around, space-evenly) {
+        // Property: justify-content
+        // .ace-u-flex--[breakpoint-]justify-{*}
+        :global(.ace-u-flex--#{$breakpoint-key}justify-#{$justify}) {
+            justify-content: $justify;
+        }
+
+        :global(.ace-u-flex--#{$breakpoint-key}justify-content-#{$justify}) {
+            justify-content: $justify;
+        }
+    }
+
+    @each $align in (stretch, flex-start, flex-end, center, baseline, auto) {
+        // Property: align-items
+        // .ace-u-flex--[breakpoint-]align-{*}
+        :global(.ace-u-flex--#{$breakpoint-key}align-#{$align}) {
+            align-items: $align;
+        }
+
+        :global(.ace-u-flex--#{$breakpoint-key}align-items-#{$align}) {
+            align-items: $align;
+        }
+
+        // Property: align-self
+        // .ace-u-flex--[breakpoint-]align-self-{*}
+        :global(.ace-u-flex--#{$breakpoint-key}align-self-#{$align}) {
+            align-self: $align;
+        }
+
+        @if $align == stretch {
+            :global(.ace-u-flex--direction-row .ace-u-flex--#{$breakpoint-key}align-self-#{$align}),
+            :global(.ace-u-flex--direction-row-reverse .ace-u-flex--#{$breakpoint-key}align-self-#{$align}) {
+                height: unset !important;
+            }
+
+            :global(.ace-u-flex--direction-column .ace-u-flex--#{$breakpoint-key}align-self-#{$align}),
+            :global(.ace-u-flex--direction-column-reverse .ace-u-flex--#{$breakpoint-key}align-self-#{$align}) {
+                width: unset !important;
+            }
+        }
+    }
+
+    @each $align-content in (flex-start, flex-end, center, space-between, space-around, stretch) {
+        // Property: align-content
+        // .ace-u-flex--[breakpoint-]align-content-{*}
+        :global(.ace-u-flex--#{$breakpoint-key}align-content-#{$align-content}) {
+            align-content: $align-content;
+        }
+    }
+
+    @each $flexibility in (0, 1) {
+        // Property: flex-grow
+        // .ace-u-flex--[breakpoint-]grow-{*}
+        :global(.ace-u-flex--#{$breakpoint-key}grow-#{$flexibility}) {
+            flex-grow: $flexibility;
+        }
+
+        // Property: flex-shrink
+        // .ace-u-flex--[breakpoint-]shrink-{*}
+        :global(.ace-u-flex--#{$breakpoint-key}shrink-#{$flexibility}) {
+            flex-shrink: $flexibility;
+        }
+    }
+
+    @each $basis, $value in $flex-basis {
+        // Property: flex-basis
+        // .ace-u-flex--[breakpoint-]basis-{*}
+        :global(.ace-u-flex--#{$breakpoint-key}basis-#{$basis}) {
+            flex-basis: $value;
+        }
+    }
+}
+
+// Primary util class for flexbox
+:global {
+    .ace-u-flex {
+        display: flex;
+    }
+
+    .ace-u-inline-flex {
+        display: inline-flex;
+    }
+}
+
+// Generate non-responsive modifier util classes
+@include flex-util-modifier-classes();
+
+// Generate responsive modifier util classes
+@each $breakpoint in $grid-breakpoints {
+    $breakpoint-index: list.index($grid-breakpoints, $breakpoint);
+
+    @if $breakpoint-index > 1 {
+        $media-breakpoint: list.nth($grid-breakpoints, $breakpoint-index - 1);
+
+        @include media('>=#{$media-breakpoint}') {
+            @include flex-util-modifier-classes($breakpoint);
+        }
+    }
+}

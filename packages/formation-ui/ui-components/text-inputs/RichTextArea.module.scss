@@ -1,0 +1,103 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$rich-text-area-config: (
+    // typography
+    rich-text-area-typography: 'body',
+    rich-text-area-typography-hover: 'body',
+    rich-text-area-typography-active: 'body',
+    rich-text-area-typography-disabled: 'body',
+    rich-text-area-typography-focus: 'body',
+    rich-text-area-span-typography: 'caption',
+    rich-text-area-text: map-get($typography, text-color-default),
+    rich-text-area-text-disabled: map-get($typography, text-color-disabled),
+    rich-text-area-text-error: map-get($typography, text-color-warning),
+    rich-text-area-caret-color: map-get($base-colors, negative),
+    rich-text-area-placeholder-text: map-get($typography, text-color-medium-emphasis),
+    rich-text-area-placeholder-text-hover: map-get($typography, text-color-medium-emphasis),
+    rich-text-area-placeholder-text-active: map-get($typography, text-color-medium-emphasis),
+    rich-text-area-placeholder-text-focus: map-get($typography, text-color-medium-emphasis),
+    rich-text-area-placeholder-text-error: map-get($typography, text-color-medium-emphasis),
+    rich-text-area-placeholder-text-disabled: map-get($typography, text-color-disabled),
+    // dimensions
+    rich-text-area-height: 4 * 60px + map-get($dimensions, spacing-3xl),
+    rich-text-area-spacing-small: map-get($dimensions, spacing-s),
+    rich-text-area-spacing-medium: map-get($dimensions, spacing-m),
+    // borders
+    rich-text-area-border-color: map-get($base-colors, secondary-light-c),
+    rich-text-area-border-color-focus: map-get($base-colors, secondary),
+    rich-text-area-border-color-active: map-get($base-colors, secondary),
+    rich-text-area-border-color-disabled: map-get($base-colors, disabled-main),
+    rich-text-area-border-color-error: map-get($base-colors, negative),
+    rich-text-area-border-color-empty-mandatory: map-get($base-colors, secondary),
+    rich-text-area-border-radius: map-get($base-colors, radius-4),
+    // background
+    rich-text-area-background-color: map-get($base-colors, contrast),
+    rich-text-area-background-color-focus: map-get($base-colors, contrast),
+    rich-text-area-background-color-hover: map-get($base-colors, contrast),
+    rich-text-area-background-color-active: map-get($base-colors, contrast),
+    rich-text-area-background-color-error: map-get($base-colors, contrast),
+    rich-text-area-background-color-disabled: map-get($base-colors, disabled-light),
+);
+
+.ace-c-rich-text-area {
+    @include typography($typography-styles, map-get($rich-text-area-config, rich-text-area-typography));
+
+    display: inline;
+    border: 1px solid map-get($rich-text-area-config, rich-text-area-border-color);
+    height: auto;
+    caret-color: map-get($rich-text-area-config, rich-text-area-caret-color);
+    background: map-get($rich-text-area-config, rich-text-area-background-color);
+
+    &::-webkit-input-placeholder {
+        color: map-get($rich-text-area-config, rich-text-area-placeholder-text);
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &--is-disabled {
+        background: map-get($rich-text-area-config, rich-text-area-background-color-disabled);
+        border: 1px solid map-get($rich-text-area-config, rich-text-area-border-color-disabled);
+        color: map-get($rich-text-area-config, rich-text-area-text-disabled);
+    }
+
+    &--has-error {
+        border: 1px solid map-get($rich-text-area-config, rich-text-area-border-color-error);
+        color: map-get($rich-text-area-config, rich-text-area-text-error);
+    }
+}
+
+.ace-c-rich-text-area__editor {
+    height: map-get($rich-text-area-config, rich-text-area-height);
+    overflow-y: auto;
+    resize: both;
+
+    &--not-resizable {
+        resize: none;
+    }
+}
+
+.ace-c-rich-text-area__span {
+    @include typography($typography-styles, map-get($rich-text-area-config, rich-text-area-span-typography));
+
+    padding: map-get($rich-text-area-config, rich-text-area-spacing-small);
+    text-transform: lowercase;
+    display: inline-block;
+    cursor: default;
+
+    &::first-letter {
+        text-transform: capitalize;
+    }
+
+    &--is-active {
+        font-weight: bold;
+    }
+}
+
+.DraftEditor-editorContainer {
+    padding: map-get($rich-text-area-config, rich-text-area-spacing-small);
+    overflow-y: auto;
+}

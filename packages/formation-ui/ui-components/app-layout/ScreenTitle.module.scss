@@ -1,0 +1,28 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$screen-title-config: (
+    content-padding: map-get($spacing, spacing-l),
+    content-padding-large: map-get($spacing, spacing-xl),
+    screen-title-height: 56px,
+    screen-title-background: map-get($base-colors, secondary),
+    screen-title-typography: 'body-bold',
+    screen-title-text-color: map-get($typography, text-color-contrast),
+);
+
+.ace-c-screen-title {
+    @include typography($typography-styles, map-get($screen-title-config, screen-title-typography));
+
+    height: map-get($screen-title-config, screen-title-height);
+    padding: 0 map-get($screen-title-config, content-padding);
+    display: inline-flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    background-color: map-get($screen-title-config, screen-title-background);
+    color: map-get($screen-title-config, screen-title-text-color);
+
+    @include media('>=large') {
+        padding: 0 map-get($screen-title-config, content-padding-large);
+    }
+}

@@ -1,0 +1,38 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$linked-list-config: (
+    linked-list-scrollable-shadow-on-top: map-get($shadows, shadow-linked-list-shadow-top),
+    linked-list-scrollable-shadow-on-bottom: map-get($shadows, shadow-linked-list-shadow-bottom),
+);
+
+.ace-c-linked-list {
+    position: relative;
+    height: 100%;
+    max-height: 435px;
+    overflow-y: auto;
+
+    &--shadowed {
+        &::before {
+            content: '';
+            position: sticky;
+            display: block;
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: map-get($linked-list-config, linked-list-scrollable-shadow-on-top);
+        }
+
+        &::after {
+            content: '';
+            position: sticky;
+            position: -webkit-sticky;
+            display: block;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            box-shadow: map-get($linked-list-config, linked-list-scrollable-shadow-on-bottom);
+        }
+    }
+}

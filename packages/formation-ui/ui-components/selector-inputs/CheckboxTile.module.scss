@@ -1,0 +1,109 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+@import './Checkbox.module';
+
+$checkbox-tile-config: (
+    // borders
+    checkbox-tile-wrap-border: 2px solid map-get($base-colors, secondary-light-b),
+    checkbox-tile-wrap-border-hover: 2px solid map-get($base-colors, primary),
+    checkbox-tile-wrap-border-active: 2px solid map-get($base-colors, primary),
+    checkbox-tile-wrap-border-selected: 2px solid map-get($base-colors, primary),
+    checkbox-tile-wrap-border-selected-hover: 2px solid map-get($base-colors, primary),
+    checkbox-tile-wrap-border-selected-disabled: 2px solid map-get($base-colors, primary),
+    checkbox-tile-wrap-border-disabled: 2px solid map-get($base-colors, disabled-light),
+    checkbox-tile-checkbox-border: 2px solid map-get($base-colors, secondary-light-b),
+    checkbox-tile-checkbox-border-hover: 2px solid map-get($base-colors, primary),
+    checkbox-tile-checkbox-border-active: 2px solid map-get($base-colors, primary),
+    checkbox-tile-checkbox-border-selected: 2px solid map-get($base-colors, primary),
+    checkbox-tile-checkbox-border-selected-hover: 2px solid map-get($base-colors, primary),
+    checkbox-tile-checkbox-border-selected-disabled: 2px solid map-get($base-colors, primary),
+    checkbox-tile-checkbox-border-disabled: 2px solid map-get($base-colors, disabled-light),
+    // backgrounds
+    checkbox-tile-wrap-background: map-get($base-colors, white),
+    checkbox-tile-wrap-background-hover: map-get($base-colors, white),
+    checkbox-tile-wrap-background-active: map-get($base-colors, primary-light-b),
+    checkbox-tile-wrap-background-selected: map-get($base-colors, primary-light-b),
+    checkbox-tile-wrap-background-selected-hover: map-get($base-colors, primary-light-b),
+    checkbox-tile-wrap-background-selected-disabled: map-get($base-colors, primary-light-b),
+    checkbox-tile-wrap-background-disabled: map-get($base-colors, primary-light-b),
+    checkbox-tile-checkbox-background: map-get($base-colors, white),
+    checkbox-tile-checkbox-background-hover: map-get($base-colors, white),
+    checkbox-tile-checkbox-background-active: map-get($base-colors, primary-light-b),
+    checkbox-tile-checkbox-background-selected: map-get($base-colors, primary),
+    checkbox-tile-checkbox-background-selected-hover: map-get($base-colors, primary),
+    checkbox-tile-checkbox-background-selected-disabled: map-get($base-colors, primary),
+    checkbox-tile-checkbox-background-disabled: map-get($base-colors, primary),
+    // icon
+    checkbox-tile-icon: map-get($icon-colors, icon-default),
+    checkbox-tile-icon-hover: map-get($icon-colors, icon-highlight),
+    checkbox-tile-icon-active: map-get($icon-colors, icon-highlight),
+    checkbox-tile-icon-selected: map-get($icon-colors, icon-highlight),
+    checkbox-tile-icon-selected-hover: map-get($icon-colors, icon-highlight),
+    checkbox-tile-icon-selected-disabled: map-get($icon-colors, icon-highlight),
+    checkbox-tile-icon-disabled: map-get($icon-colors, icon-disabled),
+    checkbox-tile-checkbox-icon-selected: map-get($base-colors, white),
+    checkbox-tile-checkbox-icon-selected-hover: map-get($base-colors, white),
+    checkbox-tile-checkbox-icon-selected-disabled: map-get($base-colors, white),
+);
+
+@include state-styles.configure('ace-c-checkbox-tile', $checkbox-tile-config);
+
+.ace-c-checkbox-tile__box {
+    padding: 16px 8px;
+    position: relative;
+    display: inline-flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    min-height: 144px;
+    min-width: 144px;
+    max-width: 100%;
+    border: map-get($checkbox-tile-config, checkbox-tile-wrap-border);
+    background-color: map-get($checkbox-tile-config, checkbox-tile-wrap-background);
+    text-align: center;
+
+    @include state-styles.element() using($get-design-token) {
+        border: meta.call($get-design-token, checkbox-tile-wrap-border);
+        background-color: meta.call($get-design-token, checkbox-tile-wrap-background);
+
+        .ace-c-checkbox-tile__icon {
+            svg {
+                fill: meta.call($get-design-token, checkbox-tile-icon);
+            }
+        }
+
+        .ace-c-checkbox-tile__checkbox {
+            border: meta.call($get-design-token, checkbox-tile-checkbox-border);
+            background-color: meta.call($get-design-token, checkbox-tile-checkbox-background);
+        }
+    }
+
+    @include state-styles.element(
+        $for-states: (selected, selected-hover, selected-disabled),
+    ) using($get-design-token) {
+        .ace-c-checkbox-tile__checkbox {
+            background-color: meta.call($get-design-token, checkbox-tile-checkbox-background);
+            background-image: url('../assets/icons/checkmark.svg?fill=#{meta.call($get-design-token, checkbox-tile-checkbox-icon)}');
+        }
+    }
+}
+
+.ace-c-checkbox-tile__icon {
+    margin-bottom: 20px;
+}
+
+.ace-c-checkbox-tile__checkbox {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border: map-get($checkbox-tile-config, checkbox-tile-checkbox-border);
+    background-color: map-get($checkbox-tile-config, checkbox-tile-checkbox-background);
+    background-repeat: no-repeat;
+    background-position: center center;
+}

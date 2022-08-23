@@ -1,0 +1,76 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$button-ghost-config: (
+    button-ghost-text-typography: 'highlight',
+    button-ghost-text-color: map-get($typography, text-color-highlighted),
+    button-ghost-text-color-hover: map-get($typography, text-color-highlighted-medium),
+    button-ghost-text-color-active: map-get($typography, text-color-highlighted-medium),
+    button-ghost-text-color-focus: map-get($typography, text-color-highlighted-medium),
+    button-ghost-text-color-disabled: map-get($typography, text-color-disabled),
+    button-ghost-text-color-highlighted: map-get($typography, text-color-highlighted),
+    button-ghost-text-color-selected: map-get($typography, text-color-highlighted),
+    button-ghost-text-color-selected-disabled: map-get($typography, text-color-medium-emphasis),
+    button-ghost-text-color-selected-hover: map-get($typography, text-color-highlighted),
+    // cursors
+    button-ghost-cursor: pointer,
+    button-ghost-cursor-hover: pointer,
+    button-ghost-cursor-selected: pointer,
+    button-ghost-cursor-disabled: default,
+    button-ghost-cursor-selected-disabled: pointer,
+    button-ghost-cursor-active: pointer,
+    button-ghost-cursor-selected-hover: pointer,
+);
+
+@include state-styles.configure('ace-c-button-ghost', $button-ghost-config);
+
+.ace-c-button-ghost {
+    @include typography($typography-styles, map-get($button-ghost-config, button-ghost-text-typography));
+
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    text-align: center;
+    cursor: map-get($button-ghost-config, button-ghost-cursor);
+    text-transform: uppercase;
+    border: none;
+    background: transparent;
+    color: map-get($button-ghost-config, button-ghost-text-color);
+
+    &:focus {
+        color: map-get($button-ghost-config, button-ghost-text-color-focus);
+        outline: 0;
+    }
+
+    &--is-highlighted:not(#{&}--is-disabled) {
+        color: map-get($button-ghost-config, button-ghost-text-color-highlighted);
+    }
+
+    @include state-styles.block() using($get-design-token) {
+        color: meta.call($get-design-token, button-ghost-text-color);
+        cursor: meta.call($get-design-token, button-ghost-cursor);
+    }
+
+    &--no-chrome {
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    &--no-chrome,
+    &--no-chrome#{&}--is-disabled,
+    &--no-chrome#{&}:hover:not(#{&}--is-disabled) {
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        min-width: auto;
+    }
+}

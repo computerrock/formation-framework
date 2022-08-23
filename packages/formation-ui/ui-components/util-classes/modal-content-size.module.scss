@@ -1,0 +1,17 @@
+/**
+ * Modal size util classes
+ */
+@use 'sass:string';
+@use 'sass:map';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+// Note: size of the modal content is a modifier of the class
+@each $key, $value in $modal-sizes {
+    :global(.ace-u-modal-content-size-#{string.slice($key, 11)}) {
+        width: $value;
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,79 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+@import '../selector-inputs/Checkbox.module';
+
+$test-config: (
+    // dimensions
+    test-label-spacing: map-get($spacing, spacing-s),
+    // borders
+    test-track-border-radius: map-get($border-radius, radius-16),
+    test-track-border: 2px solid map-get($base-colors, secondary-light-b),
+    test-track-border-hover: 2px solid map-get($base-colors, secondary-light-b),
+    test-track-border-active: 2px solid map-get($base-colors, secondary-light-b),
+    test-track-border-selected: 2px solid map-get($base-colors, primary),
+    test-track-border-disabled: 2px solid map-get($base-colors, disabled-main),
+    test-track-border-selected-hover: 2px solid map-get($base-colors, primary),
+    test-track-border-selected-disabled: 2px solid map-get($base-colors, disabled-main),
+    test-toggle-shadow-active: map-get($shadows, control-active-m),
+    // backgrounds
+    test-track-background: map-get($base-colors, background-main),
+    test-track-background-hover: map-get($base-colors, background-main),
+    test-track-background-active: map-get($base-colors, background-main),
+    test-track-background-selected: map-get($base-colors, primary),
+    test-track-background-disabled: map-get($base-colors, background-main),
+    test-track-background-selected-hover: map-get($base-colors, primary),
+    test-track-background-selected-disabled: map-get($base-colors, disabled-main),
+    test-toggle-color: map-get($base-colors, secondary-light-b),
+    test-toggle-color-hover: map-get($base-colors, secondary-light-b),
+    test-toggle-color-active: map-get($base-colors, secondary-light-b),
+    test-toggle-color-selected: map-get($base-colors, white),
+    test-toggle-color-disabled: map-get($base-colors, disabled-main),
+    test-toggle-color-selected-hover: map-get($base-colors, white),
+    test-toggle-color-selected-disabled: map-get($base-colors, white),
+);
+
+@include state-styles.configure('ace-c-test', $test-config);
+
+.ace-c-test__track {
+    position: relative;
+    margin-right: map-get($test-config, test-label-spacing);
+    width: 56px;
+    height: 24px;
+    border-radius: map-get($test-config, test-track-border-radius);
+    border: map-get($test-config, test-track-border);
+    background-color: map-get($test-config, test-track-background);
+    padding: 0 2px;
+
+    @include state-styles.element() using($get-design-token) {
+        border: meta.call($get-design-token, test-track-border);
+        background-color: meta.call($get-design-token, test-track-background);
+    }
+}
+
+.ace-c-test__toggle {
+    position: absolute;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    margin: 2px;
+    background-color: map-get($test-config, test-toggle-color);
+    border-radius: 50%;
+    transition: 0.4s;
+
+    @include state-styles.element() using($get-design-token) {
+        background-color: meta.call($get-design-token, test-toggle-color);
+    }
+
+    .ace-c-test--is-selected & {
+        left: unset;
+        right: 0;
+    }
+
+    .ace-c-test:active:not(.ace-c-test--is-disabled) & {
+        box-shadow: map-get($test-config, test-toggle-shadow-active);
+    }
+}

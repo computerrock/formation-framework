@@ -1,0 +1,16 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$panel-header-config: (
+    panel-header-background: map-get($base-colors, background-b),
+    panel-header-padding: map-get($spacing, spacing-xl),
+);
+
+.ace-c-panel-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: map-get($panel-header-config, panel-header-padding) 0;
+    background: map-get($panel-header-config, panel-header-background);
+}
