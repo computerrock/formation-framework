@@ -1,0 +1,27 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$navigation-bar-config: (
+    content-min-width: map-get($breakpoints, xsmall),
+    content-max-width: map-get($breakpoints, large),
+    navigation-bar-height: 72px,
+    navigation-bar-background: map-get($base-colors, contrast),
+    navigation-bar-z-index: map-get($z-index, navigation) - 10,
+);
+
+.ace-c-navigation-bar {
+    height: map-get($navigation-bar-config, navigation-bar-height);
+    background-color: map-get($navigation-bar-config, navigation-bar-background);
+    z-index: map-get($navigation-bar-config, navigation-bar-z-index);
+}
+
+.ace-c-navigation-bar__content {
+    max-width: map-get($navigation-bar-config, content-max-width);
+    min-width: map-get($navigation-bar-config, content-min-width);
+    height: 100%;
+
+    @include media('>=large') {
+        margin: 0 auto;
+    }
+}

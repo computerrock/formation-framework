@@ -1,0 +1,113 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$table-config: (
+    // dimensions
+    table-cell-padding: map-get($dimensions, spacing-m),
+    // typography
+    table-caption-typography: 'caption',
+    table-header-typography: 'body-medium',
+    table-body-typography: 'body',
+    // border
+    table-border: 1px solid map-get($base-colors, divider),
+    table-border-head: 2px solid map-get($base-colors, divider),
+    // backgrounds
+    table-header-background: map-get($base-colors, background-b),
+    table-row-background-hover: map-get($base-colors, background-b),
+    table-row-background-highlihted: map-get($base-colors, secondary-light-d),
+    table-cell-background-highlighted: map-get($base-colors, background-b),
+    table-body-background: map-get($base-colors, background-main),
+);
+
+.ace-c-table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-indent: 0;
+
+    &--layout-auto {
+        table-layout: auto;
+        width: auto;
+    }
+}
+
+.ace-c-table__caption {
+    @include typography($typography-styles, map-get($table-config, table-caption-typography));
+
+    caption-side: bottom;
+
+    @each $text-align in (left, center, right, justify) {
+        &--text-align-#{$text-align} {
+            text-align: $text-align;
+        }
+    }
+
+    @each $caption-side in (top, bottom, block-start, block-end, inline-start, inline-end) {
+        &--side-#{$caption-side} {
+            caption-side: $caption-side;
+        }
+    }
+}
+
+.ace-c-table__head {
+    padding: 0;
+}
+
+.ace-c-table__body {
+    padding: 0;
+}
+
+.ace-c-table__row {
+    @include typography($typography-styles, map-get($table-config, table-body-typography));
+
+    border-bottom: map-get($table-config, table-border);
+    background-color: map-get($table-config, table-header-background);
+
+    &:last-child:not(.ace-c-table__row--head) {
+        border-bottom: 0;
+    }
+
+    &:first-child:not(.ace-c-table__row--body) {
+        border-top: map-get($table-config, table-border);
+    }
+
+    &--head {
+        @include typography($typography-styles, map-get($table-config, table-header-typography));
+
+        border-bottom: map-get($table-config, table-border-head);
+        background-color: map-get($table-config, table-header-background);
+    }
+
+    &--body {
+        border-bottom: map-get($table-config, table-border);
+        background-color: map-get($table-config, table-body-background);
+    }
+
+    &--has-on-click:hover {
+        background-color: map-get($table-config, table-row-background-hover);
+        cursor: pointer;
+    }
+
+    &--highlighted {
+        background-color: map-get($table-config, table-row-background-highlihted);
+    }
+}
+
+.ace-c-table__cell {
+    padding: map-get($table-config, table-cell-padding);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &--highlighted {
+        background-color: map-get($table-config, table-cell-background-highlighted);
+    }
+
+    @each $text-align in (left, center, right, justify) {
+        &--text-align-#{$text-align} {
+            text-align: $text-align;
+        }
+    }
+}

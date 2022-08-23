@@ -1,0 +1,19 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$button-panel-config: ();
+
+// todo find better solution for this and for panel items instead of passing class directly to a child
+.ace-c-button-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 360px;
+}
+
+.ace-c-button-panel--horizontal {
+    flex-direction: row;
+    width: auto;
+}

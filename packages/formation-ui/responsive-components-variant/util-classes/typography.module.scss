@@ -1,0 +1,46 @@
+/**
+ * Typography util classes
+ */
+@use 'sass:map';
+@use 'sass:string';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$typography-alignments: ('left', 'right', 'center', 'justify');
+
+:global {
+    .ace-u-typography {
+        @include typography($typography-styles, 'body');
+
+        @each $key, $value in $typography-styles {
+            &--variant-#{$key} {
+                text-decoration: none;
+
+                @include typography($typography-styles, #{$key});
+            }
+        }
+
+        @each $key, $value in $typography {
+            @if ($key == 'text-color') {
+                // stylelint-disable-next-line max-nesting-depth
+                &--color-default {
+                    color: $value;
+                }
+            }
+
+            @if (string.index($key, 'text-color-')) {
+                &--color-#{string.slice($key, 12)} {
+                    color: $value;
+                }
+            }
+        }
+
+        @each $alignment in $typography-alignments {
+            &--align-#{$alignment} {
+                text-align: #{$alignment};
+            }
+        }
+    }
+}

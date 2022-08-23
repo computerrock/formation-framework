@@ -1,0 +1,111 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$radio-button-config: (
+    // dimensions
+    radio-button-label-spacing: map-get($spacing, spacing-s),
+    // typography
+    radio-button-typography: 'body',
+    radio-button-typography-hover: 'body',
+    radio-button-typography-active: 'body',
+    radio-button-typography-selected: 'body',
+    radio-button-typography-disabled: 'body',
+    radio-button-typography-selected-hover: 'body',
+    radio-button-typography-selected-disabled: 'body',
+    radio-button-label-color: map-get($typography, text-color),
+    radio-button-label-color-hover: map-get($typography, text-color),
+    radio-button-label-color-active: map-get($typography, text-color),
+    radio-button-label-color-selected: map-get($typography, text-color),
+    radio-button-label-color-disabled: map-get($typography, text-color-disabled),
+    radio-button-label-color-selected-hover: map-get($typography, text-color),
+    radio-button-label-color-selected-disabled: map-get($typography, text-color-disabled),
+    radio-button-checkmark-selected: map-get($base-colors, primary),
+    radio-button-checkmark-selected-hover: map-get($base-colors, primary),
+    radio-button-checkmark-selected-disabled: map-get($base-colors, disabled-main),
+    // borders
+    radio-button-border-radius: map-get($border-radius, radius-24),
+    radio-button-border: 2px solid map-get($base-colors, secondary-light-b),
+    radio-button-border-hover: 2px solid map-get($base-colors, primary),
+    radio-button-border-active: 2px solid map-get($base-colors, primary),
+    radio-button-border-selected: 2px solid map-get($base-colors, primary),
+    radio-button-border-disabled: 2px solid map-get($base-colors, disabled-main),
+    radio-button-border-selected-hover: 2px solid map-get($base-colors, primary),
+    radio-button-border-selected-disabled: 2px solid map-get($base-colors, disabled-main),
+    radio-button-shadow-active: map-get($shadows, control-active),
+    // backgrounds
+    radio-button-background: map-get($base-colors, background-main),
+    radio-button-background-hover: map-get($base-colors, background-main),
+    radio-button-background-active: map-get($base-colors, background-main),
+    radio-button-background-selected: map-get($base-colors, background-main),
+    radio-button-background-disabled: map-get($base-colors, disabled-light),
+    radio-button-background-selected-hover: map-get($base-colors, background-main),
+    radio-button-background-selected-disabled: map-get($base-colors, disabled-light),
+);
+
+@include state-styles.configure('ace-c-radio-button', $radio-button-config);
+
+.ace-c-radio-button {
+    @include typography($typography-styles, map-get($radio-button-config, radio-button-typography));
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: map-get($radio-button-config, radio-button-label-color);
+    cursor: pointer;
+    user-select: none;
+
+    &--is-disabled {
+        cursor: default;
+    }
+
+    @include state-styles.block() using($get-design-token) {
+        @include typography($typography-styles, meta.call($get-design-token, radio-button-typography));
+
+        color: meta.call($get-design-token, radio-button-label-color);
+    }
+}
+
+.ace-c-radio-button__native-input {
+    opacity: 0;
+    position: absolute;
+    left: -999px;
+}
+
+.ace-c-radio-button__input {
+    position: relative;
+    margin-right: map-get($radio-button-config, radio-button-label-spacing);
+    min-width: 24px;
+    width: 24px;
+    height: 24px;
+    border-radius: map-get($radio-button-config, radio-button-border-radius);
+    border: map-get($radio-button-config, radio-button-border);
+    background-color: map-get($radio-button-config, radio-button-background);
+    background-repeat: no-repeat;
+    background-position: center center;
+    pointer-events: none;
+
+    .ace-c-radio-button--no-chrome & {
+        display: none;
+    }
+
+    @include state-styles.element() using($get-design-token) {
+        border: meta.call($get-design-token, radio-button-border);
+        background-color: meta.call($get-design-token, radio-button-background);
+    }
+
+    @include state-styles.element(
+        $for-states: (active),
+    ) using($get-design-token) {
+        box-shadow: meta.call($get-design-token, radio-button-shadow);
+    }
+
+    @include state-styles.element(
+        $for-states: (selected, selected-disabled, hover-selected),
+    ) using($get-design-token) {
+        background-image: url('../assets/icons/checkmark-dot.svg?fill=#{meta.call($get-design-token, radio-button-checkmark)}');
+    }
+}

@@ -1,0 +1,61 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$date-config: (
+    date-icon-color: map-get($icon-colors, icon-default),
+    date-icon-background-color: map-get($icon-colors, icon-default),
+    date-icon-background-color-disabled: map-get($icon-colors, icon-default),
+    date-icon-background-color-hover: map-get($icon-colors, icon-default),
+    date-icon-background-color-active: map-get($icon-colors, icon-highlight),
+    date-icon-background-color-error: map-get($icon-colors, icon-primary),
+    date-input-padding: map-get($dimensions, spacing-16),
+    date-field-margin: map-get($dimensions, spacing-8),
+);
+
+.ace-c-date-field {
+    position: relative;
+    padding: 0;
+    transition: width 0.5s ease;
+    background-color: inherit;
+    margin-bottom: map-get($date-config, date-field-margin);
+}
+
+.ace-c-date-field__input {
+    margin-bottom: 0;
+    padding: map-get($date-config, date-input-padding);
+    width: 100%;
+}
+
+.ace-c-date-field__icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    pointer-events: none;
+
+    svg {
+        fill: map-get($date-config, date-icon-color);
+    }
+
+    &--small & {
+        top: 8px;
+    }
+
+    &--is-focused {
+        svg {
+            fill: map-get($date-config, date-icon-background-color-active);
+        }
+    }
+
+    &--has-error {
+        svg {
+            fill: map-get($date-config, date-icon-background-color-error);
+        }
+    }
+
+    &:hover:not(#{&}--is-disabled):not(#{&--is-focused}) {
+        svg {
+            fill: map-get($date-config, date-icon-background-color-hover);
+        }
+    }
+}

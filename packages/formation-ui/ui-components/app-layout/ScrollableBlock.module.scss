@@ -1,0 +1,58 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$scrollable-block-config: (
+    // dimensions
+    scrollable-block-content-padding: map-get($dimensions, spacing-xl),
+    scrollable-block-info-panel-padding: map-get($dimensions, spacing-l),
+    // typography
+    scrollable-block-info-panel-typography: 'highlight',
+    // borders
+    scrollable-block-content-panel-shadow: map-get($dimensions, shadow-scrollable-block),
+    // backgrounds
+    scrollable-block-info-panel-background: map-get($base-colors, background-main),
+);
+
+.ace-c-scrollable-block {
+    height: 100%;
+    max-height: 100%;
+    position: relative;
+
+    &--is-content-scrolled {
+        box-shadow: map-get($scrollable-block-config, scrollable-block-content-panel-shadow);
+    }
+}
+
+.ace-c-scrollable-block__content-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: scroll;
+}
+
+.ace-c-scrollable-block__content {
+    position: relative;
+    padding:
+        0
+        map-get($scrollable-block-config, scrollable-block-content-padding)
+        map-get($scrollable-block-config, scrollable-block-content-padding);
+
+    .ace-c-scrollable-block--full-bleed & {
+        padding: 0;
+    }
+}
+
+.ace-c-scrollable-block__info-panel {
+    @include typography($typography-styles, map-get($scrollable-block-config, scrollable-block-info-panel-typography));
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: map-get($scrollable-block-config, scrollable-block-info-panel-padding);
+    background-color: map-get($scrollable-block-config, scrollable-block-info-panel-background);
+    text-align: center;
+}

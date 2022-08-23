@@ -1,0 +1,55 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$highlight-circle-config: (
+    highlight-circle-typography: 'h3',
+    highlight-circle-backgorund-default: map-get($base-colors, background-c),
+    highlight-circle-background-negative: map-get($base-colors, negative-light),
+    highlight-circle-background-success: map-get($base-colors, positive-light),
+    highlight-circle-background-primary: map-get($base-colors, primary-light-c),
+    highlight-circle-size-small: 40px,
+    highlight-circle-size-regular: 64px,
+    highlight-circle-size-large: 160px,
+    highlight-circle-size-medium: 112px,
+);
+
+$background-variants: (
+    negative,
+    success,
+    primary,
+);
+
+.ace-c-highlight-circle {
+    @include typography($typography-styles, map-get($highlight-circle-config, highlight-circle-typography));
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 50%;
+    background-color: map-get($highlight-circle-config, highlight-circle-backgorund-default);
+    height: map-get($highlight-circle-config, highlight-circle-size-regular);
+    width: map-get($highlight-circle-config, highlight-circle-size-regular);
+
+    &--large {
+        width: map-get($highlight-circle-config, highlight-circle-size-large);
+        height: map-get($highlight-circle-config, highlight-circle-size-large);
+    }
+
+    &--medium {
+        width: map-get($highlight-circle-config, highlight-circle-size-medium);
+        height: map-get($highlight-circle-config, highlight-circle-size-medium);
+    }
+
+    &--small {
+        width: map-get($highlight-circle-config, highlight-circle-size-small);
+        height: map-get($highlight-circle-config, highlight-circle-size-small);
+    }
+
+    @each $background-variant in $background-variants {
+        &--#{$background-variant} {
+            background-color: map-get($highlight-circle-config, highlight-circle-background-#{$background-variant});
+        }
+    }
+}

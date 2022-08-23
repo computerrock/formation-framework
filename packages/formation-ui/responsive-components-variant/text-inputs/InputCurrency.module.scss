@@ -1,0 +1,60 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$input-currency-config: (
+    input-currency-sign-color: map-get($typography, text-color),
+    input-currency-sign-color-selected:  map-get($typography, text-color),
+    input-currency-sign-color-active:  map-get($typography, text-color),
+    input-currency-sign-color-hover:  map-get($typography, text-color),
+    input-currency-sign-color-disabled:  map-get($typography, text-color-disabled),
+    input-currency-sign-color-selected-hover:  map-get($typography, text-color),
+    input-currency-sign-color-selected-disabled:  map-get($typography, text-color-disabled),
+    input-currency-sign-color-empty:  map-get($typography, text-color-medium-emphasis),
+    input-currency-sign-color-error: map-get($typography, text-color-warning),
+    input-currency-sign-padding: map-get($dimensions, spacing-16),
+    input-currency-sign-typography: 'body',
+);
+
+@include state-styles.configure('ace-c-input-currency', $input-currency-config);
+
+.ace-c-input-currency {
+    display: flex;
+    position: relative;
+
+    @include media('>=medium') {
+        &--not-full-width {
+            width: 225px;
+        }
+    }
+}
+
+.ace-c-input-currency__input {
+    flex-grow: 1;
+    padding-right: 100px;
+}
+
+.ace-c-input-currency__sign {
+    @include typography($typography-styles, map-get($input-currency-config, input-currency-sign-typography));
+
+    @include state-styles.block(
+        $for-states: (disabled),
+    ) using($get-design-token) {
+        color: meta.call($get-design-token, input-currency-sign-color);
+    }
+
+    position: absolute;
+    padding: map-get($input-currency-config, input-currency-sign-padding);
+    right: 0;
+
+    &--empty {
+        color: map-get($input-currency-config, input-currency-sign-color-empty);
+    }
+
+    &--has-error {
+        color: map-get($input-currency-config, input-currency-sign-color-error);
+    }
+}

@@ -1,0 +1,41 @@
+/**
+ * Flex util classes
+ */
+@use 'sass:list';
+@use 'sass:map';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$grid-breakpoints: map.keys($breakpoints);
+
+@mixin display-modifier-classes($breakpoint: '') {
+    $breakpoint-key: '';
+
+    @if $breakpoint != '' {
+        $breakpoint-key: #{$breakpoint}-;
+    }
+
+    @each $display in (block, none, inline-block, flex, grid, inline) {
+        // .ace-u-display--[breakpoint-]{display}
+        :global(.ace-u-display--#{$breakpoint-key}#{$display}) {
+            display: #{$display};
+        }
+    }
+}
+
+@include display-modifier-classes();
+
+// Generate responsive modifier util classes
+@each $breakpoint in $grid-breakpoints {
+    $breakpoint-index: list.index($grid-breakpoints, $breakpoint);
+
+    @if $breakpoint-index > 1 {
+        $media-breakpoint: list.nth($grid-breakpoints, $breakpoint-index - 1);
+
+        @include media('>=#{$media-breakpoint}') {
+            @include display-modifier-classes($breakpoint);
+        }
+    }
+}

@@ -1,0 +1,157 @@
+@import '../config';
+@import '../mixins';
+@import '../buttons/ButtonIcon.module';
+
+$search-box-config: (
+    search-box-typography: 'body',
+    search-box-search-icon-color: map-get($typography, icon-color),
+    search-box-border: 1px solid map-get($base-colors, secondary-light-c),
+    search-box-border-focus: 1px solid map-get($base-colors, primary),
+    search-box-disabled-border: 1px solid map-get($base-colors, secondary-light-c),
+    search-box-disabled-background-color: map-get($base-colors, disabled-light),
+    search-box-disabled-button-icon-background-color: map-get($base-colors, secondary-light-c),
+    search-box-shadow: map-get($dimensions, shadow-focus),
+    search-box-shadow-color: map-get($base-colors, primary-light-b),
+    search-box-button-icon-background-color: map-get($base-colors, primary),
+    search-box-button-icon-background-color-disabled: map-get($base-colors, contrast),
+    search-box-button-icon-background-color-hover: map-get($base-colors, primary-light-a),
+    search-box-input-padding: map-get($dimensions, spacing-2xl),
+    search-box-no-results-color: map-get($base-colors, secondary),
+    search-box-no-results-padding: map-get($dimensions, spacing-m),
+);
+
+.ace-c-search-box {
+    width: 280px;
+    position: relative;
+    padding: 0;
+    transition: width 0.5s ease;
+    background-color: inherit;
+    display: flex;
+    justify-content: flex-end;
+
+    &:focus-within {
+        width: 100%;
+    }
+}
+
+.ace-c-search-box__input {
+    margin-bottom: 0;
+    border-right: none;
+    width: calc(280px - 56px);
+    padding-right: map-get($search-box-config, search-box-input-padding);
+    flex-grow: 1;
+
+    &:focus {
+        border: map-get($search-box-config, search-box-border-focus);
+        border-right: none;
+        box-shadow: map-get($search-box-config, search-box-shadow);
+    }
+
+    .ace-c-search-box--is-disabled & {
+        background: map-get($search-box-config, search-box-disabled-background-color);
+        border: map-get($search-box-config, search-box-disabled-border);
+        border-right: none;
+        color: map-get($search-box-config, search-box-disabled-button-icon-background-color);
+    }
+}
+
+.ace-c-search-box__button-icon {
+    min-width: 56px;
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    background-color: map-get($search-box-config, search-box-button-icon-background-color-disabled);
+    border: map-get($search-box-config, search-box-border);
+    border-left: none;
+
+    &:hover:not(#{&}--is-disabled):not(:focus) {
+        background: map-get($search-box-config, search-box-button-icon-background-color-disabled);
+    }
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    svg {
+        fill: map-get($search-box-config, search-box-search-icon-color);
+    }
+
+    &--is-focused:not(&--is-disabled) {
+        border: map-get($search-box-config, search-box-border-focus);
+        border-left: none;
+        background-color: map-get($search-box-config, search-box-button-icon-background-color);
+
+        &:hover:not(#{&}--is-disabled):not(:focus) {
+            background: map-get($search-box-config, search-box-button-icon-background-color-hover);
+        }
+
+        svg {
+            fill: map-get($search-box-config, search-box-button-icon-background-color-disabled);
+        }
+    }
+
+    .ace-c-search-box--is-disabled & {
+        background: map-get($search-box-config, search-box-disabled-button-icon-background-color);
+        border: map-get($search-box-config, search-box-disabled-border);
+        border-left: none;
+
+        svg {
+            fill: map-get($search-box-config, search-box-button-icon-background-color-disabled);
+        }
+
+        &:hover:not(#{&}--is-disabled):not(:focus) {
+            background: map-get($search-box-config, search-box-disabled-button-icon-background-color);
+        }
+    }
+
+    .ace-c-search-box__input:focus ~ & {
+        box-shadow:
+            4px 4px 0 0 map-get($search-box-config, search-box-shadow-color),
+            4px -4px 0 0 map-get($search-box-config, search-box-shadow-color);
+    }
+
+    .ace-c-search-box__input:focus ~ &:not(&--is-disabled) {
+        border: map-get($search-box-config, search-box-border-focus);
+        border-left: none;
+        background-color: map-get($search-box-config, search-box-button-icon-background-color);
+
+        &:hover:not(#{&}--is-disabled):not(:focus) {
+            background: map-get($search-box-config, search-box-button-icon-background-color-hover);
+        }
+
+        svg {
+            fill: map-get($search-box-config, search-box-button-icon-background-color-disabled);
+        }
+    }
+}
+
+.ace-c-search-box__input:focus ~ .ace-c-search-box__button-icon--is-disabled {
+    background: map-get($search-box-config, search-box-disabled-button-icon-background-color);
+    border: map-get($search-box-config, search-box-disabled-border);
+    border-left: none;
+}
+
+.ace-c-search-box__close-icon {
+    position: absolute;
+    top: calc(50% - 12px);
+    right: 72px;
+    width: 24px;
+    height: 24px;
+    background: url('../assets/icons/close.svg?fill=#{map-get($search-box-config, search-box-search-icon-color)}') center center no-repeat;
+    border: none;
+    cursor: pointer;
+}
+
+.ace-c-search-box__drop-down {
+    min-width: 280px;
+    overflow-y: auto;
+
+    > div > div {
+        width: 100%;
+    }
+}
+
+.ace-c-search-box__no-results {
+    padding: 0 map-get($search-box-config, search-box-no-results-padding);
+    color: map-get($search-box-config, search-box-no-results-color);
+}

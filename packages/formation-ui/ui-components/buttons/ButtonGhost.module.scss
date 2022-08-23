@@ -1,0 +1,68 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$button-ghost-config: (
+    button-ghost-text-typography: 'highlight',
+    button-ghost-text-color: map-get($typography, text-color-medium-emphasis),
+    button-ghost-text-color-hover: map-get($typography, text-color-higlighted-hover),
+    button-ghost-text-color-active: map-get($typography, text-color-higlighted-active),
+    button-ghost-text-color-focus: map-get($typography, text-color-higlighted-active),
+    button-ghost-text-color-disabled: map-get($typography, text-color-disabled),
+    button-ghost-text-color-highlighted: map-get($typography, text-color-highlighted),
+);
+
+.ace-c-button-ghost {
+    @include typography($typography-styles, map-get($button-ghost-config, button-ghost-text-typography));
+
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    border: none;
+    background: transparent;
+    color: map-get($button-ghost-config, button-ghost-text-color);
+
+    &:focus {
+        color: map-get($button-ghost-config, button-ghost-text-color-focus);
+        outline: 0;
+    }
+
+    &--is-disabled {
+        color: map-get($button-ghost-config, button-ghost-text-color-disabled);
+        cursor: default;
+    }
+
+    &--is-highlighted:not(#{&}--is-disabled) {
+        color: map-get($button-ghost-config, button-ghost-text-color-highlighted);
+    }
+
+    &:hover:not(#{&}--is-disabled):not(:focus) {
+        color: map-get($button-ghost-config, button-ghost-text-color-hover);
+    }
+
+    &:active:not(#{&}--is-disabled) {
+        color: map-get($button-ghost-config, button-ghost-text-color-active);
+    }
+
+    &--no-chrome {
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    &--no-chrome,
+    &--no-chrome#{&}--is-disabled,
+    &--no-chrome#{&}:hover:not(#{&}--is-disabled) {
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        min-width: auto;
+    }
+}

@@ -1,0 +1,39 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$file-preview-item-config: (
+    file-preview-item-padding:  map-get($dimensions, spacing-16),
+    file-preview-item-margin:  map-get($dimensions, spacing-8),
+    file-preview-item-background:  map-get($base-colors, background-b),
+    file-preview-item-icon-margin: map-get($dimensions, spacing-16),
+    file-preview-item-title-margin: map-get($dimensions, spacing-16),
+    file-preview-item-title-text-color: map-get($typography, text-color-highlighted),
+);
+
+.ace-c-file-preview-item {
+    display: flex;
+    padding: map-get($file-preview-item-config, file-preview-item-padding);
+    width: 100%;
+    background: map-get($file-preview-item-config, file-preview-item-background);
+    align-items: center;
+    margin-bottom: map-get($file-preview-item-config, file-preview-item-margin);
+
+    &__icon {
+        margin-right: map-get($file-preview-item-config, file-preview-item-icon-margin);
+    }
+
+    &__title {
+        margin-right: map-get($file-preview-item-config, file-preview-item-title-margin);
+        color: map-get($file-preview-item-config, file-preview-item-title-text-color);
+
+        @include media('<=small') {
+            width: 80%;
+            word-break: break-all;
+        }
+    }
+
+    &__remove {
+        margin-left: auto;
+    }
+}

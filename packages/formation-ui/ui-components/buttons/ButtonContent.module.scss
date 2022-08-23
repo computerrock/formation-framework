@@ -1,0 +1,76 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$button-content-config: (
+    button-content-text-typography: 'highlight',
+    button-content-text-color: map-get($typography, text-color),
+    button-content-text-color-hover: map-get($typography, text-color),
+    button-content-text-color-active: map-get($typography, text-color),
+    button-content-text-color-focus: map-get($typography, text-color),
+    button-content-text-color-disabled: map-get($typography, text-color-disabled),
+    button-content-icon-color: map-get($base-colors, primary-dark-a),
+    button-content-icon-color-hover: map-get($base-colors, primary-dark-a),
+    button-content-icon-color-active: map-get($base-colors, primary-dark-b),
+    button-content-icon-color-focus: map-get($base-colors, primary-dark-b),
+    button-content-icon-color-disabled: map-get($base-colors, disabled-main),
+);
+
+.ace-c-button-content {
+    @include typography($typography-styles, map-get($button-content-config, button-content-text-typography));
+
+    height: 56px;
+    min-width: 100px;
+    padding: 0 map-get($spacing, spacing-l);
+    margin: 0 -24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: map-get($button-content-config, button-content-text-color);
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+        fill: map-get($button-content-config, button-content-icon-color);
+
+        &--left {
+            margin-right: 12px;
+        }
+
+        &--right {
+            margin-left: 12px;
+        }
+    }
+
+    &--is-disabled {
+        color: map-get($button-content-config, button-content-text-color-disabled);
+
+        .ace-c-button-content__icon {
+            fill: map-get($button-content-config, button-content-icon-color-disabled);
+        }
+    }
+
+    &--is-focused {
+        color: map-get($button-content-config, button-content-text-color-focus);
+
+        .ace-c-button-content__icon {
+            fill: map-get($button-content-config, button-content-icon-color-focus);
+        }
+    }
+
+    &:hover:not(#{&}--is-disabled):not(#{&}--is-focused) {
+        color: map-get($button-content-config, button-content-text-color-hover);
+
+        .ace-c-button-content__icon {
+            fill: map-get($button-content-config, button-content-icon-color-hover);
+        }
+    }
+
+    &:active:not(#{&}--is-disabled):not(#{&}--is-focused) {
+        color: map-get($button-content-config, button-content-text-color-active);
+
+        .ace-c-button-content__icon {
+            fill: map-get($button-content-config, button-content-icon-color-active);
+        }
+    }
+}

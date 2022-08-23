@@ -1,0 +1,42 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$error-block-config: (
+    error-block-boder: 1px solid map-get($base-colors, warning),
+    error-block-label-typography: 'body',
+    error-block-label-color: map-get($base-colors, warning),
+);
+
+.ace-c-error-block {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    border-radius: 5px;
+    border: map-get($error-block-config, error-block-boder);
+    padding: 10px 6px;
+    margin: 0 -6px;
+
+    @include media('>=large') {
+        padding: 0;
+        margin: 4px 0 0 -1px;
+    }
+}
+
+.ace-c-error-block__label {
+    @include typography($typography-styles, map-get($error-block-config, error-block-label-typography));
+
+    color: map-get($error-block-config, error-block-label-color);
+    text-align: center;
+    width: 100%;
+}
+
+.ace-c-error-block__content {
+    width: auto;
+
+    @include media('>=large') {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+    }
+}

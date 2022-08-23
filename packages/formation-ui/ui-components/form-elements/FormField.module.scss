@@ -1,0 +1,56 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$form-field-config: (
+    form-field-label-typography: 'caption',
+    form-field-label-text-color: map-get($base-colors, secondary),
+    form-field-label-height: map-get($dimensions, spacing-m),
+    form-field-text-disabled-color: map-get($base-colors, disabled-dark),
+    form-field-text-error-color: map-get($base-colors, negative),
+    form-field-margin: map-get($dimensions, spacing-s),
+);
+
+.ace-c-form-field {
+    display: inline-flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+}
+
+.ace-c-form-field__input-label {
+    @include typography($typography-styles, map-get($form-field-config, form-field-label-typography));
+
+    display: block;
+    height: map-get($form-field-config, form-field-label-height);
+    margin-bottom: map-get($form-field-config, form-field-margin);
+    color: map-get($form-field-config, text-color-default);
+
+    .ace-c-form-field--is-disabled & {
+        color: map-get($form-field-config, form-field-text-disabled-color);
+    }
+
+    .ace-c-form-field--has-error & {
+        color: map-get($form-field-config, form-field-text-error-color);
+    }
+}
+
+.ace-c-form-field__error-message {
+    @include typography($typography-styles, map-get($form-field-config, form-field-label-typography));
+
+    color: map-get($form-field-config, form-field-text-error-color);
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.ace-c-form-field__warning-sign {
+    width: 14px;
+    height: 14px;
+    display: inline-flex;
+    margin-right: map-get($form-field-config, form-field-margin);
+    background-image: url('../assets/icons/warning-sign.svg?fill=#{map-get($form-field-config, form-field-text-error-color)}');
+
+    &--disabled {
+        display: none;
+    }
+}

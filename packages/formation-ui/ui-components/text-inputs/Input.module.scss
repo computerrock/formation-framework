@@ -1,0 +1,72 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$input-config: (
+    input-border-color: map-get($base-colors, secondary-light-c),
+    input-border-color-focus: map-get($base-colors, secondary),
+    input-border-color-active: map-get($base-colors, secondary),
+    input-border-color-disabled: map-get($base-colors, disabled-main),
+    input-border-color-error: map-get($base-colors, negative),
+    input-border-color-empty-mandatory:  map-get($base-colors, secondary),
+    input-border-radius: map-get($border-radius, radius-4),
+    input-background-color: map-get($base-colors, contrast),
+    input-background-color-disabled: map-get($base-colors, disabled-light),
+    input-text: map-get($typography, text-color-default),
+    input-text-disabled: map-get($typography, text-color-disabled),
+    input-text-error: map-get($typography, text-color-warning),
+    input-text-typography: 'body',
+    input-caret-color: map-get($base-colors, negative),
+    input-placeholder-text: map-get($typography, text-color-medium-emphasis),
+    input-placeholder-text-disabled: map-get($typography, text-color-disabled),
+    input-dropdown-icon-color: map-get($base-colors, secondary-light-b),
+    input-dropdown-icon-color-active: map-get($base-colors, negative),
+);
+
+.ace-c-input {
+    @include typography($typography-styles, map-get($input-config, input-text-typography));
+
+    display: inline;
+    height: 56px;
+    padding: 0 map-get($spacing, spacing-m);
+    border: 1px solid map-get($input-config, input-border-color);
+    caret-color: map-get($input-config, input-caret-color);
+    background: map-get($input-config, input-background-color);
+
+    &--small {
+        height: 40px;
+    }
+
+    &::-webkit-input-placeholder {
+        color: map-get($input-config, input-placeholder-text);
+    }
+
+    /* remove number input spinners Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &--is-disabled {
+        background: map-get($input-config, input-background-color-disabled);
+        border: 1px solid map-get($input-config, input-border-color-disabled);
+        color: map-get($input-config, input-text-disabled);
+    }
+
+    &--has-error {
+        border: 1px solid map-get($input-config, input-border-color-error);
+        color: map-get($input-config, input-text-error);
+    }
+
+    &--is-required:not(#{&}--is-disabled) {
+        border: 1px solid map-get($input-config, input-border-color-empty-mandatory);
+    }
+
+    /* remove number input spinners Firefox */
+    -moz-appearance: textfield;
+}

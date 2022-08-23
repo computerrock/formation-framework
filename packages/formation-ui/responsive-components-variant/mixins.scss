@@ -1,0 +1,57 @@
+@use 'sass:map';
+@use 'sass:list';
+
+@import './config';
+
+$grid-breakpoints: map.keys($breakpoints);
+
+// Micro clearfix: http://www.cssmojo.com/the-very-latest-clearfix-reloaded/
+@mixin clearfix() {
+    &::after {
+        content: '' !important;
+        display: block !important;
+        clear: both !important;
+    }
+}
+
+// Applies accessible hiding to elements
+@mixin hidden-visually() {
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    white-space: nowrap !important;
+    width: 1px !important;
+}
+
+@mixin typography($typography-styles, $style) {
+    $typography-style: map-get($typography-styles, $style);
+
+    @each $property-key, $property-value in $typography-style {
+        @if not list.index($grid-breakpoints, $property-key) {
+            #{$property-key}: $property-value;
+        } @else {
+            @each $property-sub-key, $property-sub-value in $property-value {
+                @include media('>=#{$property-key}') {
+                    #{$property-sub-key}: $property-sub-value;
+                }
+            }
+        }
+    }
+}
+
+@mixin get-values-for-changing-properties($changing-properties, $config, $state) {
+    @if $state {
+        @each $property-key, $property-value in $changing-properties {
+            #{$property-key}: map-get($config, #{$property-value}#{$state});
+        }
+    } @else {
+        @each $property-key, $property-value in $changing-properties {
+            #{$property-key}: map-get($config, #{$property-value});
+        }
+    }
+}

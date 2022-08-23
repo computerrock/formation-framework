@@ -1,0 +1,20 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+@import './ButtonPrimary.module';
+
+$button-icon-config: (
+    button-icon-color: map-get($base-colors, contrast),
+);
+
+.ace-c-button-icon {
+    padding: 0 16px;
+    min-width: 0;
+    fill: map-get($button-icon-config, button-icon-color);
+}
+
+.ace-c-button-icon__icon {
+    // TODO proper design system based sizing
+    width: 24px;
+    height: 24px;
+}

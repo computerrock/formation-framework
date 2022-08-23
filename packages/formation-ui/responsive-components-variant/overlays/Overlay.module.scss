@@ -1,0 +1,18 @@
+@import '../config';
+
+.ace-c-overlay {
+    position: absolute;
+
+    &--modal {
+        position: fixed;
+        z-index: map-get($z-index, modal);
+    }
+
+    &--drop-down {
+        z-index: map-get($z-index, drop-down);
+    }
+
+    &--tooltip {
+        z-index: map-get($z-index, tooltip);
+    }
+}

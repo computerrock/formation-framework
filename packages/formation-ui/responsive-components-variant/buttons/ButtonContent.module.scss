@@ -1,0 +1,71 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$button-content-config: (
+    button-content-text-typography: 'highlight',
+    button-content-text-color: map-get($typography, text-color-primary),
+    button-content-text-color-hover: map-get($typography, text-color-primary),
+    button-content-text-color-active: map-get($typography, text-color-primary),
+    button-content-text-color-focus: map-get($typography, text-color-primary),
+    button-content-text-color-disabled: map-get($typography, text-color-disabled),
+    button-content-text-color-selected: map-get($typography, text-color-primary),
+    button-content-text-color-selected-disabled: map-get($typography, text-color-primary),
+    button-content-text-color-selected-hover: map-get($typography, text-color-primary),
+    button-content-icon-color: map-get($base-colors, primary),
+    button-content-icon-color-hover: map-get($base-colors, primary),
+    button-content-icon-color-active: map-get($base-colors, primary),
+    button-content-icon-color-focus: map-get($base-colors, primary),
+    button-content-icon-color-disabled: map-get($base-colors, disabled-dark),
+    button-content-icon-color-selected: map-get($base-colors, primary),
+    button-content-icon-color-selected-disabled: map-get($base-colors, primary),
+    button-content-icon-color-selected-hover: map-get($base-colors, primary),
+);
+
+@include state-styles.configure('ace-c-button-content', $button-content-config);
+
+.ace-c-button-content {
+    @include typography($typography-styles, map-get($button-content-config, button-content-text-typography));
+
+    height: 56px;
+    min-width: 100px;
+    padding: map-get($spacing, 16) map-get($spacing, 32);
+    margin: 0 -24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: map-get($button-content-config, button-content-text-color);
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+        fill: map-get($button-content-config, button-content-icon-color);
+
+        &--left {
+            margin-right: map-get($spacing, 8);
+        }
+
+        &--right {
+            margin-left: map-get($spacing, 8);
+        }
+    }
+
+    &--is-focused {
+        color: map-get($button-content-config, button-content-text-color-focus);
+
+        .ace-c-button-content__icon {
+            fill: map-get($button-content-config, button-content-icon-color-focus);
+        }
+    }
+
+    @include state-styles.block() using($get-design-token) {
+        color: meta.call($get-design-token, button-content-text-color);
+
+        .ace-c-button-ghost-content__icon {
+            fill: meta.call($get-design-token, button-content-icon-color);
+        }
+    }
+}

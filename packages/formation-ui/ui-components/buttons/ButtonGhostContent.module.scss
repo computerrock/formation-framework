@@ -1,0 +1,84 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$button-ghost-content-config: (
+    button-ghost-content-text-typography: 'highlight',
+    button-ghost-content-text-color: map-get($typography, text-color-medium-emphasis),
+    button-ghost-content-text-color-hover: map-get($typography, text-color-higlighted-hover),
+    button-ghost-content-text-color-active: map-get($typography, text-color-higlighted-active),
+    button-ghost-content-text-color-focus: map-get($typography, text-color-higlighted-active),
+    button-ghost-content-text-color-disabled: map-get($typography, text-color-disabled),
+    button-ghost-content-text-color-highlighted: map-get($typography, text-color-highlighted),
+    button-ghost-content-icon-color: map-get($base-colors, secondary-light-b),
+    button-ghost-content-icon-color-hover: map-get($base-colors, primary-light-a),
+    button-ghost-content-icon-color-active: map-get($base-colors, primary-dark-b),
+    button-ghost-content-icon-color-focus: map-get($base-colors, primary-dark-b),
+    button-ghost-content-icon-color-disabled: map-get($base-colors, disabled-dark),
+    button-ghost-content-icon-color-higlighted: map-get($base-colors, primary-dark-a),
+);
+
+.ace-c-button-ghost-content {
+    // stylelint-disable-next-line
+    @include typography($typography-styles, map-get($button-ghost-content-config, button-ghost-content-text-typography));
+
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+        fill: map-get($button-ghost-content-config, button-ghost-content-icon-color);
+        color: map-get($button-ghost-content-config, button-ghost-content-text-color);
+
+        &--left {
+            margin-right: 12px;
+        }
+
+        &--right {
+            margin-left: 12px;
+        }
+    }
+
+    &--is-focused {
+        color: map-get($button-ghost-content-config, button-ghost-content-text-color-focus);
+
+        .ace-c-button-ghost-content__icon {
+            fill: map-get($button-ghost-content-config, button-ghost-content-icon-color-focus);
+        }
+    }
+
+    &--is-disabled {
+        color: map-get($button-ghost-content-config, button-ghost-content-text-color-disabled);
+
+        .ace-c-button-ghost-content__icon {
+            fill: map-get($button-ghost-content-config, button-ghost-content-icon-color-disabled);
+        }
+    }
+
+    &--is-highlighted:not(#{&}--is-disabled) {
+        color: map-get($button-ghost-content-config, button-ghost-content-text-color-highlighted);
+
+        .ace-c-button-ghost-content__icon {
+            fill: map-get($button-ghost-content-config, button-ghost-content-icon-color-higlighted);
+        }
+    }
+
+    &:hover:not(#{&}--is-disabled):not(#{&}--is-focused) {
+        color: map-get($button-ghost-content-config, button-ghost-content-text-color-hover);
+
+        .ace-c-button-ghost-content__icon {
+            fill: map-get($button-ghost-content-config, button-ghost-content-icon-color-hover);
+        }
+    }
+
+    &:active:not(#{&}--is-disabled):not(#{&}--is-focused) {
+        color: map-get($button-ghost-content-config, button-ghost-content-text-color-active);
+
+        .ace-c-button-ghost-content__icon {
+            fill: map-get($button-ghost-content-config, button-ghost-content-icon-color-active);
+        }
+    }
+}

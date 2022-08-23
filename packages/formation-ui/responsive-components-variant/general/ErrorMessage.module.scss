@@ -1,0 +1,15 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$error-message-config: (
+    error-message-typography: 'caption-italic',
+    error-message-text-color: map-get($typography, text-color-primary),
+);
+
+.ace-c-error-message {
+    @include typography($typography-styles, map-get($error-message-config, error-message-typography));
+
+    color: map-get($error-message-config, error-message-text-color);
+    text-align: center;
+}

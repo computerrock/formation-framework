@@ -1,0 +1,19 @@
+@import '../config';
+
+$avatar-config: (
+    avatar-color-aditional-a: map-get($base-colors, aditional-a),
+    avatar-color-aditional-b: map-get($base-colors, aditional-b),
+    avatar-color-aditional-c: map-get($base-colors, aditional-c),
+    avatar-color-aditional-d: map-get($base-colors, aditional-d),
+    avatar-color-aditional-e: map-get($base-colors, aditional-e),
+    avatar-color-primary: map-get($base-colors, primary),
+    avatar-color-primary-light-a: map-get($base-colors, primary-light-a),
+);
+
+// Multiple export blocks can be used
+// Only one object will be exported, with all properties
+:export {
+    @each $key, $value in $avatar-config {
+        #{unquote($key)}: $value;
+    }
+}

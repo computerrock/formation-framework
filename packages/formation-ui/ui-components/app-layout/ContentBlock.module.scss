@@ -1,0 +1,20 @@
+@use './content-layout-config' as *;
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+.ace-c-content-block {
+    display: flex;
+    margin:
+        map-get($content-layout-config, content-block-margin)
+        map-get($content-layout-config, content-column-margin) * -1;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

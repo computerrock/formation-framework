@@ -1,0 +1,49 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$badge-config: (
+    badge-typography: 'caption-bold',
+    badge-text-color: map-get($typography, text-color-contrast),
+    badge-padding: map-get($spacing, spacing-xs) map-get($spacing, spacing-s),
+    badge-border-radius: map-get($border-radius, radius-8),
+    badge-background: map-get($base-colors, disabled-main),
+    badge-background-notification: map-get($base-colors, warning),
+    badge-background-silver: map-get($base-colors, secondary-light-c),
+    badge-background-gold: map-get($base-colors, primary-dark-a),
+    badge-background-platinum: map-get($base-colors, secondary-light-b),
+    badge-background-positive: map-get($base-colors, positive),
+);
+
+.ace-c-badge {
+    @include typography($typography-styles, map-get($badge-config, badge-typography));
+
+    color: map-get($badge-config, badge-text-color);
+    padding: map-get($badge-config, badge-padding);
+    border-radius: map-get($badge-config, badge-border-radius);
+    background: map-get($badge-config, badge-background);
+
+    &--status-default {
+        background: map-get($badge-config, badge-background);
+    }
+
+    &--status-notification {
+        background: map-get($badge-config, badge-background-notification);
+    }
+
+    &--status-silver {
+        background: map-get($badge-config, badge-background-silver);
+    }
+
+    &--status-gold {
+        background: map-get($badge-config, badge-background-gold);
+    }
+
+    &--status-platinum {
+        background: map-get($badge-config, badge-background-platinum);
+    }
+
+    &--status-positive {
+        background: map-get($badge-config, badge-background-positive);
+    }
+}

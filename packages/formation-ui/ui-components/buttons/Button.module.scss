@@ -1,0 +1,94 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$button-config: (
+    button-text-typography: 'highlight',
+    button-border-radius: map-get($border-radius, radius-40),
+    button-background: map-get($base-colors, background-main),
+    button-background-hover: map-get($base-colors, primary-light-c),
+    button-background-active: map-get($base-colors, primary-light-b),
+    button-background-focus: map-get($base-colors, primary-light-b),
+    button-background-disabled: map-get($base-colors, disabled-light),
+    button-text-color: map-get($typography, text-color),
+    button-text-color-hover: map-get($typography, text-color),
+    button-text-color-active: map-get($typography, text-color),
+    button-text-color-focus: map-get($typography, text-color),
+    button-text-color-disabled: map-get($base-colors, disabled-main),
+    button-border: 2px solid map-get($base-colors, primary),
+    button-border-hover: 2px solid map-get($base-colors, primary),
+    button-border-active: 2px solid map-get($base-colors, primary),
+    button-border-focus: 2px solid map-get($base-colors, primary),
+    button-border-disabled: 2px solid map-get($base-colors, disabled-main),
+    button-shadow: 'none',
+    button-shadow-hover: 'none',
+    button-shadow-active: 'none',
+    button-shadow-focus: map-get($shadows, shadow-4),
+    button-shadow-disabled: 'none',
+);
+
+.ace-c-button {
+    @include typography($typography-styles, map-get($button-config, button-text-typography));
+
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    padding: 0 map-get($spacing, spacing-l);
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    min-width: 100px;
+    border: map-get($button-config, button-border);
+    background: map-get($button-config, button-background);
+    color: map-get($button-config, button-text-color);
+    box-shadow: map-get($button-config, button-shadow);
+
+    &:focus {
+        color: map-get($button-config, button-text-color-focus);
+        background: map-get($button-config, button-background-focus);
+        border: map-get($button-config, button-border-focus);
+        box-shadow: map-get($button-config, button-shadow-focus);
+        outline: 0;
+    }
+
+    &--is-disabled {
+        color: map-get($button-config, button-text-color-disabled);
+        background: map-get($button-config, button-background-disabled);
+        border: map-get($button-config, button-border-disabled);
+        box-shadow: map-get($button-config, button-shadow-disabled);
+        cursor: default;
+    }
+
+    &:hover:not(#{&}--is-disabled):not(:focus) {
+        color: map-get($button-config, button-text-color-hover);
+        background: map-get($button-config, button-background-hover);
+        border: map-get($button-config, button-border-hover);
+        box-shadow: map-get($button-config, button-shadow-hover);
+    }
+
+    &:active:not(#{&}--is-disabled) {
+        color: map-get($button-config, button-text-color-active);
+        background: map-get($button-config, button-background-active);
+        border: map-get($button-config, button-border-active);
+        box-shadow: map-get($button-config, button-shadow-active);
+    }
+
+    &--no-chrome {
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    &--no-chrome,
+    &--no-chrome#{&}--is-disabled,
+    &--no-chrome#{&}:hover:not(#{&}--is-disabled) {
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        min-width: auto;
+    }
+}

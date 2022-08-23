@@ -1,0 +1,75 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$input-with-button-config: (
+    box-shadow-error: map-get($base-colors, aditional-d),
+    button-color-error: map-get($base-colors, warning),
+    button-color-hover-error: map-get($color-palette, ace-red-400),
+    input-shadow-color: map-get($shadows, shadow-4),
+    button-color-active: map-get($color-palette, ace-red-600),
+    button-icon-color: map-get($base-colors, contrast),
+    button-primary-background: map-get($base-colors, primary),
+);
+
+.ace-c-input-with-button {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+
+    p {
+        margin-top: map-get($spacing, spacing-s);
+    }
+
+    margin-bottom: map-get($spacing, spacing-s);
+}
+
+.ace-c-input-with-button__content {
+    display: flex;
+    flex-direction: row;
+
+    &--focused {
+        box-shadow: map-get($input-with-button-config, input-shadow-color);
+    }
+}
+
+.ace-c-input-with-button__input {
+    width: calc(280px - 56px);
+    margin-bottom: 0;
+}
+
+.ace-c-input-with-button__button {
+    min-width: 56px;
+    width: 56px;
+    padding: 0;
+
+    &:focus {
+        background: map-get($input-with-button-config, button-primary-background);
+        box-shadow: unset;
+        outline: unset;
+    }
+}
+
+.ace-c-input-with-button__content--error {
+    box-shadow: 0 0 0 4px map-get($input-with-button-config, box-shadow-error);
+
+    .ace-c-input-with-button__button {
+        background: map-get($input-with-button-config, button-color-error);
+
+        &:focus {
+            background-color: map-get($input-with-button-config, button-color-hover-error);
+        }
+
+        &:active:not(.ace-c-button-primary--is-disabled) {
+            background: map-get($input-with-button-config, button-color-active);
+        }
+
+        &:hover:not(.ace-c-button-primary--is-disabled):not(:active) {
+            background: map-get($input-with-button-config, button-color-hover-error);
+        }
+    }
+
+    &:focus-within {
+        box-shadow: 0 0 0 4px map-get($input-with-button-config, box-shadow-error);
+    }
+}

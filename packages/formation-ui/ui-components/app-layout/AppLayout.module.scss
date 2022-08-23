@@ -1,0 +1,87 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$app-layout-config: (
+    content-min-width: map-get($breakpoints, small),
+    content-max-width: map-get($breakpoints, x-large),
+    content-padding: map-get($spacing, spacing-xl),
+    background: map-get($base-colors, background-c),
+    header-bar-background: map-get($base-colors, background-c),
+    header-bar-border: 1px solid map-get($base-colors, divider),
+    header-bar-z-index: map-get($z-index, navigation),
+    navigation-bar-height: 72px,
+    navigation-bar-background: map-get($base-colors, contrast),
+    navigation-bar-shadow: map-get($shadows, card),
+    navigation-bar-z-index: map-get($z-index, navigation) - 10,
+    footer-bar-height: 48px,
+);
+
+.ace-c-app-layout {
+    position: relative;
+    padding: 0;
+    display: grid;
+    grid-template:
+        'bar-1' auto
+        'bar-2' auto
+        'bar-3' auto
+        'bar-4' auto
+        'bar-5' auto
+        'main' 1fr
+        'footer' auto;
+    grid-template-columns: 100%;
+    min-height: 100%;
+    background-color: map-get($app-layout-config, background);
+}
+
+.ace-c-app-layout__main {
+    grid-area: main;
+}
+
+.ace-c-app-layout__main-content {
+    max-width: map-get($app-layout-config, content-max-width);
+    min-width: map-get($app-layout-config, content-min-width);
+    height: 100%;
+    position: relative;
+    margin: 0 auto;
+    padding: map-get($app-layout-config, content-padding);
+}
+
+// placeholder element for postcss grid-area validator
+.ace-c-app-layout__bar-1 {
+    grid-area: bar-1;
+}
+
+// placeholder element for postcss grid-area validator
+.ace-c-app-layout__bar-2 {
+    grid-area: bar-2;
+}
+
+// placeholder element for postcss grid-area validator
+.ace-c-app-layout__bar-3 {
+    grid-area: bar-3;
+}
+
+// placeholder element for postcss grid-area validator
+.ace-c-app-layout__bar-4 {
+    grid-area: bar-4;
+}
+
+// placeholder element for postcss grid-area validator
+.ace-c-app-layout__bar-5 {
+    grid-area: bar-5;
+}
+
+// placeholder element for postcss grid-area validator
+.ace-c-app-layout__footer {
+    grid-area: footer;
+}
+
+.ace-c-app-layout__footer-content {
+    max-width: map-get($app-layout-config, content-max-width);
+    min-width: map-get($app-layout-config, content-min-width);
+    height: map-get($app-layout-config, footer-bar-height);
+    position: relative;
+    margin: 0 auto;
+    padding: 0 map-get($app-layout-config, content-padding);
+}

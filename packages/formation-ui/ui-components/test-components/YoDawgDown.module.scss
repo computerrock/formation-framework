@@ -1,0 +1,18 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+.ace-c-yo-dawg-down {
+    display: inline-block;
+    padding: map-get($dimensions, spacing-xs);
+    border: 1px solid map-get($color-palette, ace-red-800);
+    background-color: map-get($color-palette, ace-red-300);
+    cursor: pointer;
+    user-select: none;
+}
+
+.ace-c-yo-dawg-down__drop-down {
+    width: 384px;
+    height: 256px;
+    padding: 16px;
+}

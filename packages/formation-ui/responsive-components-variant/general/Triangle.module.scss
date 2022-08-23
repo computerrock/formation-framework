@@ -1,0 +1,26 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$triangle-config: (
+    triangle-color: map-get($base-colors, contrast),
+);
+
+.ace-c-triangle {
+    position: absolute;
+    top: -16px;
+    left: 32px;
+    width: 0;
+    height: 0;
+    border-left: 24px solid transparent;
+    border-right: 24px solid transparent;
+    border-bottom: 24px solid map-get($triangle-config, triangle-color);
+
+    @include media('>=medium') {
+        left: 30px;
+        top: -22px;
+        border-left: 32px solid transparent;
+        border-right: 32px solid transparent;
+        border-bottom: 32px solid map-get($triangle-config, triangle-color);
+    }
+}

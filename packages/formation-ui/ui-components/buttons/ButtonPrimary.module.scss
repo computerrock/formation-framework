@@ -1,0 +1,95 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$button-primary-config: (
+    button-primary-text-typography: 'highlight',
+    button-primary-border-radius: map-get($border-radius, radius-40),
+    button-primary-background: map-get($base-colors, primary),
+    button-primary-background-hover: map-get($base-colors, primary-light-a),
+    button-primary-background-active: map-get($base-colors, primary-dark-b),
+    button-primary-background-focus: map-get($base-colors, primary-dark-b),
+    button-primary-background-disabled: map-get($base-colors, disabled-main),
+    button-primary-background-positive: map-get($base-colors, positive),
+    button-primary-text-color: map-get($typography, text-color-contrast),
+    button-primary-shadow: 'none',
+    button-primary-shadow-hover: 'none',
+    button-primary-shadow-active: 'none',
+    button-primary-shadow-focus: map-get($shadows, shadow-4),
+    button-primary-shadow-disabled: 'none',
+);
+
+.ace-c-button-primary {
+    @include typography($typography-styles, map-get($button-primary-config, button-primary-text-typography));
+
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    padding: 0 map-get($spacing, spacing-l);
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    min-width: 100px;
+    background: map-get($button-primary-config, button-primary-background);
+    color: map-get($button-primary-config, button-primary-text-color);
+    box-shadow: map-get($button-primary-config, button-primary-shadow);
+    border: none;
+
+    &:focus {
+        background: map-get($button-primary-config, button-primary-background-focus);
+        box-shadow: map-get($button-primary-config, button-primary-shadow-focus);
+        outline: 0;
+    }
+
+    &--is-disabled {
+        background: map-get($button-primary-config, button-primary-background-disabled);
+        box-shadow: map-get($button-primary-config, button-primary-shadow-disabled);
+        cursor: default;
+    }
+
+    &:hover:not(#{&}--is-disabled):not(:focus) {
+        background: map-get($button-primary-config, button-primary-background-hover);
+        box-shadow: map-get($button-primary-config, button-primary-shadow-hover);
+    }
+
+    &:active:not(#{&}--is-disabled) {
+        background: map-get($button-primary-config, button-primary-background-active);
+        box-shadow: map-get($button-primary-config, button-primary-shadow-active);
+    }
+
+    &--no-chrome {
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    &--no-chrome,
+    &--no-chrome#{&}--is-disabled,
+    &--no-chrome#{&}:hover:not(#{&}--is-disabled) {
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        min-width: auto;
+    }
+
+    &--is-positive {
+        background-color: map-get($button-primary-config, button-primary-background-positive);
+        &:hover:not(#{&}--is-disabled):not(:focus) {
+            background-color: map-get($button-primary-config, button-primary-background-positive);
+        }
+
+        &:active:not(#{&}--is-disabled) {
+            background: map-get($button-primary-config, button-primary-background-positive);
+        }
+
+        &:focus {
+            background: map-get($button-primary-config, button-primary-background-positive);
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+}

@@ -1,0 +1,80 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$button-ghost-content-config: (
+    button-ghost-content-text-typography: 'highlight',
+    button-ghost-content-text-color: map-get($typography, text-color-highlighted),
+    button-ghost-content-text-color-hover: map-get($typography, text-color-highlighted-medium),
+    button-ghost-content-text-color-active: map-get($typography, text-color-highlighted-medium),
+    button-ghost-content-text-color-focus: map-get($typography, text-color-highlighted-medium),
+    button-ghost-content-text-color-disabled: map-get($typography, text-color-disabled),
+    button-ghost-content-text-color-highlighted: map-get($typography, text-color-highlighted),
+    button-ghost-content-text-color-selected: map-get($typography, text-color-highlighted),
+    button-ghost-content-text-color-selected-disabled: map-get($typography, text-color-medium-emphasis),
+    button-ghost-content-text-color-selected-hover: map-get($typography, text-color-highlighted),
+    button-ghost-content-icon-color: map-get($base-colors, highlight-medium-dark),
+    button-ghost-content-icon-color-hover: map-get($base-colors, highlight-medium-light),
+    button-ghost-content-icon-color-active: map-get($base-colors, highlight-medium-light),
+    button-ghost-content-icon-color-focus: map-get($base-colors, highlight-medium-light),
+    button-ghost-content-icon-color-disabled: map-get($base-colors, disabled-dark),
+    button-ghost-content-icon-color-highlighted: map-get($base-colors, highlight-medium-dark),
+    button-ghost-content-icon-color-selected: map-get($base-colors, highlight-medium-dark),
+    button-ghost-content-icon-color-selected-disabled: map-get($base-colors, secondary-light-b),
+    button-ghost-content-icon-color-selected-hover: map-get($base-colors, highlight-medium-dark),
+);
+
+@include state-styles.configure('ace-c-button-primary-content', $button-ghost-content-config);
+
+.ace-c-button-ghost-content {
+    // stylelint-disable-next-line
+    @include typography($typography-styles, map-get($button-ghost-content-config, button-ghost-content-text-typography));
+
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: map-get($button-ghost-content-config, button-ghost-content-text-color);
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+        fill: map-get($button-ghost-content-config, button-ghost-content-icon-color);
+        color: map-get($button-ghost-content-config, button-ghost-content-text-color);
+
+        &--left {
+            margin-right: map-get($spacing, 8);
+        }
+
+        &--right {
+            margin-left: map-get($spacing, 8);
+        }
+    }
+
+    &--is-focused {
+        color: map-get($button-ghost-content-config, button-ghost-content-text-color-focus);
+
+        .ace-c-button-ghost-content__icon {
+            fill: map-get($button-ghost-content-config, button-ghost-content-icon-color-focus);
+        }
+    }
+
+    &--is-highlighted:not(#{&}--is-disabled) {
+        color: map-get($button-ghost-content-config, button-ghost-content-text-color-highlighted);
+
+        .ace-c-button-ghost-content__icon {
+            fill: map-get($button-ghost-content-config, button-ghost-content-icon-color-highlighted);
+        }
+    }
+
+    @include state-styles.block() using($get-design-token) {
+        color: meta.call($get-design-token, button-ghost-content-text-color);
+
+        .ace-c-button-ghost-content__icon {
+            fill: meta.call($get-design-token, button-ghost-content-icon-color);
+        }
+    }
+}

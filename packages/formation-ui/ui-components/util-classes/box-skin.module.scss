@@ -1,0 +1,48 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$box-skin-config: (
+    box-skin-background: map-get($base-colors, background-c),
+    box-skin-background-pending: map-get($base-colors, background-c),
+    box-skin-background-positive: map-get($base-colors, positive-light),
+    box-skin-background-negative: map-get($base-colors, negative-light),
+    box-skin-background-information: map-get($base-colors, primary-light-c),
+    box-skin-text-color: map-get($typography, text-color),
+    box-skin-text-color-pending: map-get($typography, text-color),
+    box-skin-text-color-positive: map-get($typography, text-color-success),
+    box-skin-text-color-negative: map-get($typography, text-color-warning),
+    box-skin-text-color-information: map-get($typography, text-color),
+);
+
+:global {
+    .ace-u-box-skin {
+        color: map-get($box-skin-config, box-skin-text-color);
+        background: map-get($box-skin-config, box-skin-background);
+
+        &--pending {
+            color: map-get($box-skin-config, box-skin-text-color-pending);
+            background: map-get($box-skin-config, box-skin-background-pending);
+        }
+
+        &--positive {
+            color: map-get($box-skin-config, box-skin-text-color-positive);
+            background: map-get($box-skin-config, box-skin-background-positive);
+        }
+
+        &--negative {
+            color: map-get($box-skin-config, box-skin-text-color-negative);
+            background: map-get($box-skin-config, box-skin-background-negative);
+        }
+
+        &--information {
+            color: map-get($box-skin-config, box-skin-text-color-information);
+            background: map-get($box-skin-config, box-skin-background-information);
+        }
+
+        &--small {
+            height: map-get($box-skin-config, box-skin-height-small);
+            max-height: map-get($box-skin-config, box-skin-height-small);
+        }
+    }
+}

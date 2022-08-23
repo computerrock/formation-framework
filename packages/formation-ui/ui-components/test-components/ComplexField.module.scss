@@ -1,0 +1,13 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+.ace-c-complex-field {
+    display: inline-block;
+    padding: map-get($dimensions, spacing-xs);
+    border: 1px solid map-get($color-palette, ace-red-800);
+
+    &--is-disabled {
+        border: 1px solid map-get($color-palette, ace-gray-800);
+    }
+}

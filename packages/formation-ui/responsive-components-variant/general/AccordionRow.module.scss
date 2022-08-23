@@ -1,0 +1,35 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$accordion-row-config: (
+    accordion-row-title-typography: 'body-bold',
+    accordion-row-border: 1px solid map-get($base-colors, border-default),
+    accordion-row-padding: map-get($dimensions, spacing-16),
+);
+
+.ace-c-accordion-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: map-get($accordion-row-config, accordion-row-border);
+
+    &__header {
+        display: flex;
+        align-items: center;
+        padding: map-get($accordion-row-config, accordion-row-padding);
+        cursor: pointer;
+
+        &__title {
+            @include typography($typography-styles, map-get($accordion-row-config, accordion-row-title-typography));
+        }
+
+        &__icon {
+            margin-left: auto;
+        }
+    }
+
+    &__content {
+        padding: map-get($accordion-row-config, accordion-row-padding);
+    }
+}

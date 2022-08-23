@@ -1,0 +1,12 @@
+@use 'sass:math';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$content-layout-config: (
+    content-block-margin:  map-get($dimensions, spacing-l),
+    content-columns: map-get($dimensions, grid-columns),
+    content-column-gap:  map-get($dimensions, grid-column-gap),
+    content-column-margin:  math.div(map-get($dimensions, grid-column-gap), 2),
+);

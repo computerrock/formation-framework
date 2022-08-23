@@ -1,0 +1,125 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$interactive-icon-config: (
+    // sizes
+    interactive-icon-size-s: map-get($dimensions, icon-s),
+    interactive-icon-size-m: map-get($dimensions, icon-m),
+    interactive-icon-size-l: map-get($dimensions, icon-l),
+    interactive-icon-size-xl: map-get($dimensions, icon-xl),
+    interactive-icon-size-xxl: map-get($dimensions, icon-xxl),
+    interactive-icon-label-spacing: map-get($dimensions, spacing-s),
+    interactive-icon-typography: 'body-bold',
+    interactive-icon-typography-highlight: 'highlight',
+    // default styling: grey
+    interactive-icon-color: map-get($base-colors, disabled-dark),
+    interactive-icon-color-disabled: map-get($base-colors, disabled-light),
+    interactive-icon-color-hover: map-get($base-colors, primary-light-a),
+    interactive-icon-color-active: map-get($base-colors, primary-dark-b),
+    interactive-icon-color-contrast: map-get($base-colors, contrast),
+    // primary styling: orange
+    interactive-icon-color-primary: map-get($base-colors, primary),
+);
+
+@include state-styles.configure('ace-c-interactive-icon', $interactive-icon-config);
+
+.ace-c-interactive-icon {
+    @include typography($typography-styles, map-get($interactive-icon-config, interactive-icon-typography));
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    cursor: pointer;
+    user-select: none;
+    pointer-events: auto;
+    color: map-get($interactive-icon-config, interactive-icon-color);
+
+    &--highlight {
+        @include typography(
+            $typography-styles,
+            map-get($interactive-icon-config, interactive-icon-typography-highlight)
+        );
+    }
+
+    &--reverse {
+        flex-direction: row-reverse;
+    }
+
+    &--primary {
+        color: map-get($interactive-icon-config, interactive-icon-color-primary);
+
+        svg {
+            fill: map-get($interactive-icon-config, interactive-icon-color-primary);
+        }
+    }
+
+    &--contrast {
+        color: map-get($interactive-icon-config, interactive-icon-color-contrast);
+
+        svg {
+            fill: map-get($interactive-icon-config, interactive-icon-color-contrast);
+        }
+    }
+
+    &--is-disabled {
+        cursor: auto;
+    }
+
+    @include state-styles.block(
+        $for-states: (disabled, hover, active),
+    ) using($get-design-token) {
+        color: meta.call($get-design-token, interactive-icon-color);
+    }
+}
+
+.ace-c-interactive-icon__icon {
+    margin: 0;
+    width: map-get($interactive-icon-config, interactive-icon-size-m);
+    height: map-get($interactive-icon-config, interactive-icon-size-m);
+
+    .ace-c-interactive-icon--has-label & {
+        margin-right: map-get($interactive-icon-config, interactive-icon-label-spacing);
+    }
+
+    .ace-c-interactive-icon--s & {
+        width: map-get($interactive-icon-config, interactive-icon-size-s);
+        height: map-get($interactive-icon-config, interactive-icon-size-s);
+    }
+
+    .ace-c-interactive-icon--m & {
+        width: map-get($interactive-icon-config, interactive-icon-size-m);
+        height: map-get($interactive-icon-config, interactive-icon-size-m);
+    }
+
+    .ace-c-interactive-icon--l & {
+        width: map-get($interactive-icon-config, interactive-icon-size-l);
+        height: map-get($interactive-icon-config, interactive-icon-size-l);
+    }
+
+    .ace-c-interactive-icon--xl & {
+        width: map-get($interactive-icon-config, interactive-icon-size-xl);
+        height: map-get($interactive-icon-config, interactive-icon-size-xl);
+    }
+
+    .ace-c-interactive-icon--xxl & {
+        width: map-get($interactive-icon-config, interactive-icon-size-xxl);
+        height: map-get($interactive-icon-config, interactive-icon-size-xxl);
+    }
+
+    > svg {
+        @include state-styles.element(
+            $for-states: (disabled, hover, active),
+        ) using($get-design-token) {
+            fill: meta.call($get-design-token, interactive-icon-color);
+        }
+    }
+
+    .ace-c-interactive-icon--has-label.ace-c-interactive-icon--reverse & {
+        margin-left: map-get($interactive-icon-config, interactive-icon-label-spacing);
+    }
+}

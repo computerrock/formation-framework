@@ -1,0 +1,87 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$modal-config: (
+    modal-overlay-background-transparent: map-get($base-colors, transparent),
+    modal-overlay-background-dark: map-get($base-colors, background-modal-backdrop),
+    modal-overlay-z-index: map-get($z-index, modal),
+    modal-overlay-padding: map-get($dimensions, spacing-xl),
+    modal-overlay-padding-large: map-get($dimensions, spacing-3xl),
+    modal-title-typography: 'h3',
+    modal-content-background: map-get($base-colors, contrast),
+    modal-content-padding: map-get($dimensions, spacing-xl),
+    modal-content-shadow: map-get($dimensions, shadow-modal-content),
+    modal-content-max-width: map-get($breakpoints, x-large),
+);
+
+.ace-c-modal {
+    display: inline-flex;
+    flex-direction: column;
+    min-width: 500px;
+    max-width: map-get($modal-config, modal-content-max-width);
+    background-color: map-get($modal-config, modal-content-background);
+    padding: map-get($modal-config, modal-content-padding);
+    box-shadow: map-get($modal-config, modal-content-shadow);
+    max-height: 100%;
+
+    &--full-scrollable {
+        overflow-y: auto;
+    }
+}
+
+.ace-c-modal__header {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.ace-c-modal__header-title {
+    @include typography($typography-styles, map-get($modal-config, modal-title-typography));
+
+    display: flex;
+    flex-flow: row nowrap;
+    flex-grow: 1;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.ace-c-modal__header-action {
+    display: flex;
+    flex-flow: row nowrap;
+    flex-grow: 1;
+    justify-content: flex-end;
+    align-items: center;
+    justify-items: flex-end;
+}
+
+.ace-c-modal__content {
+    display: flex;
+    flex-flow: row wrap;
+
+    &--scrollable {
+        overflow-y: auto;
+    }
+}
+
+.ace-c-modal__backdrop {
+    width: 100%;
+    height: 100%;
+    background-color: map-get($modal-config, modal-overlay-background-transparent);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    z-index: map-get($modal-config, modal-overlay-z-index);
+    padding: map-get($modal-config, modal-overlay-padding) 0;
+
+    @include media('>=large') {
+        padding:
+            map-get($modal-config, modal-config-overlay-padding)
+            map-get($modal-config, modal-overlay-padding-large);
+    }
+}
+
+.ace-c-modal__backdrop--dark {
+    background-color: map-get($modal-config, modal-overlay-background-dark);
+}

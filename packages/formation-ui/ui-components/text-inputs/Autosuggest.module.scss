@@ -1,0 +1,80 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$autosuggest-config: (
+    // dimensions
+    autosuggest-arrow-padding: map-get($dimensions, spacing-2xl),
+    autosuggest-icon-padding: map-get($dimensions, spacing-2xl),
+    // typography
+    autosuggest-arrow-icon-color: map-get($typography, icon-color),
+    autosuggest-arrow-icon-color-hover: map-get($typography, icon-color),
+    autosuggest-arrow-icon-color-active: map-get($typography, icon-color),
+    autosuggest-arrow-icon-color-disabled: map-get($typography, icon-color),
+    autosuggest-icon-color: map-get($typography, icon-color),
+    autosuggest-icon-color-hover: map-get($typography, icon-color),
+    autosuggest-icon-color-active: map-get($typography, icon-color),
+    autosuggest-icon-color-disabled: map-get($typography, icon-color),
+);
+
+@include state-styles.configure('ace-c-autosuggest', $autosuggest-config);
+
+.ace-c-autosuggest {
+    position: relative;
+    display: inline-block;
+}
+
+.ace-c-autosuggest__input {
+    width: 100%;
+
+    .ace-c-autosuggest--is-arrow-icon-displayed & {
+        padding-right: map-get($autosuggest-config, autosuggest-arrow-padding);
+    }
+
+    .ace-c-autosuggest--is-icon-displayed & {
+        padding-right: map-get($autosuggest-config, autosuggest-icon-padding);
+    }
+}
+
+.ace-c-autosuggest__arrow-icon {
+    position: absolute;
+    top: calc(50% - 8px);
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    background: url('../assets/icons/arrow-down.svg?fill=#{map-get($autosuggest-config, autosuggest-arrow-icon-color)}') center center no-repeat;
+
+    .ace-c-autosuggest--is-open & {
+        transform: rotateX(180deg);
+    }
+
+    @include state-styles.element(
+        $for-states: (disabled, hover, active),
+    ) using($get-design-token) {
+        background: url('../assets/icons/arrow-down.svg?fill=#{meta.call($get-design-token, autosuggest-arrow-icon-color)}') center center no-repeat;
+    }
+}
+
+.ace-c-autosuggest__icon {
+    position: absolute;
+    top: calc(50% - 12px);
+    right: 16px;
+    width: 24px;
+    height: 24px;
+    fill: map-get($autosuggest-config, autosuggest-icon-color);
+
+    @include state-styles.element(
+        $for-states: (disabled, hover, active),
+    ) using($get-design-token) {
+        fill: meta.call($get-design-token, autosuggest-icon-color);
+    }
+}
+
+.ace-c-autosuggest__drop-down {
+    min-width: 280px;
+    max-height: 224px;
+    overflow-y: auto;
+}

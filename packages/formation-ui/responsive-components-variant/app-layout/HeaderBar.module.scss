@@ -1,0 +1,41 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$header-bar-config: (
+    content-min-width: map-get($breakpoints, xsmall),
+    content-max-width: map-get($breakpoints, large),
+    header-bar-height: 56px,
+    header-bar-height-desktop: 40px,
+    header-bar-background: map-get($base-colors, background-main),
+    header-bar-z-index: map-get($z-index, navigation),
+);
+
+.ace-c-header-bar {
+    height: map-get($header-bar-config, header-bar-height);
+    background-color: map-get($header-bar-config, header-bar-background);
+    z-index: map-get($header-bar-config, header-bar-z-index);
+
+    &--primary-navigation {
+        background-color: map-get($header-bar-config, header-bar-background-primary);
+        box-shadow: map-get($header-bar-config, header-bar-shadow-primary);
+    }
+
+    @include media('>=medium') {
+        height: map-get($header-bar-config, header-bar-height-desktop);
+    }
+}
+
+.ace-c-header-bar__content {
+    max-width: map-get($header-bar-config, content-max-width);
+    min-width: map-get($header-bar-config, content-min-width);
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    @include media('>=large') {
+        margin: 0 auto;
+    }
+}

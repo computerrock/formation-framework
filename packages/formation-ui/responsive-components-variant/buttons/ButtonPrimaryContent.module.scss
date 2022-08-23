@@ -1,0 +1,37 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$button-primary-content-config: (
+    button-primary-content-text-typography: 'highlight',
+    button-primary-content-text-color: map-get($typography, text-color-contrast),
+    button-primary-content-icon-color: map-get($base-colors, contrast),
+);
+
+.ace-c-button-primary-content {
+    // stylelint-disable-next-line
+    @include typography($typography-styles, map-get($button-primary-content-config, button-primary-content-text-typography));
+
+    height: 56px;
+    min-width: 100px;
+    padding: map-get($spacing, 16) map-get($spacing, 32);
+    margin: 0 -24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: map-get($button-primary-content-config, button-primary-content-text-color);
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+        fill: map-get($button-primary-content-config, button-primary-content-icon-color);
+
+        &--left {
+            margin-right: map-get($spacing, 8);
+        }
+
+        &--right {
+            margin-left: map-get($spacing, 8);
+        }
+    }
+}

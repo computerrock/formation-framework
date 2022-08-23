@@ -1,0 +1,21 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$file-input-config: (
+    file-input-border: 2px dashed map-get($base-colors, divider),
+);
+
+.ace-c-file-input {
+    border: map-get($file-input-config, file-input-border);
+
+    &--no-chrome {
+        border: none;
+    }
+}
+
+.ace-c-file-input__native-input {
+    opacity: 0;
+    position: absolute;
+    left: -999px;
+}

@@ -1,0 +1,196 @@
+/**
+ * Box-model util classes
+ */
+@use 'sass:list';
+@use 'sass:map';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$grid-columns: map-get($dimensions, grid-columns);
+$grid-column-gap: map-get($dimensions, grid-column-gap);
+$grid-row-gap: map-get($dimensions, grid-row-gap);
+$grid-breakpoints: map.keys($breakpoints);
+$box-sides: ('top', 'right', 'bottom', 'left');
+
+// Creates spacing modifier classes for given $property and $breakpoint
+// used for margin & padding spacing properties
+@mixin spacing-property-util-modifier-classes($property: 'margin', $breakpoint: '') {
+    $breakpoint-key: '';
+    $valid-lengths: $spacing-utils;
+
+    @if $breakpoint != '' {
+        $breakpoint-key: #{$breakpoint}-;
+    }
+
+    @if ($property == 'margin') {
+        $valid-lengths: map.merge($valid-lengths, (auto: auto));
+    }
+
+    @each $side in $box-sides {
+        @each $key, $value in $valid-lengths {
+            // .ace-u-{property}--[breakpoint-]{side}-{value}
+            :global(.ace-u-#{$property}--#{$breakpoint-key}#{$side}-#{$key}) {
+                #{$property}-#{$side}: $value;
+            }
+        }
+    }
+
+    @each $key-i, $value-i in $valid-lengths {
+        // .ace-u-{property}--[breakpoint-]{i}
+        :global(.ace-u-#{$property}--#{$breakpoint-key}#{$key-i}) {
+            #{$property}: $value-i;
+        }
+
+        @each $key-j, $value-j in $valid-lengths {
+            @if ($key-i != $key-j) {
+                // .ace-u-{property}--[breakpoint-]{i}-{j}
+                :global(.ace-u-#{$property}--#{$breakpoint-key}#{$key-i}-#{$key-j}) {
+                    #{$property}: $value-i $value-j;
+                }
+            }
+
+            @each $key-k, $value-k in $valid-lengths {
+                @if ($key-i != $key-k) {
+                    // .ace-u-{property}--[breakpoint-]{i}-{j}-{k}
+                    :global(.ace-u-#{$property}--#{$breakpoint-key}#{$key-i}-#{$key-j}-#{$key-k}) {
+                        #{$property}: $value-i $value-j $value-k;
+                    }
+                }
+
+                @each $key-l, $value-l in $valid-lengths {
+                    // stylelint-disable-next-line max-nesting-depth
+                    @if (not (($key-i == $key-k and $key-j == $key-l) or ($key-i != $key-k and $key-j == $key-l))) {
+                        // .ace-u-{property}--[breakpoint-]{i}-{j}-{k}-{l}
+                        :global(.ace-u-#{$property}--#{$breakpoint-key}#{$key-i}-#{$key-j}-#{$key-k}-#{$key-l}) {
+                            #{$property}: $value-i $value-j $value-k $value-l;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Creates sizing modifier classes for given $property and $breakpoint
+// used for width, min-width, height & min-height properties
+@mixin sizing-property-util-modifier-classes($property: 'width', $breakpoint: '') {
+    $breakpoint-key: '';
+    $valid-lengths:
+        map.merge(
+            $spacing-utils,
+            (
+                auto: auto,
+                min-content: min-content,
+                max-content: max-content,
+                full: 100%,
+                viewport: 100vw,
+            ),
+        );
+
+    @if $breakpoint != '' {
+        $breakpoint-key: #{$breakpoint}-;
+    }
+
+    @each $key, $value in $valid-lengths {
+        // .ace-u-{property}--[breakpoint-]{i}
+        :global(.ace-u-#{$property}--#{$breakpoint-key}#{$key}) {
+            #{$property}: $value !important;
+        }
+    }
+}
+
+// Creates position modifier classes for given $breakpoint
+@mixin position-modifier-classes($breakpoint: '') {
+    $breakpoint-key: '';
+    $valid-lengths: $spacing-utils;
+    $z-index-values: map.values($z-index);
+
+    @if $breakpoint != '' {
+        $breakpoint-key: #{$breakpoint}-;
+    }
+
+    @each $position in (static, relative, absolute, sticky, fixed) {
+        // .ace-u-position--[breakpoint-]{position}
+        :global(.ace-u-position--#{$breakpoint-key}#{$position}) {
+            position: #{$position};
+        }
+    }
+
+    @each $side in $box-sides {
+        @each $key, $value in $valid-lengths {
+            // .ace-u-position--[breakpoint-]{side}-{length}
+            :global(.ace-u-position--#{$breakpoint-key}#{$side}-#{$key}) {
+                #{$side}: $value;
+            }
+
+            // .ace-u-position--[breakpoint-]{side}-neg-{length}
+            :global(.ace-u-position--#{$breakpoint-key}#{$side}-neg-#{$key}) {
+                #{$side}: -1 * $value;
+            }
+        }
+    }
+
+    @each $z-index-name, $z-index-value in $z-index {
+        // .ace-u-z-index--[breakpoint-]{key}
+        :global(.ace-u-z-index--#{$breakpoint-key}#{$z-index-name}) {
+            z-index: $z-index-value;
+        }
+    }
+}
+
+// Generate non-responsive modifier util classes for spacing & sizing properties
+@include spacing-property-util-modifier-classes('margin');
+@include spacing-property-util-modifier-classes('padding');
+@include sizing-property-util-modifier-classes('width');
+@include sizing-property-util-modifier-classes('min-width');
+@include sizing-property-util-modifier-classes('max-width');
+@include sizing-property-util-modifier-classes('height');
+@include sizing-property-util-modifier-classes('min-height');
+@include sizing-property-util-modifier-classes('max-height');
+
+// Generate responsive modifier util classes for spacing & sizing properties
+@each $breakpoint in $grid-breakpoints {
+    $breakpoint-index: list.index($grid-breakpoints, $breakpoint);
+
+    @if $breakpoint-index > 1 {
+        $media-breakpoint: list.nth($grid-breakpoints, $breakpoint-index - 1);
+
+        @include media('>=#{$media-breakpoint}') {
+            @include spacing-property-util-modifier-classes('margin', $breakpoint);
+            @include spacing-property-util-modifier-classes('padding', $breakpoint);
+            @include sizing-property-util-modifier-classes('width', $breakpoint);
+            @include sizing-property-util-modifier-classes('min-width', $breakpoint);
+            @include sizing-property-util-modifier-classes('height', $breakpoint);
+            @include sizing-property-util-modifier-classes('min-height', $breakpoint);
+        }
+    }
+}
+
+// Generate non-responsive modifier util classes for position
+@include position-modifier-classes();
+
+// Generate responsive modifier util classes for position
+@each $breakpoint in $grid-breakpoints {
+    $breakpoint-index: list.index($grid-breakpoints, $breakpoint);
+
+    @if $breakpoint-index > 1 {
+        $media-breakpoint: list.nth($grid-breakpoints, $breakpoint-index - 1);
+
+        @include media('>=#{$media-breakpoint}') {
+            @include position-modifier-classes($breakpoint);
+        }
+    }
+}
+
+// TODO refactor
+:global {
+    .ace-u-full-width {
+        width: 100%;
+    }
+
+    .ace-u-full-height {
+        height: 100%;
+    }
+}

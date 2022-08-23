@@ -1,0 +1,46 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$app-layout-config: (
+    content-min-width: map-get($breakpoints, xsmall),
+    content-max-width: map-get($breakpoints, large),
+    content-padding: map-get($spacing, 128),
+    background: map-get($base-colors, background-b),
+    header-bar-background: map-get($base-colors, background-c),
+    header-bar-z-index: map-get($z-index, navigation),
+);
+
+.ace-c-app-layout {
+    position: relative;
+    padding: 0;
+    display: grid;
+    grid-template:
+        'header' auto
+        'main' 1fr;
+    grid-template-columns: 100%;
+    min-height: 100%;
+    background-color: map-get($app-layout-config, background);
+}
+
+.ace-c-app-layout__header {
+    grid-area: header;
+}
+
+.ace-c-app-layout__main {
+    grid-area: main;
+}
+
+.ace-c-app-layout__main-content {
+    max-width: map-get($app-layout-config, content-max-width);
+    min-width: map-get($app-layout-config, content-min-width);
+    min-height: calc(100vh - 56px);
+    position: relative;
+    margin: 0 auto;
+    padding: 30px 16px;
+
+    @include media('>=medium') {
+        padding: 64px 128px;
+        min-height: calc(100vh - 76px);
+    }
+}

@@ -1,0 +1,258 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$date-picker-config: (
+    date-picker-select-year-border: 0,
+    date-picker-select-year-border-radius: 0,
+    date-picker-padding: map-get($dimensions, spacing-32) map-get($dimensions, spacing-16),
+    date-picker-padding-small: map-get($dimensions, spacing-16) map-get($dimensions, spacing-4),
+    date-picker-background-color: map-get($base-colors, background-main),
+    date-picker-shadow: map-get($shadows, shadow-drop-down),
+    date-picker-text-color: map-get($typography, text-color),
+    date-picker-heading-typography: 'body-bold',
+    date-picker-text-typography: 'body',
+    date-picker-cell-text-typography: 'body',
+    date-picker-cell-text-typography-selected: 'body-bold',
+    date-picker-cell-text-color: map-get($typography, text-color),
+    date-picker-cell-text-color-hover: map-get($typography, text-color),
+    date-picker-cell-text-color-selected: map-get($typography, text-color-contrast),
+    date-picker-cell-text-color-current: map-get($typography, text-color),
+    date-picker-cell-text-color-disabled: map-get($typography, text-color-disabled),
+    date-picker-cell-text-color-range-selecting: map-get($typography, text-color),
+    date-picker-cell-text-color-range-selected: map-get($typography, text-color),
+    date-picker-cell-background-color: map-get($base-colors, background-main),
+    date-picker-cell-background-color-hover: map-get($base-colors, background-b),
+    date-picker-cell-background-color-selected: map-get($base-colors, highlight),
+    date-picker-cell-background-color-current: map-get($base-colors, background-main),
+    date-picker-cell-background-color-range-selecting: map-get($base-colors, background-b),
+    date-picker-cell-background-color-range-selected: map-get($base-colors, highlight-alpha-10),
+    date-picker-cell-border: none,
+    date-picker-cell-border-hover: 1px solid map-get($color-palette, secondary-light-c),
+    date-picker-cell-border-selected: none,
+    date-picker-cell-border-current: 1px solid map-get($color-palette, secondary-light-c),
+    date-picker-cell-border-range-selecting: none,
+    date-picker-cell-border-range-selected: none,
+);
+
+%table-body {
+    display: grid;
+    width: 100%;
+}
+
+%years-months-table-cell {
+    @include typography($typography-styles, map-get($date-picker-config, date-picker-text-typography));
+
+    display: flex;
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    color: map-get($date-picker-config, date-picker-cell-text-color);
+    background: map-get($date-picker-config, date-picker-cell-background-color);
+    cursor: pointer;
+}
+
+.ace-c-date-picker {
+    width: 304px;
+    box-shadow: map-get($date-picker-config, date-picker-shadow);
+    padding: map-get($date-picker-config, date-picker-padding-small);
+
+    @include media('>=small') {
+        width: 368px;
+        padding: map-get($date-picker-config, date-picker-padding);
+    }
+}
+
+.ace-c-date-picker__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    margin-bottom: 5px;
+    height: 40px;
+    width: 100%;
+}
+
+.ace-c-date-picker__table-info {
+    @include typography($typography-styles, map-get($date-picker-config, date-picker-heading-typography));
+
+    color: map-get($date-picker-config, date-picker-text-color);
+    display: flex;
+    align-items: center;
+}
+
+.ace-c-date-picker__header-arrow-wrapper {
+    display: flex;
+}
+
+.ace-c-date-picker__header-arrow {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+    &--left {
+        // stylelint-disable-next-line max-line-length
+        background-image: url('../assets/icons/arrow-left.svg?fill=#{map-get($date-picker-config, date-picker-text-color)}');
+        margin-right: 48px;
+    }
+
+    &--right {
+        // stylelint-disable-next-line max-line-length
+        background-image: url('../assets/icons/arrow-right.svg?fill=#{map-get($date-picker-config, date-picker-text-color)}');
+    }
+}
+
+.ace-c-date-picker__table-header {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.ace-c-date-picker__table-header-cell {
+    @include typography($typography-styles, map-get($date-picker-config, date-picker-heading-typography));
+
+    height: 36px;
+    width: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: map-get($date-picker-config, date-picker-text-color);
+
+    @include media('>=small') {
+        height: 40px;
+        width: 40px;
+    }
+}
+
+.ace-c-date-picker__date-table-body {
+    @extend %table-body;
+
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.ace-c-date-picker__date-table-cell {
+    @include typography($typography-styles, map-get($date-picker-config, date-picker-text-typography));
+
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: map-get($date-picker-config, date-picker-cell-border);
+    background: map-get($date-picker-config, date-picker-cell-background-color);
+    color: map-get($date-picker-config, date-picker-cell-text-color);
+    cursor: pointer;
+
+    @include media('>=small') {
+        height: 40px;
+        width: 40px;
+    }
+
+    &:hover:not(#{&}--is-selected) {
+        border: map-get($date-picker-config, date-picker-cell-border-hover);
+        background: map-get($date-picker-config, date-picker-cell-background-color-hover);
+        color: map-get($date-picker-config, date-picker-cell-text-color-hover);
+    }
+
+    &--is-current-date {
+        border: map-get($date-picker-config, date-picker-cell-border-current);
+        background: map-get($date-picker-config, date-picker-cell-background-color-current);
+        color: map-get($date-picker-config, date-picker-cell-text-color-current);
+    }
+
+    &--is-selected {
+        // stylelint-disable-next-line max-line-length
+        @include typography($typography-styles, map-get($date-picker-config, date-picker-cell-text-typography-selected));
+
+        border: map-get($date-picker-config, date-picker-cell-border-selected);
+        background: map-get($date-picker-config, date-picker-cell-background-color-selected);
+        color: map-get($date-picker-config, date-picker-cell-text-color-selected);
+    }
+
+    &--is-disabled {
+        cursor: default;
+        border: none;
+        background: none;
+        color: map-get($date-picker-config, date-picker-cell-text-color-disabled);
+        -webkit-text-fill-color: map-get($date-picker-config, date-picker-cell-text-color-disabled);
+    }
+}
+
+.ace-c-date-picker__input-time > div > input {
+    width: 100%;
+}
+
+.ace-c-date-picker__years-table-body {
+    @extend %table-body;
+
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.ace-c-date-picker__years-table-cell {
+    @extend %years-months-table-cell;
+
+    &:hover:not(#{&}--is-selected) {
+        background: map-get($date-picker-config, date-picker-cell-background-color-hover);
+        color: map-get($date-picker-config, date-picker-cell-text-color-hover);
+    }
+
+    &--is-current {
+        background: map-get($date-picker-config, date-picker-cell-background-color-current);
+        color: map-get($date-picker-config, date-picker-cell-text-color-current);
+    }
+
+    &--is-selected {
+        // stylelint-disable-next-line max-line-length
+        @include typography($typography-styles, map-get($date-picker-config, date-picker-cell-text-typography-selected));
+
+        background: map-get($date-picker-config, date-picker-cell-background-color-selected);
+        color: map-get($date-picker-config, date-picker-cell-text-color-selected);
+    }
+
+    &--is-disabled {
+        cursor: default;
+        border: none;
+        background: none;
+        color: map-get($date-picker-config, date-picker-cell-text-color-disabled);
+        -webkit-text-fill-color: map-get($date-picker-config, date-picker-cell-text-color-disabled);
+    }
+}
+
+.ace-c-date-picker__months-table-body {
+    @extend %table-body;
+
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.ace-c-date-picker__months-table-cell {
+    @extend %years-months-table-cell;
+
+    &:hover:not(#{&}--is-selected) {
+        background: map-get($date-picker-config, date-picker-cell-background-color-hover);
+        color: map-get($date-picker-config, date-picker-cell-text-color-hover);
+    }
+
+    &--is-current {
+        background: map-get($date-picker-config, date-picker-cell-background-color-current);
+        color: map-get($date-picker-config, date-picker-cell-text-color-current);
+    }
+
+    &--is-selected {
+        // stylelint-disable-next-line max-line-length
+        @include typography($typography-styles, map-get($date-picker-config, date-picker-cell-text-typography-selected));
+
+        background: map-get($date-picker-config, date-picker-cell-background-color-selected);
+        color: map-get($date-picker-config, date-picker-cell-text-color-selected);
+    }
+
+    &--is-disabled {
+        cursor: default;
+        border: none;
+        background: none;
+        color: map-get($date-picker-config, date-picker-cell-text-color-disabled);
+        -webkit-text-fill-color: map-get($date-picker-config, date-picker-cell-text-color-disabled);
+    }
+}

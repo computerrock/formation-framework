@@ -1,0 +1,12 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$tab-bar-config: (
+    tab-bar-background: transparent,
+);
+
+.ace-c-tab-bar {
+    display: inline-flex;
+    background: map-get($tab-bar-config, tab-bar-background);
+}

@@ -1,0 +1,40 @@
+@import '../config';
+@import '../mixins';
+
+$input-time-config: (
+    input-time-text-typography: 'body',
+    input-time-input-padding-right: map-get($dimensions, spacing-2xl),
+);
+
+.ace-c-input-time {
+    @include typography($typography-styles, map-get($input-time-config, input-time-text-typography));
+
+    display: inline-flex;
+    position: relative;
+    padding: 0;
+    background-color: inherit;
+}
+
+.ace-c-input-time__input {
+    padding-right: map-get($input-time-config, input-time-input-padding-right);
+
+    .ace-c-input-time--small & {
+        height: 40px;
+    }
+}
+
+.ace-c-input-time__icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    .ace-c-input-time--small & {
+        top: 8px;
+    }
+}
+
+.ace-c-input-time__drop-down {
+    min-width: 280px;
+    max-height: 220px;
+    overflow-y: scroll;
+}

@@ -1,0 +1,89 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$text-area-config: (
+    // typography
+    text-area-typography: 'body',
+    text-area-typography-hover: 'body',
+    text-area-typography-active: 'body',
+    text-area-typography-disabled: 'body',
+    text-area-typography-focus: 'body',
+    text-area-text: map-get($typography, text-color-default),
+    text-area-text-disabled: map-get($typography, text-color-disabled),
+    text-area-text-error: map-get($typography, text-color-warning),
+    text-area-caret-color: map-get($base-colors, negative),
+    text-area-placeholder-text: map-get($typography, text-color-medium-emphasis),
+    text-area-placeholder-text-hover: map-get($typography, text-color-medium-emphasis),
+    text-area-placeholder-text-active: map-get($typography, text-color-medium-emphasis),
+    text-area-placeholder-text-focus: map-get($typography, text-color-medium-emphasis),
+    text-area-placeholder-text-error: map-get($typography, text-color-medium-emphasis),
+    text-area-placeholder-text-disabled: map-get($typography, text-color-disabled),
+    // dimensions
+    text-area-height: 2 * 56px + map-get($dimensions, spacing-m),
+    text-area-height-small: 2 * 40px + map-get($dimensions, spacing-m),
+    text-area-height-medium: 4 * 60px + map-get($dimensions, spacing-3xl),
+    text-area-spacing-small: map-get($dimensions, spacing-s),
+    text-area-spacing-medium: map-get($dimensions, spacing-m),
+    // borders
+    text-area-border-color: map-get($base-colors, secondary-light-c),
+    text-area-border-color-focus: map-get($base-colors, secondary),
+    text-area-border-color-active: map-get($base-colors, secondary),
+    text-area-border-color-disabled: map-get($base-colors, disabled-main),
+    text-area-border-color-error: map-get($base-colors, negative),
+    text-area-border-color-empty-mandatory: map-get($base-colors, secondary),
+    text-area-border-radius: map-get($base-colors, radius-4),
+    // background
+    text-area-background-color: map-get($base-colors, contrast),
+    text-area-background-color-focus: map-get($base-colors, contrast),
+    text-area-background-color-hover: map-get($base-colors, contrast),
+    text-area-background-color-active: map-get($base-colors, contrast),
+    text-area-background-color-error: map-get($base-colors, contrast),
+    text-area-background-color-disabled: map-get($base-colors, disabled-light),
+);
+
+.ace-c-text-area {
+    @include typography($typography-styles, map-get($text-area-config, text-area-typography));
+
+    display: inline;
+    height: map-get($text-area-config, text-area-height);
+    padding: map-get($text-area-config, text-area-spacing-small);
+    border: 1px solid map-get($text-area-config, text-area-border-color);
+    caret-color: map-get($text-area-config, text-area-caret-color);
+    background: map-get($text-area-config, text-area-background-color);
+
+    &--small {
+        height: map-get($text-area-config, text-area-height-small);
+    }
+
+    &--medium {
+        height: map-get($text-area-config, text-area-height-medium);
+    }
+
+    &::-webkit-input-placeholder {
+        color: map-get($text-area-config, text-area-placeholder-text);
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &--is-disabled {
+        background: map-get($text-area-config, text-area-background-color-disabled);
+        border: 1px solid map-get($text-area-config, text-area-border-color-disabled);
+        color: map-get($text-area-config, text-area-text-disabled);
+    }
+
+    &--has-error {
+        border: 1px solid map-get($text-area-config, text-area-border-color-error);
+        color: map-get($text-area-config, text-area-text-error);
+    }
+
+    &--not-resizable {
+        resize: none;
+    }
+
+    &--is-required:not(#{&}--is-disabled) {
+        border: 1px solid map-get($text-area-config, text-area-border-color-empty-mandatory);
+    }
+}

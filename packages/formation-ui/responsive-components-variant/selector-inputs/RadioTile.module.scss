@@ -1,0 +1,139 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+@import './RadioButton.module';
+
+$radio-tile-config: (
+    radio-tile-content-margin: map-get($dimensions, spacing-64),
+    radio-tile-icon-margin: map-get($dimensions, spacing-16),
+    // borders
+    radio-tile-wrap-border: 1px solid map-get($base-colors, secondary-light-c),
+    radio-tile-wrap-border-hover: 1px solid map-get($base-colors, highlight),
+    radio-tile-wrap-border-active: 1px solid map-get($base-colors, highlight),
+    radio-tile-wrap-border-selected: 1px solid map-get($base-colors, highlight),
+    radio-tile-wrap-border-selected-hover: 1px solid map-get($base-colors, highlight),
+    radio-tile-wrap-border-disabled: 1px solid map-get($base-colors, secondary-light-c),
+    radio-tile-wrap-border-selected-disabled: 1px solid map-get($base-colors, secondary-light-c),
+    // backgrounds
+    radio-tile-wrap-background: map-get($base-colors, background-main),
+    radio-tile-wrap-background-hover: map-get($base-colors, highlight-alpha-10),
+    radio-tile-wrap-background-active: map-get($base-colors, highlight-alpha-10),
+    radio-tile-wrap-background-selected: map-get($base-colors, highlight-alpha-10),
+    radio-tile-wrap-background-selected-hover: map-get($base-colors, highlight-alpha-10),
+    radio-tile-wrap-background-selected-disabled: map-get($base-colors, disabled-light),
+    radio-tile-wrap-background-disabled: map-get($base-colors, background-main),
+    // icon
+    radio-tile-icon: map-get($icon-colors, icon-highlight),
+    radio-tile-icon-hover: map-get($icon-colors, icon-highlight),
+    radio-tile-icon-active: map-get($icon-colors, icon-highlight),
+    radio-tile-icon-selected: map-get($icon-colors, icon-highlight),
+    radio-tile-icon-selected-hover: map-get($icon-colors, icon-highlight),
+    radio-tile-icon-disabled: map-get($icon-colors, icon-disabled),
+    radio-tile-icon-selected-disabled: map-get($icon-colors, icon-highlight),
+    // title
+    radio-tile-title-typography: 'body-medium',
+    radio-tile-title-color: map-get($typography, text-color-highlighted),
+    radio-tile-title-color-hover: map-get($typography, text-color-highlighted),
+    radio-tile-title-color-active: map-get($typography, text-color-highlighted),
+    radio-tile-title-color-selected: map-get($typography, text-color-highlighted),
+    radio-tile-title-color-selected-hover: map-get($typography, text-color-highlighted),
+    radio-tile-title-color-disabled: map-get($typography, text-color-disabled),
+    radio-tile-title-color-selected-disabled: map-get($typography, text-color-disabled),
+    // text
+    radio-tile-text-typography: 'caption',
+    radio-tile-text-color: map-get($typography, text-color-medium-emphasis),
+    radio-tile-text-color-hover: map-get($typography, text-color),
+    radio-tile-text-color-active: map-get($typography, text-color),
+    radio-tile-text-color-selected: map-get($typography, text-color),
+    radio-tile-text-color-selected-hover: map-get($typography, text-color),
+    radio-tile-text-color-disabled: map-get($typography, text-color-disabled),
+    radio-tile-text-color-selected-disabled: map-get($typography, text-color-disabled),
+);
+
+@include state-styles.configure('ace-c-radio-tile', $radio-tile-config);
+
+.ace-c-radio-tile__wrap {
+    padding: 16px;
+    display: inline-flex;
+    flex-grow: 1;
+    width: 100%;
+    border: map-get($radio-tile-config, radio-tile-wrap-border);
+    background-color: map-get($radio-tile-config, radio-tile-wrap-background);
+
+    .ace-c-radio-tile__content {
+        margin-right: map-get($radio-tile-config, radio-tile-content-margin);
+        flex-grow: 1;
+    }
+
+    .ace-c-radio-tile__icon {
+        margin-right: map-get($radio-tile-config, radio-tile-icon-margin);
+        align-self: center;
+
+        svg {
+            fill: map-get($radio-tile-config, radio-tile-icon);
+        }
+    }
+
+    .ace-c-radio-tile__title {
+        @include typography($typography-styles, map-get($radio-tile-config, radio-tile-title-typography));
+
+        color: map-get($radio-tile-config, radio-tile-title-color);
+    }
+
+    .ace-c-radio-tile__text {
+        @include typography($typography-styles, map-get($radio-tile-config, radio-tile-text-typography));
+
+        color: map-get($radio-tile-config, radio-tile-text-color);
+    }
+
+    .ace-c-radio-tile__meta {
+        @include typography($typography-styles, map-get($radio-tile-config, radio-tile-text-typography));
+
+        color: map-get($radio-tile-config, radio-tile-text-color);
+        align-self: start;
+    }
+
+    @include media('>small') {
+        @include state-styles.element(
+            $not-for-states: (disabled, selected-disabled),
+        ) using($get-design-token) {
+            border: meta.call($get-design-token, radio-tile-wrap-border);
+            background-color: meta.call($get-design-token, radio-tile-wrap-background);
+
+            .ace-c-radio-tile__text {
+                color: meta.call($get-design-token, radio-tile-text-color);
+            }
+
+            .ace-c-radio-tile__meta {
+                color: meta.call($get-design-token, radio-tile-text-color);
+            }
+        }
+    }
+
+    @include media('<=small') {
+        @include state-styles.element(
+            $not-for-states: (disabled, selected-disabled, hover, active),
+        ) using($get-design-token) {
+            border: meta.call($get-design-token, radio-tile-wrap-border);
+            background-color: meta.call($get-design-token, radio-tile-wrap-background);
+
+            .ace-c-radio-tile__text {
+                color: meta.call($get-design-token, radio-tile-text-color);
+            }
+
+            .ace-c-radio-tile__meta {
+                color: meta.call($get-design-token, radio-tile-text-color);
+            }
+        }
+    }
+}
+
+.ace-c-radio-tile--category-tile {
+    .ace-c-radio-tile__wrap {
+        display: block;
+        align-self: stretch;
+    }
+}

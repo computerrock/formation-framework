@@ -1,0 +1,98 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$button-primary-config: (
+    button-primary-text-typography: 'highlight',
+    // button-primary-border-radius: map-get($border-radius, radius-40),
+    button-primary-background: map-get($base-colors, primary),
+    button-primary-background-hover: map-get($base-colors, primary-light),
+    button-primary-background-active: map-get($base-colors, primary-dark),
+    button-primary-background-focus: map-get($base-colors, primary-dark),
+    button-primary-background-disabled: map-get($base-colors, disabled-main),
+    button-primary-background-selected: map-get($base-colors, primary),
+    button-primary-background-selected-hover: map-get($base-colors, primary),
+    button-primary-background-selected-disabled: map-get($base-colors, primary),
+    button-primary-text-color: map-get($typography, text-color-contrast),
+    // cursors
+    button-primary-cursor: pointer,
+    button-primary-cursor-selected: pointer,
+    button-primary-cursor-active: pointer,
+    button-primary-cursor-disabled: default,
+    button-primary-cursor-selected-disabled: pointer,
+    button-primary-cursor-selected-hover: pointer,
+    button-primary-cursor-hover: pointer,
+    // button-primary-positive
+    button-primary-background-positive: map-get($base-colors, primary),
+    button-primary-background-positive-selected: map-get($base-colors, primary),
+    button-primary-background-positive-active: map-get($base-colors, primary),
+    button-primary-background-positive-disabled: map-get($base-colors, primary),
+    button-primary-background-positive-selected-disabled: map-get($base-colors, primary),
+    button-primary-background-positive-selected-hover: map-get($base-colors, primary),
+    button-primary-background-positive-hover: map-get($base-colors, primary),
+);
+
+@include state-styles.configure('ace-c-button-primary-content', $button-primary-config);
+
+.ace-c-button-primary {
+    @include typography($typography-styles, map-get($button-primary-config, button-primary-text-typography));
+
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    padding: map-get($spacing, 16) map-get($spacing, 32);
+    text-align: center;
+    cursor: map-get($button-primary-config, button-primary-cursor);
+    text-transform: uppercase;
+    min-width: 100px;
+    background: map-get($button-primary-config, button-primary-background);
+    color: map-get($button-primary-config, button-primary-text-color);
+    box-shadow: map-get($button-primary-config, button-primary-shadow);
+    border: none;
+
+    @include state-styles.block() using($get-design-token) {
+        background: meta.call($get-design-token, button-primary-background);
+        cursor: meta.call($get-design-token, button-primary-cursor);
+    }
+
+    &:focus {
+        background: map-get($button-primary-config, button-primary-background-focus);
+        outline: 0;
+    }
+
+    &--no-chrome {
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    &--no-chrome,
+    &--no-chrome#{&}--is-disabled,
+    &--no-chrome#{&}:hover:not(#{&}--is-disabled) {
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        min-width: auto;
+    }
+
+    &--is-positive {
+        background: map-get($button-primary-config, button-primary-background-positive);
+
+        @include state-styles.block() using($get-design-token) {
+            background: meta.call($get-design-token, button-primary-background-positive);
+        }
+
+        &:focus {
+            background: map-get($button-primary-config, button-primary-background-positive);
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+}

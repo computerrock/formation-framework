@@ -1,0 +1,112 @@
+@use 'sass:meta';
+@use '../state-styles';
+
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$select-config: (
+    // dimensions
+    select-padding: map-get($dimensions, spacing-16),
+    select-padding-small: map-get($dimensions, spacing-8),
+    // typography
+    select-typography: 'body',
+    select-typography-hover: 'body',
+    select-typography-active: 'body',
+    select-typography-disabled: 'body',
+    select-text-color: map-get($typography, text-color),
+    select-text-color-hover: map-get($typography, text-color),
+    select-text-color-active: map-get($typography, text-color),
+    select-text-color-disabled: map-get($typography, text-color-disabled),
+    select-arrow-icon-color: map-get($base-colors, secondary-light-b),
+    select-arrow-icon-color-hover: map-get($base-colors, secondary-light-b),
+    select-arrow-icon-color-active: map-get($base-colors, highlight-medium-dark),
+    select-arrow-icon-color-disabled: map-get($base-colors, disabled-dark),
+    // borders
+    select-border-radius: 0,
+    select-border: 1px solid map-get($base-colors, secondary-light-c),
+    select-border-required: 1px solid map-get($base-colors, secondary-light-c),
+    select-border-invalid: 1px solid map-get($base-colors, secondary-light-c),
+    select-border-hover: 1px solid map-get($base-colors, secondary-light-c),
+    select-border-active: 1px solid map-get($base-colors, highlight-medium-light),
+    select-border-disabled: 1px solid map-get($base-colors, disabled-dark),
+    // backgrounds
+    select-background: map-get($base-colors, background-main),
+    select-background-hover: map-get($base-colors, background-main),
+    select-background-active: map-get($base-colors, background-main),
+    select-background-disabled: map-get($base-colors, disabled-light),
+);
+
+@include state-styles.configure('ace-c-select', $select-config);
+
+.ace-c-select {
+    @include typography($typography-styles, map-get($select-config, select-typography));
+
+    position: relative;
+    height: 56px;
+    display: inline-block;
+    justify-content: flex-start;
+    align-items: center;
+    padding: map-get($select-config, select-padding);
+    color: map-get($select-config, select-text-color);
+    background: map-get($select-config, select-background);
+    border: map-get($select-config, select-border);
+    border-radius: map-get($select-config, select-border-radius);
+    cursor: pointer;
+    user-select: none;
+
+    &--small {
+        padding: 0;
+        height: unset;
+    }
+
+    &--is-disabled {
+        cursor: default;
+    }
+
+    @include state-styles.block(
+        $for-states: (disabled, hover, active),
+    ) using($get-design-token) {
+        @include typography($typography-styles, meta.call($get-design-token, select-typography));
+
+        color: meta.call($get-design-token, select-text-color);
+        background: meta.call($get-design-token, select-background);
+        border-bottom: meta.call($get-design-token, select-border);
+    }
+}
+
+.ace-c-select__selected-content {
+    padding-right: 24px;
+
+    .ace-c-select--small & {
+        height: 40px;
+        padding:
+            map-get($select-config, select-padding-small)
+            map-get($select-config, select-padding);
+    }
+}
+
+.ace-c-select__arrow-icon {
+    position: absolute;
+    top: calc(50% - 8px);
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    background: url('../assets/icons/arrow-down.svg?fill=#{map-get($select-config, select-arrow-icon-color)}') center center no-repeat;
+
+    .ace-c-select--is-open & {
+        transform: rotateX(180deg);
+    }
+
+    @include state-styles.element(
+        $for-states: (disabled, hover, active),
+    ) using($get-design-token) {
+        background: url('../assets/icons/arrow-down.svg?fill=#{meta.call($get-design-token, select-arrow-icon-color)}') center center no-repeat;
+    }
+}
+
+.ace-c-select__drop-down {
+    min-width: 280px;
+    max-height: 224px;
+    overflow-y: auto;
+}

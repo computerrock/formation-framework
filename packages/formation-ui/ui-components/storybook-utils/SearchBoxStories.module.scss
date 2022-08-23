@@ -1,0 +1,43 @@
+@import '../config';
+@import '../mixins';
+@import '../functions';
+
+$search-box-story-config: (
+    header-typography: 'highlight',
+    header-item-margin: map-get($dimensions, spacing-m),
+    header-padding-xl: map-get($dimensions, spacing-xl),
+    header-padding-s: map-get($dimensions, spacing-s),
+);
+
+.search-box-story__decorator-header {
+    @include typography($typography-styles, map-get($search-box-story-config, header-typography));
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.08);
+    padding: map-get($search-box-story-config, header-padding-s) map-get($search-box-story-config, header-padding-xl);
+}
+
+.search-box-story__decorator-header-left {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+
+    > div {
+        margin-right: map-get($search-box-story-config, header-item-margin);
+    }
+}
+
+.search-box-story__decorator-header-right {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    flex-direction: row-reverse;
+    margin-left: map-get($search-box-story-config, header-item-margin);
+
+    > div {
+        margin-left: map-get($search-box-story-config, header-item-margin);
+    }
+}
