@@ -1,0 +1,29 @@
+{
+  "name": "@computerrock/formation-rest-utils",
+  "version": "0.0.1",
+  "description": "REST utils for Formation framework",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/computerrock/formation-framework",
+    "directory": "packages/formation-rest-utils"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./": "./src/"
+  },
+  "files": [
+    "src/*",
+    "bundler.config.js"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "content-type": "^1.0.4"
+  }
+}
