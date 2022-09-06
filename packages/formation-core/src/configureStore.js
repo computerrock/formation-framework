@@ -6,6 +6,7 @@ import 'flux-standard-action';
 import {routerMiddleware} from '@computerrock/formation-router';
 import createRootReducer from './createRootReducer';
 import createRootSaga from './createRootSaga';
+import ServiceManager from './ServiceManager';
 
 /**
  * Creates Redux store from seed state and root reducer.
@@ -15,11 +16,12 @@ import createRootSaga from './createRootSaga';
  * @param {Array<Object>} config.routes
  * @param {Object} config.history
  * @param {Object} config.reducers
- * @param {Object} config.initialState
+ * @param {ServiceManager} config.serviceManager
+ * @param {?Object} config.initialState
  * @returns {Object}
  */
 export default function configureStore(config) {
-    const {routes, history, reducers, initialState} = config;
+    const {routes, history, reducers, serviceManager, initialState} = config;
 
     const sagaMiddleware = createSagaMiddleware();
     let middleware = [
@@ -43,7 +45,14 @@ export default function configureStore(config) {
 
     const store = createStore(
         createRootReducer(history, reducers),
-        initialState,
+        // initialState
+        {
+            ...(initialState || {}),
+            application: {
+                ...(initialState && typeof initialState.application === 'object' ? initialState.application : {}),
+                serviceManager: typeof serviceManager === 'object' ? serviceManager : new ServiceManager(),
+            },
+        },
         composeWithDevTools(
             applyMiddleware(...middleware),
         ),
