@@ -1,0 +1,35 @@
+{
+  "name": "@computerrock/datadog-logger-client",
+  "version": "0.17.0",
+  "description": "Formation framework - Datadog logger client",
+  "author": "Computer Rock",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/computerrock/formation-framework",
+    "directory": "packages/datadog-logger-client"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "devDependencies": {
+    "@computerrock/rollup-monorepo-bundler": "^1.4.2"
+  },
+  "dependencies": {
+    "@datadog/browser-logs": "^2.18.0",
+    "@datadog/browser-rum": "^2.18.0"
+  },
+  "scripts": {
+    "start": "rollup-monorepo-bundler start",
+    "prepare": "rollup-monorepo-bundler build",
+    "build": "rollup-monorepo-bundler build"
+  }
+}

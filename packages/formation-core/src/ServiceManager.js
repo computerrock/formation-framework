@@ -1,12 +1,15 @@
 import warning from 'warning';
+import {FormationLoggerService} from '@computerrock/formation-logger';
 
 /**
  * Service manager
  */
 class ServiceManager {
     constructor() {
-        this.services = {};
+        this.registerService('ffwLoggerService', new FormationLoggerService());
     }
+
+    #services = {};
 
     /**
      * Registers service in manager
@@ -15,12 +18,12 @@ class ServiceManager {
      * @param {object} serviceObject
      */
     registerService = (serviceName, serviceObject) => {
-        if (typeof this.services[serviceName] !== 'undefined') {
+        if (typeof this.#services[serviceName] !== 'undefined') {
             warning(false, `[@computerrock] ServiceManager already contains service with name '${serviceName}'.`);
             throw new Error('Service initialization error - conflict: ' + serviceName);
         }
 
-        this.services[serviceName] = serviceObject;
+        this.#services[serviceName] = serviceObject;
     };
 
     /**
@@ -30,12 +33,12 @@ class ServiceManager {
      * @return {*}
      */
     loadService = serviceName => {
-        if (typeof this.services[serviceName] === 'undefined') {
+        if (typeof this.#services[serviceName] === 'undefined') {
             warning(false, `[@computerrock] ServiceManager cannot find service with name: '${serviceName}'.`);
             throw new Error('Service initialization error - not found: ' + serviceName);
         }
 
-        return this.services[serviceName];
+        return this.#services[serviceName];
     };
 
     /**
@@ -44,12 +47,12 @@ class ServiceManager {
      * @param {string} serviceName
      */
     removeService = serviceName => {
-        if (typeof this.services[serviceName] === 'undefined') {
+        if (typeof this.#services[serviceName] === 'undefined') {
             warning(false, `[@computerrock] ServiceManager cannot remove service with name: '${serviceName}'.`);
             return;
         }
 
-        delete this.services[serviceName];
+        delete this.#services[serviceName];
     };
 }
 
