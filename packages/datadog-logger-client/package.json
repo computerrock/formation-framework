@@ -1,13 +1,13 @@
 {
-  "name": "@computerrock/oidc-auth-client",
+  "name": "@computerrock/datadog-logger-client",
   "version": "0.20.0",
-  "description": "OpenID Connect auth client",
+  "description": "Formation framework - Datadog logger client",
   "author": "Computer Rock",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/computerrock/formation-framework",
-    "directory": "packages/oidc-auth-client"
+    "directory": "packages/datadog-logger-client"
   },
   "publishConfig": {
     "access": "public"
@@ -24,10 +24,8 @@
     "@computerrock/rollup-monorepo-bundler": "^1.4.2"
   },
   "dependencies": {
-    "content-type": "^1.0.4",
-    "js-cookie": "^3.0.1",
-    "jwt-decode": "^3.1.2",
-    "qs": "^6.10.1"
+    "@datadog/browser-logs": "^2.18.0",
+    "@datadog/browser-rum": "^2.18.0"
   },
   "scripts": {
     "start": "rollup-monorepo-bundler start",

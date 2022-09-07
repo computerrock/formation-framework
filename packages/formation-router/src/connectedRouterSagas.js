@@ -51,13 +51,22 @@ const getBranchSagas = (routeBranch, location) => {
  * @return {IterableIterator<*>}
  */
 const runBranchSagas = function* runBranchSagas(branchSagas) {
+    const {serviceManager} = yield select(state => state.application);
+    const ffwLoggerService = serviceManager.loadService('ffwLoggerService');
+
     const subBranchSagas = [...branchSagas];
     const branchRouteSagas = subBranchSagas.pop().reverse();
 
     let shouldContinueRunning;
     while (branchRouteSagas.length > 0) {
-        const [saga, ...args] = branchRouteSagas.pop();
-        shouldContinueRunning = yield call(saga, ...args);
+        try {
+            const [saga, ...args] = branchRouteSagas.pop();
+            shouldContinueRunning = yield call(saga, ...args);
+        } catch (error) {
+            ffwLoggerService.error('Loader saga error: ' + error.message, {error});
+            ffwLoggerService.consoleError('Loader saga error: ' + error.message, error);
+        }
+
         if (shouldContinueRunning === END_SIDE_EFFECTS_RUNNING) break;
     }
 

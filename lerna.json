@@ -2,8 +2,15 @@
   "packages": [
     "packages/*"
   ],
-  "version": "0.16.0",
+  "version": "0.20.0",
   "command": {
+    "bootstrap": {
+      "hoist": [
+        "@computerrock/react-app-polyfill",
+        "@computerrock/rollup-monorepo-bundler",
+        "@computerrock/toolchain-react-app"
+      ]
+    },
     "publish": {
       "message": "[release] publish packages"
     }

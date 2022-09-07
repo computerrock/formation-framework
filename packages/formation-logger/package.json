@@ -1,13 +1,13 @@
 {
-  "name": "@computerrock/oidc-auth-client",
+  "name": "@computerrock/formation-logger",
   "version": "0.20.0",
-  "description": "OpenID Connect auth client",
+  "description": "Formation framework - logging layer",
   "author": "Computer Rock",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/computerrock/formation-framework",
-    "directory": "packages/oidc-auth-client"
+    "directory": "packages/formation-logger"
   },
   "publishConfig": {
     "access": "public"
@@ -15,19 +15,14 @@
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
   "files": [
-    "dist"
+    "dist",
+    "bundler.config.js"
   ],
   "engines": {
     "node": ">=12"
   },
   "devDependencies": {
     "@computerrock/rollup-monorepo-bundler": "^1.4.2"
-  },
-  "dependencies": {
-    "content-type": "^1.0.4",
-    "js-cookie": "^3.0.1",
-    "jwt-decode": "^3.1.2",
-    "qs": "^6.10.1"
   },
   "scripts": {
     "start": "rollup-monorepo-bundler start",
