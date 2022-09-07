@@ -33,8 +33,8 @@ export default function configureStore(config) {
     const sagaMiddleware = createSagaMiddleware({
         ...(!!logger && {onError: (error, sagaContext) => {
             logger.error(error.message, {error, ...sagaContext});
-            console.log('%cUncaught redux-saga error: ' + error.message, 'color: red');
-            console.log(`%c${sagaContext.sagaStack || 'No saga stack available'}`, 'color: red');
+            console.log('%cUncaught redux-saga error: ' + error.message, 'color: red'); // eslint-disable-line no-console
+            console.log(`%c${sagaContext.sagaStack || 'No saga stack available'}`, 'color: red'); // eslint-disable-line no-console
         }}),
     });
     let middleware = [
