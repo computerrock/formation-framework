@@ -23,7 +23,20 @@ import ServiceManager from './ServiceManager';
 export default function configureStore(config) {
     const {routes, history, reducers, serviceManager, initialState} = config;
 
-    const sagaMiddleware = createSagaMiddleware();
+    let logger;
+    try {
+        logger = serviceManager.loadService('ffwLoggerService');
+    } catch (error) {
+        // no-op
+    }
+
+    const sagaMiddleware = createSagaMiddleware({
+        ...(!!logger && {onError: (error, sagaContext) => {
+            logger.error(error.message, {error, ...sagaContext});
+            console.log('%cUncaught redux-saga error: ' + error.message, 'color: red');
+            console.log(`%c${sagaContext.sagaStack || 'No saga stack available'}`, 'color: red');
+        }}),
+    });
     let middleware = [
         routerMiddleware(history),
         sagaMiddleware,

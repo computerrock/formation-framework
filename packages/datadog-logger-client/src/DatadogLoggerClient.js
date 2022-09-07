@@ -17,9 +17,9 @@ export default class DatadogLoggerClient {
         datadogLogs.init({
             clientToken: serviceParameters.clientToken || '',
             service: serviceParameters.service || '',
-            site: options.site || 'datadoghq.eu',
             ...(!!options.env && {env: options.env}),
             ...(!!options.version && {version: options.version}),
+            site: options.site || 'datadoghq.eu',
             sampleRate: options.site || 100,
             forwardErrorsToLogs: typeof options.forwardErrorsToLogs === 'boolean' ? options.forwardErrorsToLogs : true,
             ...options,
@@ -29,20 +29,20 @@ export default class DatadogLoggerClient {
             applicationId: serviceParameters.applicationId || '',
             clientToken: serviceParameters.clientToken || '',
             service: serviceParameters.service || '',
-            site: options.site || 'datadoghq.eu',
             ...(!!options.env && {env: options.env}),
             ...(!!options.version && {version: options.version}),
+            site: options.site || 'datadoghq.eu',
             sampleRate: options.site || 100,
             trackInteractions: typeof options.trackInteractions === 'boolean' ? options.trackInteractions : true,
             ...options,
         });
 
-        this.#logger = datadogLogs;
+        this.#logger = datadogLogs.logger;
     }
 
     #logger = null;
 
-    error = (message, messageContext) => this.#logger.warn(message, messageContext);
+    error = (message, messageContext) => this.#logger.error(message, messageContext);
     warn = (message, messageContext) => this.#logger.warn(message, messageContext);
     info = (message, messageContext) => this.#logger.info(message, messageContext);
 }

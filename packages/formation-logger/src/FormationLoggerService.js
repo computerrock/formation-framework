@@ -1,5 +1,3 @@
-import warning from 'warning';
-
 /**
  * Formation logger service
  *
@@ -25,10 +23,7 @@ export default class FormationLoggerService {
     error = (message, messageContext) => {
         if (this.#logger) {
             this.#logger.error(message, messageContext);
-            return;
         }
-
-        warning(false, message);
     };
 
     warn = (message, messageContext) => {
@@ -38,10 +33,7 @@ export default class FormationLoggerService {
             } else {
                 this.#logger.error(message, messageContext);
             }
-            return;
         }
-
-        warning(false, message);
     };
 
     info = (message, messageContext) => {

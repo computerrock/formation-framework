@@ -24,9 +24,6 @@
   "devDependencies": {
     "@computerrock/rollup-monorepo-bundler": "^1.4.2"
   },
-  "dependencies": {
-    "warning": "^4.0.3"
-  },
   "scripts": {
     "start": "rollup-monorepo-bundler start",
     "prepare": "rollup-monorepo-bundler build",
