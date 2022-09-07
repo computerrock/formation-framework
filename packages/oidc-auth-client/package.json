@@ -1,6 +1,6 @@
 {
   "name": "@computerrock/oidc-auth-client",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "OpenID Connect auth client",
   "author": "Computer Rock",
   "license": "MIT",
