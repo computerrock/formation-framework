@@ -8,13 +8,11 @@ export default class FormationLoggerService {
 
     setLoggerClient = logger => {
         if (!logger || !(typeof logger === 'function' || typeof logger === 'object')) {
-            warning(false, `Logger client not provided.`);
-            throw new Error('Logger client not provided.');
+            throw new Error(`Logger client not provided.`);
         }
 
         if (typeof logger.error !== 'function') {
-            warning(false, `Logger client must at least implement 'error' method. Methods 'info' and 'warn' are optional but recommended.`);
-            throw new Error('Logger client must at least implement `error` method.');
+            throw new Error(`Logger client must at least implement 'error' method. Methods 'info' and 'warn' are optional but recommended.`);
         }
 
         this.#logger = logger;
