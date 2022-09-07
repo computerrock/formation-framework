@@ -1,3 +1,7 @@
+import stylesInfo from './styles/info';
+import stylesWarn from './styles/warn';
+import stylesError from './styles/error';
+
 /**
  * Formation logger service
  *
@@ -38,5 +42,20 @@ export default class FormationLoggerService {
         if (this.#logger && typeof this.#logger.info === 'function') {
             this.#logger.info(message, messageContext);
         }
+    };
+
+    consoleError = (message = '', error) => {
+        console.log(`%c${message}`, stylesError); // eslint-disable-line no-console
+        if (error && typeof error.stack === 'string') {
+            console.log(`%c${error.stack}`, stylesError); // eslint-disable-line no-console
+        }
+    };
+
+    consoleWarn = message => {
+        console.log(`%c${message}`, stylesWarn); // eslint-disable-line no-console
+    };
+
+    consoleInfo = message => {
+        console.log(`%c${message}`, stylesInfo); // eslint-disable-line no-console
     };
 }
