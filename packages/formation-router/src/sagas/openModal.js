@@ -19,6 +19,9 @@ const openModal = function* openModal(modalId, additionalQueryParams = {}) {
             modal: activeModalIds,
             ...additionalQueryParams,
         }, location.search, true),
+    }, { // store the modal's state info in the location's state
+        isModalOpen: true,
+        modalId,
     }));
 };
 
