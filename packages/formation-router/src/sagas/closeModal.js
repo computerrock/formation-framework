@@ -24,6 +24,9 @@ const closeModal = function* closeModal(modalId, additionalQueryParams = {}) {
         search: prepareSearchQueryParams({
             modal: activeModalIds,
         }, newLocation, true),
+    }, { // store the modal's state info in the location's state
+        isModalClosed: true,
+        modalId,
     }));
 };
 
