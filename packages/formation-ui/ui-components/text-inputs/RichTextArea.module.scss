@@ -22,6 +22,7 @@ $rich-text-area-config: (
     rich-text-area-placeholder-text-disabled: map-get($typography, text-color-disabled),
     // dimensions
     rich-text-area-height: 4 * 60px + map-get($dimensions, spacing-3xl),
+    rich-text-area-height-small: 2 * 60px + map-get($dimensions, spacing-s),
     rich-text-area-spacing-small: map-get($dimensions, spacing-s),
     rich-text-area-spacing-medium: map-get($dimensions, spacing-m),
     // borders
@@ -77,6 +78,10 @@ $rich-text-area-config: (
 
     &--not-resizable {
         resize: none;
+    }
+
+    .ace-c-rich-text-area--small & {
+        height: map-get($rich-text-area-config, rich-text-area-height-small);
     }
 }
 

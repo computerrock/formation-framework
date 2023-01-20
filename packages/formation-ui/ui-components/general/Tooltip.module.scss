@@ -1,0 +1,31 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$tooltip-config: (
+    tooltip-background: map-get($base-colors, secondary),
+    tooltip-color: map-get($base-colors, white),
+    tooltip-border-radius: map-get($border-radius, radius-4),
+    tooltip-z-index: map-get($dimensions, z-index-tooltip)
+);
+
+.ace-c-tooltip {
+    position: relative;
+}
+
+.ace-c-tooltip__message {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 90%;
+    background-color: map-get($tooltip-config, tooltip-background);
+    color: map-get($tooltip-config, tooltip-color);
+    border-radius: map-get($tooltip-config, tooltip-border-radius);
+    z-index: map-get($tooltip-config, tooltip-z-index);
+}
+
+.ace-c-tooltip__hover-element {
+    &:hover + .ace-c-tooltip__message {
+        display: inline-block;
+    }
+}

@@ -1,0 +1,26 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$range-input-config: (
+    range-input-text-color: map-get($typography, text-color-highlighted),
+    range-input-border-color: map-get($base-colors, secondary-light-c),
+);
+
+.ace-c-range-input {
+    &__wrapper {
+        padding: 30px 16px 0;
+        border: 1px solid map-get($range-input-config, range-input-border-color);
+        height: 56px;
+    }
+}
+
+.ace-c-range-input-handle__text {
+    position: absolute;
+    top: -25px;
+    left: 100%;
+    transform: translate(-50%);
+    font-size: 12px;
+    color: map-get($range-input-config, range-input-text-color);
+    font-weight: 400;
+}

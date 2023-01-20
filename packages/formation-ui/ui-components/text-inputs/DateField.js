@@ -13,8 +13,8 @@ import styles from './DateField.module.scss';
 
 const DateField = React.forwardRef((props, ref) => {
     const {cx} = useStyles(props, styles);
-    const {value, onChange, label, placeholder, errors, minDate, qaIdent, onInvalidDate} = props;
-    const {format, name, defaultValue, isDisabled, icon, timePlaceholder, locale} = props;
+    const {value, onChange, label, placeholder, errors, minDate, maxDate, qaIdent, onInvalidDate} = props;
+    const {format, name, defaultValue, isDisabled, icon, timePlaceholder, locale, customTimeOptions} = props;
     const {dropDownTriggerRef, openDropDown, closeDropDown, isOpen} = useContext(DropDownContext);
     const [inputValue, setInputValue] = useState(defaultValue ? moment(defaultValue).format(format) : '');
     const [isTimeExist, setIsTimeExist] = useState(false);
@@ -124,6 +124,8 @@ const DateField = React.forwardRef((props, ref) => {
                     locale={locale}
                     hasTime={isTimeExist}
                     minDate={minDate}
+                    maxDate={maxDate}
+                    customTimeOptions={customTimeOptions}
                 />
             </DropDown>
         </Fragment>
@@ -136,14 +138,18 @@ DateField.propTypes = {
     ...withFormContextPropTypes,
     format: PropTypes.string,
     minDate: PropTypes.string,
+    maxDate: PropTypes.string,
     onInvalidDate: PropTypes.func,
+    customTimeOptions: PropTypes.array,
 };
 
 DateField.defaultProps = {
     ...withFormContextDefaultProps,
     format: 'DD.MM.YYYY',
     minDate: '',
+    maxDate: '',
     onInvalidDate: () => {},
+    customTimeOptions: null,
 };
 
 export default withFormContext({componentName: 'DateField'})(withDropDownProvider(DateField));

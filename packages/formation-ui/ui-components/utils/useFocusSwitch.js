@@ -36,8 +36,25 @@ const useFocusSwitch = ({ref, onFocusSwitch, onClickOutside, onKeyboardCancel, o
             }
         });
 
+        const handleWindowBlur = focusEvent => {
+            if (focusEvent.srcElement && focusEvent.srcElement === window) {
+                onClickOutside();
+                return;
+            }
+
+            if (focusEvent.srcElement
+                && focusEvent.srcElement !== window
+                && !targetRefs.reduce((isTargetInFocus, targetRefs) => {
+                    return (targetRefs.current && targetRefs.current.contains(focusEvent.srcElement))
+                        || isTargetInFocus;
+                }, false)) {
+                onClickOutside();
+            }
+        };
+
         if (typeof onFocusSwitch === 'function' || typeof onClickOutside === 'function') {
             document.addEventListener('click', handleClick, true);
+            window.addEventListener('blur', handleWindowBlur, true);
         }
         if (typeof onFocusSwitch === 'function' || typeof onKeyboardCancel === 'function') {
             document.addEventListener('keydown', handleKeyDown, true);
@@ -49,6 +66,7 @@ const useFocusSwitch = ({ref, onFocusSwitch, onClickOutside, onKeyboardCancel, o
         return () => {
             if (typeof onFocusSwitch === 'function' || typeof onClickOutside === 'function') {
                 document.removeEventListener('click', handleClick, true);
+                window.removeEventListener('blur', handleWindowBlur, true);
             }
             if (typeof onFocusSwitch === 'function' || typeof onKeyboardCancel === 'function') {
                 document.removeEventListener('keydown', handleKeyDown, true);

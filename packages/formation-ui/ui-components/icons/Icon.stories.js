@@ -1,13 +1,13 @@
 import React from 'react';
 import childrenPropArgTypes from '../storybook-utils/childrenPropArgTypes';
 import createUseStylesArgTypes from '../storybook-utils/createUseStylesArgTypes';
-import InteractiveIcon from './InteractiveIcon';
+import Icon from './Icon';
 import {searchIcon} from './index';
-import styles from './InteractiveIcon.module.scss';
+import styles from './Icon.module.scss';
 
 export default {
-    title: 'Buttons/InteractiveIcon',
-    component: InteractiveIcon,
+    title: 'Buttons/Icon',
+    component: Icon,
     argTypes: {
         ...childrenPropArgTypes,
         ...createUseStylesArgTypes(styles),
@@ -15,11 +15,11 @@ export default {
 };
 
 const Template = args => (
-    <InteractiveIcon {...args}>some text</InteractiveIcon>
+    <Icon {...args}/>
 );
 
 export const DefaultStory = Template.bind({});
-DefaultStory.storyName = 'InteractiveIcon';
+DefaultStory.storyName = 'Icon';
 DefaultStory.args = {
     icon: searchIcon,
 };

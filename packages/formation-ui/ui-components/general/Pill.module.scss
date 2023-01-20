@@ -9,14 +9,18 @@ $pill-config: (
     pill-border-radius: map-get($border-radius, radius-24),
     pill-background: map-get($base-colors, background-c),
     pill-background-pending: map-get($base-colors, background-c),
+    pill-background-pending-highlighted: map-get($base-colors, secondary-light-b),
     pill-background-positive: map-get($base-colors, positive-light),
     pill-background-negative: map-get($base-colors, negative-light),
     pill-background-information: map-get($base-colors, primary-light-c),
+    pill-background-information-highlighted: map-get($base-colors, primary-dark-a),
     pill-text-color: map-get($typography, text-color),
     pill-text-color-pending: map-get($typography, text-color),
+    pill-text-color-pending-highlighted: map-get($base-colors, white),
     pill-text-color-positive: map-get($typography, text-color-success),
     pill-text-color-negative: map-get($typography, text-color-warning),
     pill-text-color-information: map-get($typography, text-color),
+    pill-text-color-information-highlighted: map-get($base-colors, white),
 );
 
 .ace-c-pill {
@@ -37,6 +41,11 @@ $pill-config: (
         background: map-get($pill-config, pill-background-pending);
     }
 
+    &--pending-highlighted {
+        color: map-get($pill-config, pill-text-color-pending-highlighted);
+        background: map-get($pill-config, pill-background-pending-highlighted);
+    }
+
     &--positive {
         color: map-get($pill-config, pill-text-color-positive);
         background: map-get($pill-config, pill-background-positive);
@@ -50,6 +59,11 @@ $pill-config: (
     &--information {
         color: map-get($pill-config, pill-text-color-information);
         background: map-get($pill-config, pill-background-information);
+    }
+
+    &--information-highlighted {
+        color: map-get($pill-config, pill-text-color-information-highlighted);
+        background: map-get($pill-config, pill-background-information-highlighted);
     }
 
     &--small {

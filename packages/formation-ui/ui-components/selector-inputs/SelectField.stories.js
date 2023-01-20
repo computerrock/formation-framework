@@ -30,4 +30,6 @@ export const DefaultStory = Template.bind({});
 DefaultStory.storyName = 'SelectField';
 DefaultStory.args = {
     label: 'Field label',
+    name: 'defaultStoryGroup',
+    placeholder: 'Please select option...',
 };

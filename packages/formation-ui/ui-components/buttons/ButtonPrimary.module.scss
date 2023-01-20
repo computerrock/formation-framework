@@ -11,6 +11,8 @@ $button-primary-config: (
     button-primary-background-focus: map-get($base-colors, primary-dark-b),
     button-primary-background-disabled: map-get($base-colors, disabled-main),
     button-primary-background-positive: map-get($base-colors, positive),
+    button-primary-background-negative: map-get($base-colors, negative),
+    button-primary-background-dark-positive: map-get($base-colors, aditional-f),
     button-primary-text-color: map-get($typography, text-color-contrast),
     button-primary-shadow: 'none',
     button-primary-shadow-hover: 'none',
@@ -88,6 +90,40 @@ $button-primary-config: (
 
         &:focus {
             background: map-get($button-primary-config, button-primary-background-positive);
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+
+    &--is-negative {
+        background-color: map-get($button-primary-config, button-primary-background-negative);
+        &:hover:not(#{&}--is-disabled):not(:focus) {
+            background-color: map-get($button-primary-config, button-primary-background-negative);
+        }
+
+        &:active:not(#{&}--is-disabled) {
+            background: map-get($button-primary-config, button-primary-background-negative);
+        }
+
+        &:focus {
+            background: map-get($button-primary-config, button-primary-background-negative);
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+
+    &--is-dark-positive {
+        background-color: map-get($button-primary-config, button-primary-background-dark-positive);
+        &:hover:not(#{&}--is-disabled):not(:focus) {
+            background-color: map-get($button-primary-config, button-primary-background-dark-positive);
+        }
+
+        &:active:not(#{&}--is-disabled) {
+            background: map-get($button-primary-config, button-primary-background-dark-positive);
+        }
+
+        &:focus {
+            background: map-get($button-primary-config, button-primary-background-dark-positive);
             outline: 0;
             box-shadow: none;
         }

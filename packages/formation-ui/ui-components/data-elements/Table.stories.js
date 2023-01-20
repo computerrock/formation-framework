@@ -9,7 +9,7 @@ import TableCell from './TableCell';
 import styles from './Table.module.scss';
 
 export default {
-    title: 'Data Elements/Table',
+    title: 'General/Table',
     component: Table,
     argTypes: {
         ...createUseStylesArgTypes(styles),

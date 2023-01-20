@@ -9,6 +9,8 @@ $form-field-config: (
     form-field-text-disabled-color: map-get($base-colors, disabled-dark),
     form-field-text-error-color: map-get($base-colors, negative),
     form-field-margin: map-get($dimensions, spacing-s),
+    form-field-asterics-margin: map-get($dimensions, spacing-xs),
+    form-field-asterics-color: map-get($base-colors, warning),
 );
 
 .ace-c-form-field {
@@ -53,4 +55,9 @@ $form-field-config: (
     &--disabled {
         display: none;
     }
+}
+
+.ace-c-form-field__span {
+    color: map-get($form-field-config, form-field-asterics-color);
+    margin-left: map-get($form-field-config, form-field-asterics-margin);
 }

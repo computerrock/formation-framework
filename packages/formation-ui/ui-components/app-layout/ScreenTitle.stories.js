@@ -5,7 +5,7 @@ import ScreenTitle from './ScreenTitle';
 import styles from './ScreenTitle.module.scss';
 
 export default {
-    title: 'Layout/ScreenTitle',
+    title: 'General/ScreenTitle',
     component: ScreenTitle,
     argTypes: {
         ...childrenPropArgTypes,

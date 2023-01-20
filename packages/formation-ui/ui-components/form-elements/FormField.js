@@ -6,7 +6,7 @@ import styles from './FormField.module.scss';
 
 const FormField = React.forwardRef((props, ref) => {
     const {cx} = useStyles(props, styles);
-    const {label, children, name, errors, errorClassName, isDisabled} = props;
+    const {label, children, name, errors, errorClassName, isDisabled, isFieldRequired, errorSignClassName} = props;
 
     return (
         <div
@@ -21,11 +21,14 @@ const FormField = React.forwardRef((props, ref) => {
                 htmlFor={name}
             >
                 {label}
+                {isFieldRequired
+                    ? <span className={cx('ace-c-form-field__span')}>*</span>
+                    : null}
             </label>
             {children}
             {errors && errors.length > 0 && (
-                <p className={cx('ace-c-form-field__error-message')}>
-                    <i className={cx(['ace-c-form-field__warning-sign', errorClassName])} />
+                <p className={cx('ace-c-form-field__error-message', errorClassName)}>
+                    <i className={cx(['ace-c-form-field__warning-sign', errorSignClassName])} />
                     <span>{errors[0]}</span>
                 </p>
             )}

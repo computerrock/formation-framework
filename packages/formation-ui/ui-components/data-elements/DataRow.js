@@ -7,15 +7,20 @@ import styles from './DataRow.module.scss';
 const DataRow = props => {
     const {cx} = useStyles(props, styles);
     const {qaIdent, qaIdentPart} = useQAIdent(props, {qaIdentRoot: 'data-row'});
-    const {children, label, contentClassName} = props;
+    const {children, label, contentClassName, isFieldRequired} = props;
 
     return (
         <div className={cx('ace-c-data-row')} data-qa={qaIdent}>
             <div
-                className={cx('ace-c-data-row__label')}
+                className={cx('ace-c-data-row__label', {
+                    'ace-c-data-row__label--is-field-required': isFieldRequired,
+                })}
                 data-qa={qaIdentPart('label')}
             >
                 {label}
+                {isFieldRequired
+                    ? <span className={cx('ace-c-data-row__span')}>*</span>
+                    : null}
             </div>
             <div
                 className={cx('ace-c-data-row__content', contentClassName)}
@@ -32,11 +37,13 @@ DataRow.propTypes = {
     // to content container of the panel. Eg. ace-u-flex, ace-u-grid, ...
     contentClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     label: PropTypes.node,
+    isFieldRequired: PropTypes.bool,
 };
 
 DataRow.defaultProps = {
     contentClassName: '',
     label: null,
+    isFieldRequired: false,
 };
 
 export default DataRow;

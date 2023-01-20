@@ -8,4 +8,5 @@ export {default as HighlightRectangle} from './HighlightRectangle';
 export {default as Divider} from './Divider';
 export {default as LinkedList} from './LinkedList';
 export {default as LinkedListItem} from './LinkedListItem';
+export {default as Tooltip} from './Tooltip';
 

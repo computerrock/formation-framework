@@ -8,6 +8,7 @@ $highlight-circle-config: (
     highlight-circle-background-negative: map-get($base-colors, negative-light),
     highlight-circle-background-success: map-get($base-colors, positive-light),
     highlight-circle-background-primary: map-get($base-colors, primary-light-c),
+    highlight-circle-backgorund-warning: map-get($base-colors, aditional-g),
     highlight-circle-size-small: 40px,
     highlight-circle-size-regular: 64px,
     highlight-circle-size-large: 160px,
@@ -45,6 +46,10 @@ $background-variants: (
     &--small {
         width: map-get($highlight-circle-config, highlight-circle-size-small);
         height: map-get($highlight-circle-config, highlight-circle-size-small);
+    }
+
+    &--warning {
+        background-color: map-get($highlight-circle-config, highlight-circle-backgorund-warning);
     }
 
     @each $background-variant in $background-variants {
