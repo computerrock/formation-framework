@@ -14,6 +14,8 @@ $radio-tile-config: (
     radio-tile-wrap-border-selected: 2px solid map-get($base-colors, primary),
     radio-tile-wrap-border-selected-hover: 2px solid map-get($base-colors, primary),
     radio-tile-wrap-border-selected-disabled: 2px solid map-get($base-colors, primary),
+    radio-tile-wrap-border-selected-positive: 2px solid map-get($base-colors, positive),
+    radio-tile-wrap-border-selected-negative: 2px solid map-get($base-colors, negative),
     radio-tile-wrap-border-disabled: 2px solid map-get($base-colors, disabled-light),
     // backgrounds
     radio-tile-wrap-background: map-get($base-colors, white),
@@ -22,6 +24,8 @@ $radio-tile-config: (
     radio-tile-wrap-background-selected: map-get($base-colors, primary-light-b),
     radio-tile-wrap-background-selected-hover: map-get($base-colors, primary-light-b),
     radio-tile-wrap-background-selected-disabled: map-get($base-colors, primary-light-b),
+    radio-tile-wrap-background-selected-positive:map-get($base-colors, positive-light),
+    radio-tile-wrap-background-selected-negative:map-get($base-colors, negative-light),
     radio-tile-wrap-background-disabled: map-get($base-colors, white),
     // icon
     radio-tile-icon: map-get($icon-colors, icon-default),
@@ -30,7 +34,15 @@ $radio-tile-config: (
     radio-tile-icon-selected: map-get($icon-colors, icon-highlight),
     radio-tile-icon-selected-hover: map-get($icon-colors, icon-highlight),
     radio-tile-icon-selected-disabled: map-get($icon-colors, icon-disabled),
+    radio-tile-icon-selected-positive: map-get($icon-colors, icon-success),
+    radio-tile-icon-selected-negative: map-get($icon-colors, icon-warning),
     radio-tile-icon-disabled: map-get($icon-colors, icon-disabled),
+);
+
+$background-variants: (
+    negative,
+    positive,
+    primary,
 );
 
 @include state-styles.configure('ace-c-radio-tile', $radio-tile-config);
@@ -49,13 +61,35 @@ $radio-tile-config: (
     background-color: map-get($radio-tile-config, radio-tile-wrap-background);
     text-align: center;
 
-    @include state-styles.element() using($get-design-token) {
-        border: meta.call($get-design-token, radio-tile-wrap-border);
-        background-color: meta.call($get-design-token, radio-tile-wrap-background);
+    &:not(#{&}--is-positive):not(#{&}--is-negative) {
+        @include state-styles.element() using($get-design-token) {
+            border: meta.call($get-design-token, radio-tile-wrap-border);
+            background-color: meta.call($get-design-token, radio-tile-wrap-background);
+
+            .ace-c-radio-tile__icon > svg {
+                fill: meta.call($get-design-token, radio-tile-icon);
+            }
+        }
+    }
+
+    &--is-positive#{&}--is-selected {
+        border: map-get($radio-tile-config, radio-tile-wrap-border-selected-positive);
+        background-color: map-get($radio-tile-config, radio-tile-wrap-background-selected-positive);
 
         .ace-c-radio-tile__icon {
             svg {
-                fill: meta.call($get-design-token, radio-tile-icon);
+                fill: map-get($radio-tile-config, radio-tile-icon-selected-positive);
+            }
+        }
+    }
+
+    &--is-negative#{&}--is-selected {
+        border: map-get($radio-tile-config, radio-tile-wrap-border-selected-negative);
+        background-color: map-get($radio-tile-config, radio-tile-wrap-background-selected-negative);
+
+        .ace-c-radio-tile__icon {
+            svg {
+                fill: map-get($radio-tile-config, radio-tile-icon-selected-negative);
             }
         }
     }

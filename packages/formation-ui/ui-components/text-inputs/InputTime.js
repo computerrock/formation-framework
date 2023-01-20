@@ -20,7 +20,7 @@ const InputTime = React.forwardRef((props, ref) => {
     const {onOptionSelect, placeholder, icon, qaIdent} = props;
     const {isDisabled, name, value, onChange, errors, inputClassName} = props;
     const {dropDownTriggerRef, openDropDown, closeDropDown} = useContext(DropDownContext);
-    const {customTimeOptions} = props;
+    const {customTimeOptions, isInvalid} = props;
 
     const filteredTimeOptions = !customTimeOptions
         ? (value
@@ -62,10 +62,13 @@ const InputTime = React.forwardRef((props, ref) => {
                     onFocus={onFocusHandler}
                     isAutoCompleteOff={true}
                     errors={errors}
+                    isInvalid={isInvalid}
                 />
                 <Icon
                     icon={icon}
-                    className={cx('ace-c-input-time__icon')}
+                    className={cx('ace-c-input-time__icon', {
+                        'ace-c-icon--color-warning': isInvalid,
+                    })}
                 />
             </div>
             <DropDown>
@@ -100,6 +103,7 @@ InputTime.propTypes = {
     placeholder: PropTypes.string,
     icon: PropTypes.object,
     customTimeOptions: PropTypes.array,
+    isInvalid: PropTypes.bool,
 };
 
 InputTime.defaultProps = {
@@ -108,6 +112,7 @@ InputTime.defaultProps = {
     placeholder: '',
     icon: timeIcon,
     customTimeOptions: null,
+    isInvalid: false,
 };
 
 export default withFormContext({componentName: 'InputTime'})(withDropDownProvider(InputTime));

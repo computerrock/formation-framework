@@ -8,17 +8,23 @@ const Input = React.forwardRef((props, ref) => {
     const {cx} = useStyles(props, styles);
     const {name, value, isDisabled, qaIdent} = props;
     const {placeholder, isAutoCompleteOff} = props;
-    const {onChange, onClick, onBlur, onFocus, type, disallowedSymbols, min, maxLength} = props;
-    const {isRequired, errors} = props;
+    const {onChange, onClick, onBlur, onFocus, onKeyDown, type, maxLength} = props;
+    const {isRequired, errors, isInvalid} = props;
 
     const handleOnChange = event => {
         if (typeof onChange === 'function') onChange(event.target.value);
     };
 
+    const handleOnBlur = event => {
+        if (typeof onBlur === 'function') onBlur(event.target.value);
+    };
+
+    const handleOnFocus = event => {
+        if (typeof onFocus === 'function') onFocus(event.target.value);
+    };
+
     const handleOnKeyDown = event => {
-        if (type === 'number' && disallowedSymbols.includes(event.key)) {
-            event.preventDefault();
-        }
+        if (typeof onKeyDown === 'function' && event.key === 'Enter') onKeyDown();
     };
 
     return (
@@ -27,20 +33,19 @@ const Input = React.forwardRef((props, ref) => {
             name={name}
             className={cx('ace-c-input', {
                 'ace-c-input--is-disabled': isDisabled,
-                'ace-c-input--has-error': errors.length,
+                'ace-c-input--has-error': errors.length || isInvalid,
                 'ace-c-input--is-required': isRequired && value === '',
             })}
             value={value}
-            placeholder={errors.length ? '' : placeholder}
+            placeholder={errors.length || isInvalid ? '' : placeholder}
             disabled={isDisabled}
             maxLength={maxLength}
             onChange={handleOnChange}
             onClick={onClick}
-            onBlur={onBlur}
-            onFocus={onFocus}
+            onBlur={handleOnBlur}
+            onFocus={handleOnFocus}
             onKeyDown={handleOnKeyDown}
             {...(isAutoCompleteOff && {autoComplete: 'off'})}
-            {...(type === 'number' && typeof min === 'number' ? {min: min} : {})}
             type={type}
             data-qa={qaIdent}
         />
@@ -54,8 +59,7 @@ Input.propTypes = {
     placeholder: PropTypes.string,
     isAutoCompleteOff: PropTypes.bool,
     type: PropTypes.string,
-    disallowedSymbols: PropTypes.array,
-    min: PropTypes.number,
+    isInvalid: PropTypes.bool,
 };
 
 Input.defaultProps = {
@@ -63,8 +67,7 @@ Input.defaultProps = {
     placeholder: '',
     isAutoCompleteOff: true,
     type: 'text',
-    disallowedSymbols: [],
-    min: undefined,
+    isInvalid: false,
 };
 
 export default withFormContext({componentName: 'Input'})(Input);

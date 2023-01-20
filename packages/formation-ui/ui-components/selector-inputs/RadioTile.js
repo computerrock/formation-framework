@@ -9,7 +9,7 @@ import styles from './RadioTile.module.scss';
 const RadioTile = React.forwardRef((props, ref) => {
     const {cx, createClassNameResolver} = useStyles(props, styles);
     const {children, name, icon, ...restProps} = props;
-    const {isSelected, isDisabled} = props;
+    const {type, isSelected, isDisabled} = props;
     const classNameResolver = createClassNameResolver('ace-c-radio-tile');
 
     return (
@@ -24,7 +24,13 @@ const RadioTile = React.forwardRef((props, ref) => {
                 'ace-c-radio-button--is-disabled': isDisabled,
             })}
         >
-            <div className={cx('ace-c-radio-tile__wrap')}>
+            <div
+                className={cx('ace-c-radio-tile__wrap', {
+                    'ace-c-radio-tile__wrap--is-negative': type === 'negative',
+                    'ace-c-radio-tile__wrap--is-positive': type === 'positive',
+                    'ace-c-radio-tile__wrap--is-selected': isSelected,
+                })}
+            >
                 <Icon
                     icon={icon}
                     className={cx(['ace-c-radio-tile__icon', 'ace-c-icon--xl'])}

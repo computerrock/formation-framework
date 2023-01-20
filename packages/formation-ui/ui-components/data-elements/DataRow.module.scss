@@ -23,6 +23,8 @@ $data-row-config: (
     data-row-border-color: map-get($base-colors, secondary-light-d),
     // background
     data-row-label-background: map-get($base-colors, background-b),
+    data-row-asterics-margin: map-get($dimensions, spacing-xs),
+    data-row-asterics-color: map-get($base-colors, warning),
 );
 
 .ace-c-data-row {
@@ -41,6 +43,10 @@ $data-row-config: (
     flex-flow: column nowrap;
     justify-content: flex-start;
     background-color: map-get($data-row-config, data-row-label-background);
+
+    &--is-field-required {
+        flex-flow: nowrap;
+    }
 }
 
 .ace-c-data-row__content {
@@ -64,4 +70,9 @@ $data-row-config: (
     .ace-c-data-row--full-bleed-content.ace-c-data-row--condensed & {
         margin: map-get($data-row-config, data-row-content-padding-condensed-full-bleed);
     }
+}
+
+.ace-c-data-row__span {
+    color: map-get($data-row-config, data-row-asterics-color);
+    margin-left: map-get($data-row-config, data-row-asterics-margin);
 }

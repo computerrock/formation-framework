@@ -12,7 +12,9 @@ const Pill = props => {
                 'ace-c-pill--negative': type === 'negative',
                 'ace-c-pill--positive': type === 'positive',
                 'ace-c-pill--pending': type === 'pending',
+                'ace-c-pill--pending-highlighted': type === 'pending-highlighted',
                 'ace-c-pill--information': type === 'information',
+                'ace-c-pill--information-highlighted': type === 'information-highlighted',
             })}
             {...(title && {title})}
         >
@@ -24,7 +26,7 @@ const Pill = props => {
 };
 
 Pill.propTypes = {
-    type: PropTypes.oneOf(['pending', 'positive', 'negative', 'information']),
+    type: PropTypes.oneOf(['pending', 'positive', 'negative', 'information', 'information-highlighted', 'pending-highlighted']),
     title: PropTypes.string,
 };
 

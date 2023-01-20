@@ -6,7 +6,7 @@ import DatePicker from './DatePicker';
 import styles from './DatePicker.module.scss';
 
 export default {
-    title: 'Advanced Inputs/DatePicker',
+    title: 'Text Inputs/DatePicker',
     component: DatePicker,
     argTypes: {
         ...textInputArgTypes,

@@ -5,7 +5,7 @@ import Panel from './Panel';
 import styles from './Panel.module.scss';
 
 export default {
-    title: 'Layout/Panel',
+    title: 'General/Panel',
     component: Panel,
     argTypes: {
         ...childrenPropArgTypes,

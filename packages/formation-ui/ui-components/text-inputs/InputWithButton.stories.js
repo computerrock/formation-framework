@@ -5,7 +5,7 @@ import buttonArgTypes from '../storybook-utils/buttonArgTypes';
 import createUseStylesArgTypes from '../storybook-utils/createUseStylesArgTypes';
 import InputWithButton from './InputWithButton';
 import styles from './InputWithButton.module.scss';
-import Icon from '../icons/Icon';
+import {Icon, searchIcon} from '../icons';
 
 export default {
     title: 'Text Inputs/InputWithButton',
@@ -19,7 +19,9 @@ export default {
 };
 
 const Template = args => (
-    <InputWithButton {...args}><Icon iconName="plus" size="xl" state="contrast" /></InputWithButton>
+    <InputWithButton {...args}>
+        <Icon icon={searchIcon} />
+    </InputWithButton>
 );
 
 export const DefaultStory = Template.bind({});

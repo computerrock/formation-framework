@@ -75,6 +75,6 @@ $autosuggest-config: (
 
 .ace-c-autosuggest__drop-down {
     min-width: 280px;
-    max-height: 224px;
+    max-height: 252px; // 4 + 1/2
     overflow-y: auto;
 }

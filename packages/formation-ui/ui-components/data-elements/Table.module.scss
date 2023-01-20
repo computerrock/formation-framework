@@ -105,6 +105,10 @@ $table-config: (
         background-color: map-get($table-config, table-cell-background-highlighted);
     }
 
+    &--overflow-visible {
+        overflow: visible;
+    }
+
     @each $text-align in (left, center, right, justify) {
         &--text-align-#{$text-align} {
             text-align: $text-align;

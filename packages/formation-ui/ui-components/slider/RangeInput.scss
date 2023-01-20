@@ -1,0 +1,177 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$range-input-config: (
+    range-input-default-background: map-get($base-colors, primary),
+    range-input-background-color-disabled: map-get($base-colors, primary),
+    range-input-border-color: map-get($base-colors, secondary-light-c),
+    range-input-border-color-disabled: map-get($base-colors, primary),
+    range-input-border-color-active: map-get($base-colors, primary),
+    range-input-border-color-hover: map-get($base-colors, primary-light-b),
+    range-input-border-color-focus: map-get($base-colors, primary-light-a),
+);
+
+.ace-c-range-input {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    &-rail {
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background-color: map-get($range-input-config, range-input-border-color);
+    }
+
+    &-track {
+        position: absolute;
+        height: 4px;
+        background-color: map-get($range-input-config, range-input-border-color-active);
+    }
+}
+
+.ace-c-range-input * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.ace-c-range-input-handle {
+    position: absolute;
+    margin-top: -5px;
+    background-color: #fff;
+    border: solid 4px map-get($range-input-config, range-input-border-color-active);
+    border-radius: 50%;
+    cursor: pointer;
+    cursor: -webkit-grab;
+    cursor: grab;
+    opacity: 0.8;
+    touch-action: pan-x;
+    appearance: none;
+    height: 16px;
+    width: 16px;
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    &:focus-visible {
+        border-color: map-get($range-input-config, range-input-border-color-focus);
+        box-shadow: 0 0 0 3px map-get($range-input-config, range-input-border-color-active);
+    }
+
+    &:hover {
+        border-color: map-get($range-input-config, range-input-border-color-hover);
+    }
+
+    &:active {
+        border-color: map-get($range-input-config, ange-input-border-hover);
+        box-shadow: 0 0 5px map-get($range-input-config, ange-input-border-hover);
+        cursor: -webkit-grabbing;
+        cursor: grabbing;
+    }
+}
+
+.ace-c-range-input-handle-dragging.ace-c-range-input-handle-dragging.ace-c-range-input-handle-dragging {
+    border-color: map-get($range-input-config, ange-input-border-hover);
+    box-shadow: 0 0 0 5px map-get($range-input-config, range-input-border-color-active);
+}
+
+.ace-c-range-input-handle-click-focused:focus {
+    border-color: map-get($range-input-config, range-input-border-color-focus);
+    box-shadow: unset;
+}
+
+.ace-c-range-input-mark {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    width: 100%;
+    font-size: 12px;
+}
+
+.ace-c-range-input-mark-text {
+    position: absolute;
+    display: inline-block;
+    color: #999;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.ace-c-range-input-mark-text-active {
+    color: #666;
+}
+
+.ace-c-range-input-step {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    pointer-events: none;
+}
+
+.ace-c-range-input-dot {
+    position: absolute;
+    bottom: -2px;
+    width: 8px;
+    height: 8px;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 2px solid #e9e9e9;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.ace-c-range-input-dot-active {
+    border-color: map-get($range-input-config, range-input-border-color-active);
+}
+
+.ace-c-range-input-dot-reverse {
+    margin-right: -4px;
+}
+
+.ace-c-range-input-disabled {
+    background-color: transparent;
+}
+
+.ace-c-range-input-disabled .ace-c-range-input-track {
+    background-color: #ccc;
+}
+
+.ace-c-range-input-disabled .ace-c-range-input-handle,
+.ace-c-range-input-disabled .ace-c-range-input-dot {
+    background-color: #fff;
+    border-color: #ccc;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.ace-c-range-input-disabled .ace-c-range-input-mark-text,
+.ace-c-range-input-disabled .ace-c-range-input-dot {
+    cursor: not-allowed !important;
+}
+
+.ace-c-range-input--small-thumb .ace-c-range-input-handle {
+    height: 35px;
+    width: 35px;
+    margin-top: -8px;
+}
+
+.ace-c-range-input-disabled .ace-c-range-input-rail,
+.ace-c-range-input-disabled .ace-c-range-input-track {
+    background: map-get($range-input-config, range-input-background-color-disabled);
+    border: solid 1px map-get($range-input-config, range-input-border-color-disabled);
+}
+
+.ace-c-range-input-disabled .ace-c-range-input-handle {
+    background-color: map-get($range-input-config, range-input-background-color-disabled);
+}
+
+.ace-c-range-input-disabled .ace-c-range-input-handle:hover {
+    cursor: not-allowed;
+}

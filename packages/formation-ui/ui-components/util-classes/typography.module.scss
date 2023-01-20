@@ -9,6 +9,7 @@
 @import '../mixins';
 
 $typography-alignments: ('left', 'right', 'center', 'justify');
+$typography-word-break-styles: ('normal', 'break-word', 'initial', 'inherit', 'break-all', 'keep-all');
 
 :global {
     .ace-u-typography {
@@ -41,5 +42,11 @@ $typography-alignments: ('left', 'right', 'center', 'justify');
 @each $alignment in $typography-alignments {
     :global(.ace-u-typography--align-#{$alignment}) {
         text-align: #{$alignment};
+    }
+}
+
+@each $word-break-style in $typography-word-break-styles {
+    :global(.ace-u-typography-word-break--#{$word-break-style}) {
+        word-break: #{$word-break-style};
     }
 }

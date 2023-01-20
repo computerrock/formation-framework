@@ -4,7 +4,7 @@ import FormField from '../form-elements/FormField';
 import RichTextArea from './RichTextArea';
 
 const RichTextAreaField = React.forwardRef((props, ref) => {
-    const {className, ...restProps} = props;
+    const {className, contentClassName, ...restProps} = props;
 
     return (
         <FormField
@@ -14,6 +14,7 @@ const RichTextAreaField = React.forwardRef((props, ref) => {
                 {...restProps}
                 ref={ref}
                 isComposedIn={true}
+                className={contentClassName}
             />
         </FormField>
     );

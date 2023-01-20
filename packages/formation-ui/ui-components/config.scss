@@ -19,6 +19,12 @@ $modal-sizes: (
     modal-size-xl: 1900px,
 );
 
+$pop-over-sizes: (
+    300: 300px,
+    600: 600px,
+    750: 750px,
+);
+
 $media-expressions: (
     screen: 'screen',
     print: 'print',
@@ -116,6 +122,7 @@ $base-colors: (
     warning: map-get($color-palette, ace-red-500),
     negative: map-get($color-palette, ace-red-500),
     negative-light: map-get($color-palette, ace-red-50),
+    negative-dark: map-get($color-palette, ace-red-700),
     positive: map-get($color-palette, ace-green-500),
     positive-dark: map-get($color-palette, ace-green-800),
     positive-light: map-get($color-palette, ace-green-50),
@@ -136,6 +143,8 @@ $base-colors: (
     aditional-c: map-get($color-palette, ace-green-200),
     aditional-d: map-get($color-palette, ace-red-200),
     aditional-e: map-get($color-palette, ace-red-300),
+    aditional-f: map-get($color-palette, ace-blue-900),
+    aditional-g: map-get($color-palette, ace-red-100),
 );
 
 $icon-colors: (
@@ -145,6 +154,7 @@ $icon-colors: (
     icon-disabled-light: map-get($base-colors, disabled-light),
     icon-success: map-get($base-colors, positive),
     icon-warning: map-get($base-colors, negative),
+    icon-warning-light: map-get($base-colors, negative-light),
     icon-highlight: map-get($base-colors, primary-dark-a),
     icon-highlight-pressed: map-get($base-colors, primary-dark-b),
     icon-highlight-hover: map-get($base-colors, primary-light-a),
@@ -171,6 +181,7 @@ $typography: (
     text-color-disabled-main: map-get($base-colors, disabled-main),
     text-color-contrast: map-get($base-colors, contrast),
     text-color-warning: map-get($base-colors, negative),
+    text-color-warning-light: map-get($base-colors, negative-light),
     text-color-success: map-get($base-colors, positive-dark),
     text-color-highlighted: map-get($base-colors, primary-dark-a),
     text-color-higlighted-hover: map-get($base-colors, primary-light-a),

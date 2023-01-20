@@ -5,7 +5,7 @@ import Icon from '../icons/Icon';
 import {searchIcon} from '../icons'
 
 export default {
-    title: 'Layout/NoResultsBlock',
+    title: 'General/NoResultsBlock',
     component: NoResultsBlock,
     argTypes: {
         ...childrenPropArgTypes,

@@ -25,7 +25,6 @@ const NoResultsBlock = props => {
                 className={cx([
                     'global!ace-u-typography--variant-h3',
                     'global!ace-u-typography--color-medium-emphasis',
-
                 ])}
             >
                 {message}

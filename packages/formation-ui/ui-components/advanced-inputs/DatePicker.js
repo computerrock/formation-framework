@@ -34,7 +34,7 @@ const putZeroInFrontOfTimeSlot = timeSlot => (timeSlot < 10 ? '0' : '') + timeSl
 const DatePicker = React.forwardRef((props, ref) => {
     const {cx} = useStyles(props, styles);
     const {value, onChange, defaultValue, timePlaceholder, hasTime, locale, qaIdent} = props;
-    const {minDate} = props;
+    const {minDate, maxDate, customTimeOptions} = props;
     const currentDayDate = new Date();
     const currentDayTimeStamp = getTimestamp(currentDayDate);
     const defaultDate = defaultValue ? new Date(defaultValue) : '';
@@ -233,8 +233,10 @@ const DatePicker = React.forwardRef((props, ref) => {
                                 const dayTimeStamp = new Date(activeData.year, activeData.month, day).getTime();
                                 const dayTimeStampWithHoursAndMinutes = new Date('' + activeData.year, '' + activeData.month, '' + day, hours, minutes).getTime();
                                 const timeStamp = hasTime ? dayTimeStampWithHoursAndMinutes : dayTimeStamp;
-                                const isDisabled = !!(minDate && isValidDate(new Date(minDate))
-                                    && new Date(minDate).getTime() > dayTimeStamp);
+                                const isDisabled = (!!(minDate && isValidDate(new Date(minDate))
+                                    && new Date(minDate).getTime() > dayTimeStamp))
+                                || (!!(maxDate && isValidDate(new Date(maxDate))
+                                        && new Date(maxDate).getTime() < dayTimeStamp));
                                 return (
                                     <div
                                         key={`table-days-${day}`}
@@ -274,8 +276,10 @@ const DatePicker = React.forwardRef((props, ref) => {
                     </div>
                     <div className={cx('ace-c-date-picker__years-table-body')}>
                         {renderYearsArray.map(year => {
-                            const isDisabled = !!(minDate && isValidDate(new Date(minDate))
-                                && new Date(minDate).getFullYear() > year);
+                            const isDisabled = (!!(minDate && isValidDate(new Date(minDate))
+                                && new Date(minDate).getFullYear() > year))
+                            || (!!(maxDate && isValidDate(new Date(maxDate))
+                                    && new Date(maxDate).getFullYear() < year));
                             return (
                                 <div
                                     key={`table-years-${year}`}
@@ -320,8 +324,10 @@ const DatePicker = React.forwardRef((props, ref) => {
                     </div>
                     <div className={cx('ace-c-date-picker__months-table-body')}>
                         {months.map((month, idx) => {
-                            const isDisabled = !!(minDate && isValidDate(new Date(minDate))
-                                    && new Date(minDate).getMonth() > idx);
+                            const isDisabled = (!!(minDate && isValidDate(new Date(minDate))
+                                    && new Date(minDate).getMonth() > idx))
+                            || (!!(maxDate && isValidDate(new Date(maxDate))
+                                    && new Date(maxDate).getMonth() < idx));
                             return (
                                 <div
                                     key={`table-years-${month}`}
@@ -360,6 +366,7 @@ const DatePicker = React.forwardRef((props, ref) => {
                                 className={cx(['ace-c-input-time--small', 'global!ace-u-flex--grow-1'])}
                                 isDisabled={!isDisabledTimePicker(value)}
                                 placeholder={timePlaceholder}
+                                customTimeOptions={customTimeOptions}
                             />
                         </div>
                     </Fragment>
@@ -371,11 +378,15 @@ const DatePicker = React.forwardRef((props, ref) => {
 DatePicker.propTypes = {
     ...withFormContextPropTypes,
     minDate: PropTypes.string,
+    maxDate: PropTypes.string,
+    customTimeOptions: PropTypes.array,
 };
 
 DatePicker.defaultProps = {
     ...withFormContextDefaultProps,
     minDate: '',
+    maxDate: '',
+    customTimeOptions: null,
 };
 
 export default withFormContext({componentName: 'DatePicker'})(DatePicker);

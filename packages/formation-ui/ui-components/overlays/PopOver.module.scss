@@ -1,0 +1,25 @@
+@import '../config';
+@import '../functions';
+@import '../mixins';
+
+$pop-over-config: (
+    pop-over-spacing: map-get($spacing, spacing-s),
+    pop-over-background: map-get($base-colors, background-main),
+    pop-over-border-radius: map-get($border-radius, radius-4),
+    pop-over-shadow: map-get($shadows, card),
+    pop-over-content-max-width: map-get($pop-over-sizes, 750),
+);
+
+.ace-c-pop-over {
+    padding: map-get($pop-over-config, pop-over-spacing) 0;
+    max-width: map-get($pop-over-config, pop-over-content-max-width);
+}
+
+.ace-c-pop-over__content {
+    overflow: hidden;
+    background: map-get($pop-over-config, pop-over-background);
+    border-radius: map-get($pop-over-config, pop-over-border-radius);
+    box-shadow: map-get($pop-over-config, pop-over-shadow);
+    overflow-y: auto;
+    max-height: 50vh;
+}

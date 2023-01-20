@@ -1,5 +1,7 @@
 export {default as Input} from './Input';
 export {default as InputField} from './InputField';
+export {default as NumberInput} from './NumberInput';
+export {default as NumberInputField} from './NumberInputField';
 export {default as InputHidden} from './InputHidden';
 export {default as DateField} from './DateField';
 export {default as SearchBox} from './SearchBox';

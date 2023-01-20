@@ -14,6 +14,7 @@ $icon-config: (
     icon-symbol-disabled-light: map-get($icon-colors, icon-disabled-light),
     icon-symbol-success: map-get($icon-colors, icon-success),
     icon-symbol-warning: map-get($icon-colors, icon-warning),
+    icon-symbol-warning-light: map-get($icon-colors, icon-warning-light),
     icon-symbol-highlight: map-get($icon-colors, icon-highlight),
     icon-symbol-highlight-pressed: map-get($icon-colors, icon-highlight-pressed),
     icon-symbol-highlight-hover: map-get($icon-colors, icon-highlight-hover),
@@ -58,6 +59,7 @@ $icon-config: (
 
 $icon-color-states: (
     warning,
+    warning-light,
     success,
     contrast,
     disabled,
