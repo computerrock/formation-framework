@@ -9,10 +9,10 @@ import pathToRegexp from 'path-to-regexp';
  * @returns {{pathname: string}}
  */
 const resolveRoute = (routePath = '/', pathParams = {}, toParams = {}) => {
-    const toPath = pathToRegexp.compile(routePath);
+    const toPath = pathToRegexp.compile(routePath, {encode: encodeURI});
 
     return {
-        pathname: toPath(pathParams, {encode: encodeURI}),
+        pathname: toPath(pathParams),
         ...toParams,
     };
 };
