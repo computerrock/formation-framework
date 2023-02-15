@@ -1,6 +1,6 @@
 {
   "name": "@computerrock/oauth2-auth-client",
-  "version": "0.21.5",
+  "version": "0.21.6",
   "description": "OAuth2 client",
   "author": "Computer Rock",
   "license": "MIT",
