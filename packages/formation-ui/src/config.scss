@@ -29,3 +29,12 @@ $z-index: (
     drop-down: 1000,
     tooltip: 1100,
 );
+
+$typography: (
+    font-family: 'Open Sans',
+    font-style: normal,
+    font-weight: normal,
+    font-size: 16px,
+    line-height: 148%,
+    letter-spacing: 0.01em,
+);
