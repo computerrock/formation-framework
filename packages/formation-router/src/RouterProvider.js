@@ -31,7 +31,7 @@ const RouterProvider = props => {
     const activeRoutePath = findMatchingRoutePath(Object.values(routePaths), location.pathname);
 
     const goBack = () => {
-        if (history.length === 1) {
+        if (!prevLocationKey) {
             history.push(resolveRoute(defaultRoutePath));
             return;
         }
