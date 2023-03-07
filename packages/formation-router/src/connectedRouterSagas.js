@@ -1,4 +1,5 @@
-import {takeLatest, select, all, call, put, take} from 'redux-saga/effects';
+import {takeLatest, select, all, call, put, take, actionChannel} from 'redux-saga/effects';
+import {buffers} from 'redux-saga';
 import {matchRoutes} from 'react-router-config';
 import * as actionTypes from './actionTypes';
 
@@ -81,8 +82,9 @@ const runBranchSagas = function* runBranchSagas(branchSagas) {
  * Prepares application state for matched route by running configured side-effects of a route
  *
  * @param {Array<ConnectedRoute>} routes - static route configuration
+ * @param {Object} routeUnmountEffectChannel
  */
-const prepareRouteState = function* prepareRouteState(routes) {
+const prepareRouteState = function* prepareRouteState(routes, routeUnmountEffectChannel) {
     const routerState = yield select(state => state.router);
     const {location, prevLocationKey, locationSideEffectCounts} = routerState;
     const matchedRouteBranch = matchRoutes(routes, location.pathname);
@@ -93,10 +95,7 @@ const prepareRouteState = function* prepareRouteState(routes) {
     if (prevLocationSideEffectCount && prevLocationSideEffectCount > 0) {
         let completedRouteUnmountSideEffects = 0;
         while (completedRouteUnmountSideEffects < prevLocationSideEffectCount) {
-            const routeUnmountSideEffectAction = yield take([
-                actionTypes.ROUTE_UNMOUNT_SIDE_EFFECT_COMPLETED,
-                actionTypes.ABANDON_ALL_ROUTE_UNMOUNT_SIDE_EFFECTS,
-            ]);
+            const routeUnmountSideEffectAction = yield take(routeUnmountEffectChannel);
 
             if (routeUnmountSideEffectAction.type === actionTypes.ABANDON_ALL_ROUTE_UNMOUNT_SIDE_EFFECTS) break;
 
@@ -128,7 +127,16 @@ const prepareRouteState = function* prepareRouteState(routes) {
  * @param {Array<ConnectedRoute>} routes - static route configuration
  */
 export const connectedRouterSaga = function* connectedRouterSaga(routes) {
+    const expandingBuffer = buffers.expanding(10);
+    const routeUnmountEffectChannel = yield actionChannel(
+        [
+            actionTypes.ROUTE_UNMOUNT_SIDE_EFFECT_COMPLETED,
+            actionTypes.ABANDON_ALL_ROUTE_UNMOUNT_SIDE_EFFECTS,
+        ],
+        expandingBuffer,
+    );
+
     yield all([
-        takeLatest(actionTypes.LOCATION_CHANGE, prepareRouteState, routes),
+        takeLatest(actionTypes.LOCATION_CHANGE, prepareRouteState, routes, routeUnmountEffectChannel),
     ]);
 };

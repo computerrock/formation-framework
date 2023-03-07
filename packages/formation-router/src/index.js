@@ -6,7 +6,7 @@ export {default as FormationRouter} from './FormationRouter';
 export {default as renderRoutes} from './renderRoutes';
 export {default as connectRouter} from './connectRouter';
 export {connectedRouterSaga, END_SIDE_EFFECTS_RUNNING} from './connectedRouterSagas';
-export {LOCATION_CHANGE, ROUTE_UNMOUNT_SIDE_EFFECT_COMPLETED, ABANDON_ALL_ROUTE_UNMOUNT_SIDE_EFFECTS} from './actionTypes';
+export {LOCATION_CHANGE, LOCATION_CHANGE_SIDE_EFFECTS_COMPLETED, ROUTE_UNMOUNT_SIDE_EFFECT_COMPLETED, ABANDON_ALL_ROUTE_UNMOUNT_SIDE_EFFECTS} from './actionTypes';
 export {default as findMatchingRoutePath} from './findMatchingRoutePath';
 export {default as resolveRoute} from './resolveRoute';
 export {default as parseSearchQueryParams} from './parseSearchQueryParams';
