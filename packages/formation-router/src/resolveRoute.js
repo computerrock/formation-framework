@@ -1,4 +1,4 @@
-import pathToRegexp from 'path-to-regexp';
+import {compile} from 'path-to-regexp';
 
 /**
  * Resolves route pathname for the given path
@@ -9,7 +9,7 @@ import pathToRegexp from 'path-to-regexp';
  * @returns {{pathname: string}}
  */
 const resolveRoute = (routePath = '/', pathParams = {}, toParams = {}) => {
-    const toPath = pathToRegexp.compile(routePath, {encode: encodeURI});
+    const toPath = compile(routePath, {encode: encodeURI});
 
     return {
         pathname: toPath(pathParams),
