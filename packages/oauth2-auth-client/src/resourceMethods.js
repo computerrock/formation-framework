@@ -10,6 +10,7 @@ export const getAccessToken = function getAccessToken(params) {
         'code': params.code,
         'redirect_uri': params.redirectURI,
         'client_id': params.clientId,
+        'scope': params.scope,
     };
 
     return fetch(

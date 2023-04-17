@@ -122,7 +122,9 @@ export default class OpenIDConnectClient {
 
         const queryParams = new URLSearchParams();
         queryParams.append('client_id', params.clientId);
-        queryParams.append('redirect_uri', params.redirectURI);
+        queryParams.append('post_logout_redirect_uri', params.redirectURI);
+        const {idTokenHint} = this.sessionCredentials;
+        if (idTokenHint) queryParams.append('id_token_hint', idTokenHint);
         const queryParamsString = queryParams.toString();
 
         return `${resourceEndpoint}?${queryParamsString}`;
@@ -145,10 +147,11 @@ export default class OpenIDConnectClient {
                     expires_in: accessExpiresIn,
                     refresh_token: refreshToken,
                     refresh_expires_in: refreshExpiresIn,
+                    id_token: idTokenHint,
                 } = response;
                 const {sub: sessionId} = jwtDecode(accessToken) || {};
 
-                const sessionCredentials = {sessionId, accessToken, accessExpiresIn, refreshToken, refreshExpiresIn};
+                const sessionCredentials = {sessionId, accessToken, accessExpiresIn, refreshToken, refreshExpiresIn, idTokenHint};
                 this.startSession(sessionCredentials);
 
                 return sessionCredentials;
