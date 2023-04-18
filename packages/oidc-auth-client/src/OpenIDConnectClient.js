@@ -151,7 +151,14 @@ export default class OpenIDConnectClient {
                 } = response;
                 const {sub: sessionId} = jwtDecode(accessToken) || {};
 
-                const sessionCredentials = {sessionId, accessToken, accessExpiresIn, refreshToken, refreshExpiresIn, idTokenHint};
+                const sessionCredentials = {
+                    sessionId,
+                    accessToken,
+                    accessExpiresIn,
+                    refreshToken,
+                    refreshExpiresIn,
+                    idTokenHint,
+                };
                 this.startSession(sessionCredentials);
 
                 return sessionCredentials;
@@ -272,6 +279,7 @@ export default class OpenIDConnectClient {
                     expires_in: accessExpiresIn,
                     refresh_token: refreshToken,
                     refresh_expires_in: refreshExpiresIn,
+                    id_token: idTokenHint,
                 } = response;
                 const {sub: sessionId} = jwtDecode(accessToken) || {};
 
@@ -279,7 +287,7 @@ export default class OpenIDConnectClient {
                     throw new Error('session expired');
                 }
 
-                return {sessionId, accessToken, accessExpiresIn, refreshToken, refreshExpiresIn};
+                return {sessionId, accessToken, accessExpiresIn, refreshToken, refreshExpiresIn, idTokenHint};
             })
             .catch(() => {
                 this.triggerSessionUpdated(this.SESSION_EXPIRED);
