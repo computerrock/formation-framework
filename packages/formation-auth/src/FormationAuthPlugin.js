@@ -76,7 +76,10 @@ class FormationAuthPlugin {
                 });
 
                 const {location} = yield select(state => state.router);
-                yield call([context, setNewAuthSessionRoute], location.pathname);
+                yield call([context, setNewAuthSessionRoute], {
+                    pathname: location.pathname,
+                    search: location.search,
+                });
 
                 yield call([context, authorize], authenticateRedirectURI);
 
@@ -127,8 +130,10 @@ class FormationAuthPlugin {
                     type: actionTypes.SET_AUTH_SESSION_STATUS,
                     payload: {isSessionValid: true},
                 });
-                const newAuthSessionRoute = yield call([context, getOnceNewAuthSessionRoute]);
-                yield put(replace(newAuthSessionRoute || rootApplicationRoute));
+                const newAuthSessionRouteState = yield call([context, getOnceNewAuthSessionRoute]);
+                const newAuthSessionRoute = newAuthSessionRouteState && newAuthSessionRouteState.pathname
+                    ? newAuthSessionRouteState.pathname + newAuthSessionRouteState.search : rootApplicationRoute;
+                yield put(replace(newAuthSessionRoute));
 
                 yield spawn([context, authSessionFlow], sessionCredentials);
             }
