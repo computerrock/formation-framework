@@ -1,6 +1,6 @@
 {
   "name": "@computerrock/formation-core",
-  "version": "0.26.0",
+  "version": "0.27.0",
   "description": "Formation framework - application core",
   "license": "MIT",
   "repository": {
@@ -24,9 +24,9 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "@computerrock/formation-i18n": "^0.26.0",
-    "@computerrock/formation-logger": "^0.26.0",
-    "@computerrock/formation-router": "^0.26.0"
+    "@computerrock/formation-i18n": "^0.27.0",
+    "@computerrock/formation-logger": "^0.27.0",
+    "@computerrock/formation-router": "^0.27.0"
   },
   "dependencies": {
     "flux-standard-action": "^2.1.1",
