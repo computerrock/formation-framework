@@ -24,6 +24,7 @@ const RouterProvider = props => {
     const {location, prevLocationKey} = props;
     const {setRouteUnmountSideEffectCount, completeRouteUnmountSideEffect, render} = props;
     const {children, modals, routes, routePaths, defaultRoutePath} = props;
+    const {initiateUnregisterRouteUnmountEffect} = props;
     const matchedRouteBranch = matchRoutes(routes, location.pathname);
 
     const {match} = matchedRouteBranch.length > 0
@@ -102,8 +103,13 @@ const RouterProvider = props => {
         });
     }, [location.key, setRouteUnmountSideEffectCount]);
 
-    const unregisterRouteUnmountEffect = (/* effectId */) => {
-        // no-op, at the moment not possible to determinate when exactly was `unregister` called
+    const unregisterRouteUnmountEffect = effectId => {
+        initiateUnregisterRouteUnmountEffect({
+            effectId,
+            locationKey: location.key,
+            locationSideEffectsRef,
+            sideEffectsRef,
+        });
     };
 
     // call location side-effects on route unmount then clean them up
@@ -173,6 +179,7 @@ const RouterProvider = props => {
 RouterProvider.propTypes = {
     setRouteUnmountSideEffectCount: PropTypes.func.isRequired,
     completeRouteUnmountSideEffect: PropTypes.func.isRequired,
+    initiateUnregisterRouteUnmountEffect: PropTypes.func.isRequired,
     render: PropTypes.func,
     location: PropTypes.object,
     prevLocationKey: PropTypes.string,
@@ -204,6 +211,10 @@ const mapDispatchToProps = dispatch => ({
     }),
     completeRouteUnmountSideEffect: payload => dispatch({
         type: actionTypes.ROUTE_UNMOUNT_SIDE_EFFECT_COMPLETED,
+        payload,
+    }),
+    initiateUnregisterRouteUnmountEffect: payload => dispatch({
+        type: actionTypes.UNREGISTER_ROUTE_UNMOUNT_EFFECT,
         payload,
     }),
 });
