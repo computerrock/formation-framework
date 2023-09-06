@@ -1,6 +1,6 @@
 {
   "name": "@computerrock/formation-rest-utils",
-  "version": "0.27.0",
+  "version": "0.28.0",
   "description": "REST utils for Formation framework",
   "license": "MIT",
   "repository": {
