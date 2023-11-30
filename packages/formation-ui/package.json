@@ -26,7 +26,7 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "@computerrock/storybook-preset-react-app": "^1.2.0",
+    "@computerrock/storybook-preset-react-app": "../../../javascript-team-toolbox/packages/storybook-preset-react-app",
     "@storybook/addon-essentials": "^6.3.5",
     "@storybook/addon-links": "^6.3.5",
     "@storybook/addon-storyshots": "^6.3.5",
@@ -50,8 +50,8 @@
     "webpack": "^4.46.0"
   },
   "dependencies": {
-    "@computerrock/react-app-polyfill": "^1.0.1",
-    "@computerrock/toolchain-react-app": "^2.5.0",
+    "@computerrock/react-app-polyfill": "../../../javascript-team-toolbox/packages/react-app-polyfill",
+    "@computerrock/toolchain-react-app": "../../../javascript-team-toolbox/packages/toolchain-react-app",
     "@jest/globals": "^26.6.2",
     "include-media": "^1.4.9",
     "lodash.debounce": "^4.0.8",

@@ -21,11 +21,11 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "@computerrock/rollup-monorepo-bundler": "^1.4.2"
+    "@computerrock/rollup-monorepo-bundler": "../../../javascript-team-toolbox/packages/rollup-monorepo-bundler"
   },
   "dependencies": {
-    "content-type": "^1.0.4",
-    "js-cookie": "^3.0.1",
+    "content-type": "^1.0.5",
+    "js-cookie": "^3.0.5",
     "qs": "^6.10.1"
   },
   "scripts": {
