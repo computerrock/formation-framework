@@ -12,7 +12,7 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "@computerrock/rollup-monorepo-bundler": "^1.1.0",
+    "@computerrock/rollup-monorepo-bundler": "^2.0.0-alpha.0",
     "lerna": "^4.0.0"
   },
   "scripts": {

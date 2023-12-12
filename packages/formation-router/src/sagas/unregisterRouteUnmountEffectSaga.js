@@ -42,7 +42,7 @@ export const unregisterRouteUnmountEffectSaga = function* unregisterRouteUnmount
                 sideEffectCount: locationSideEffectsRef.current[locationKey].length,
             },
         });
-      }
+    }
 };
 
 export default unregisterRouteUnmountEffectSaga;

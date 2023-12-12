@@ -24,6 +24,6 @@
     "node": ">=12"
   },
   "dependencies": {
-    "content-type": "^1.0.4"
+    "content-type": "^1.0.5"
   }
 }

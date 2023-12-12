@@ -22,7 +22,7 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "@computerrock/rollup-monorepo-bundler": "^1.4.2"
+    "@computerrock/rollup-monorepo-bundler": "^2.0.0-alpha.0"
   },
   "scripts": {
     "start": "rollup-monorepo-bundler start",

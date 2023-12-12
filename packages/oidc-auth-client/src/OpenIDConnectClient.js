@@ -1,5 +1,5 @@
 import cookie from 'js-cookie';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import * as oidcAPIResourceMethods from './resourceMethods';
 
 /**
