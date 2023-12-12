@@ -1,6 +1,6 @@
 {
   "name": "@computerrock/datadog-logger-client",
-  "version": "0.28.0",
+  "version": "1.0.0-alpha.0",
   "description": "Formation framework - Datadog logger client",
   "author": "Computer Rock",
   "license": "MIT",

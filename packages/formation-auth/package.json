@@ -1,6 +1,6 @@
 {
   "name": "@computerrock/formation-auth",
-  "version": "0.28.0",
+  "version": "1.0.0-alpha.0",
   "description": "Formation framework - auth layer plugin",
   "author": "Computer Rock",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "@computerrock/formation-router": "^0.28.0",
+    "@computerrock/formation-router": "^1.0.0-alpha.0",
     "@computerrock/rollup-monorepo-bundler": "^2.0.0-alpha.0",
     "redux": "^4.2.1",
     "redux-saga": "^1.2.3"
