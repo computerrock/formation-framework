@@ -21,7 +21,7 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@computerrock/rollup-monorepo-bundler": "^2.0.0-alpha.0"
+    "@computerrock/rollup-monorepo-bundler": "^2.0.0"
   },
   "dependencies": {
     "content-type": "^1.0.5",
