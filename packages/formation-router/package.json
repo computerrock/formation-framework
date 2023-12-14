@@ -22,7 +22,7 @@
     "bundler.config.js"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=20"
   },
   "devDependencies": {
     "@computerrock/formation-i18n": "^1.0.0-alpha.0",

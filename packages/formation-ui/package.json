@@ -23,7 +23,7 @@
     "bundler.config.js"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=20"
   },
   "devDependencies": {
     "@computerrock/storybook-preset-react-app": "^2.0.0-alpha.0",

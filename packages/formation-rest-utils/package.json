@@ -21,7 +21,7 @@
     "bundler.config.js"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=20"
   },
   "dependencies": {
     "content-type": "^1.0.5"

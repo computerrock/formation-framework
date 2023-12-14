@@ -18,7 +18,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=20"
   },
   "devDependencies": {
     "@computerrock/rollup-monorepo-bundler": "^2.0.0-alpha.0"
