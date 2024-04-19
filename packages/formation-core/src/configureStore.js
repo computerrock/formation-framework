@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware} from 'redux';
+import {legacy_createStore as createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware, {END} from 'redux-saga';
 import {createLogger} from 'redux-logger';
 import {composeWithDevTools} from 'redux-devtools-extension';
@@ -67,9 +67,12 @@ export default function configureStore(config) {
                 serviceManager: typeof serviceManager === 'object' ? serviceManager : new ServiceManager(),
             },
         },
-        composeWithDevTools(
-            applyMiddleware(...middleware),
-        ),
+        // in order to avoid crashing issue when there is no redux-devtools-extension installed in browser
+        /* eslint-disable-next-line no-underscore-dangle */
+        typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+            ? composeWithDevTools(
+                applyMiddleware(...middleware),
+            ) : applyMiddleware(...middleware),
     );
 
     // store helper methods

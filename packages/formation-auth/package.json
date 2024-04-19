@@ -24,16 +24,16 @@
   "devDependencies": {
     "@computerrock/formation-router": "^1.0.1",
     "@computerrock/rollup-monorepo-bundler": "^2.0.0",
-    "redux": "^4.2.1",
+    "redux": "^5.0.0",
     "redux-saga": "^1.2.3"
   },
   "dependencies": {
     "store": "^2.0.12"
   },
   "peerDependencies": {
-    "@computerrock/formation-router": "^0.28.0",
+    "@computerrock/formation-router": "^1.0.0",
     "react": "18.x",
-    "redux": "^4.2.1",
+    "redux": "^5.0.0",
     "redux-saga": "^1.2.3"
   },
   "scripts": {
