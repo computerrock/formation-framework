@@ -39,7 +39,7 @@ export const unregisterRouteUnmountEffectSaga = function* unregisterRouteUnmount
             type: actionTypes.SET_ROUTE_UNMOUNT_SIDE_EFFECT_COUNT,
             payload: {
                 locationKey,
-                sideEffectCount: locationSideEffectsRef.current[locationKey].length,
+                sideEffectCount: locationSideEffectsRef.current[locationKey]?.length || 0,
             },
         });
     }
