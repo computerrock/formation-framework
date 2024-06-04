@@ -1,6 +1,6 @@
 {
   "name": "@computerrock/formation-router",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "Formation framework - application router",
   "author": "Computer Rock",
   "license": "MIT",
@@ -25,8 +25,8 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@computerrock/formation-i18n": "^1.0.1",
-    "@computerrock/formation-ui": "^1.0.2"
+    "@computerrock/formation-i18n": "^1.0.6",
+    "@computerrock/formation-ui": "^1.0.6"
   },
   "dependencies": {
     "connected-react-router": "^6.9.1",
