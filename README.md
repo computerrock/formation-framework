@@ -36,4 +36,8 @@ $ npm run storybook # starts Storybook on localhost:11073 with watcher
 $ cd app-folder-name
 $ npm start # starts the web app with development environment settings
 $ npm test # runs Jest test suite (in separate terminal)
+
+# to publish all packages run:
+$ lerna publish --force-publish
+
 ```
